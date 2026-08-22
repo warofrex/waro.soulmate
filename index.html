@@ -1,93 +1,131 @@
-<!-- ===== plik: index.html ===== -->
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Waro Soulmate · terminal gallery</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Waro Soulmate — terminal portfolio</title>
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <div class="terminal-wrapper">
+    <!-- nakładki CRT / scanline -->
+    <div class="crt-overlay"></div>
+    <div class="scanline"></div>
 
-    <!-- NAGŁÓWEK -->
-    <header class="terminal-header">
-      <div>
-        <span class="brand">Waro Soulmate</span>
-        <span class="badge">// GALLERY v1.0</span>
-      </div>
-      <div class="status">
-        <span class="dot-green">●</span> ONLINE
-      </div>
-    </header>
+    <main class="terminal">
 
-    <!-- HERO – WIELKI NAPIS + GRAFIKA W TLE -->
-    <section class="hero">
-      <h1 class="hero-title">Waro Soulmate</h1>
-      <div class="scroll-hint">⬇ przewiń ⬇</div>
-    </section>
+        <!-- === NAGŁÓWEK === -->
+        <header class="terminal-header">
+            <div class="title-line">
+                <span class="prompt">❯</span>
+                <span class="title">Waro Soulmate</span>
+                <span class="cursor-blink">█</span>
+            </div>
+            <div class="subtitle">
+                <span class="path">~/portfolio/works</span>
+                <span class="status">[online]</span>
+            </div>
+        </header>
 
-    <!-- GALERIA -->
-    <section class="gallery-section">
-      <div class="gallery-container">
+        <!-- === SIATKA PRAC (4) === -->
+        <section class="works-grid">
 
-        <div class="gallery-grid">
-          <!-- 1 -->
-          <div class="gallery-item">
-            <img src="WARO55" alt="Grafika 1" loading="lazy" />
-            <div class="img-label">✦ esencja ✦</div>
-            <div class="img-status">[LOADED]</div>
-          </div>
-          <!-- 2 -->
-          <div class="gallery-item">
-            <img src="WARO2" alt="Grafika 2" loading="lazy" />
-            <div class="img-label">✦ wibracja ✦</div>
-            <div class="img-status">[LOADED]</div>
-          </div>
-          <!-- 3 -->
-          <div class="gallery-item">
-            <img src="WARO3" alt="Grafika 3" loading="lazy" />
-            <div class="img-label">✦ połączenie ✦</div>
-            <div class="img-status">[LOADED]</div>
-          </div>
-          <!-- 4 -->
-          <div class="gallery-item">
-            <img src="WARO4" alt="Grafika 4" loading="lazy" />
-            <div class="img-label">✦ harmonia ✦</div>
-            <div class="img-status">[LOADED]</div>
-          </div>
-        </div>
+            <!-- PRACA 1 -->
+            <article class="work-card">
+                <div class="work-header">
+                    <span class="badge">[PROJ-01]</span>
+                    <span class="work-name">projekt · mgła</span>
+                </div>
+                <div class="work-preview">
+                    <!-- ZAMIAST TEGO: <div class="placeholder-art">◈</div> -->
+                    <img src="WARO55.png" alt="projekt mgła" style="width:100%;height:auto;display:block;" />
+                </div>
+                <div class="work-meta">
+                    <span class="tag">#koncept</span>
+                    <span class="tag">#cyber</span>
+                    <span class="date">2026</span>
+                </div>
+            </article>
 
-        <!-- linia statusu galerii -->
-        <div class="gallery-footer">
-          <span class="prompt">$</span> gallery status: <span class="green">4 assets loaded</span>
-          <span style="color:#444;margin-left:16px;">//</span>
-          <span style="color:#555;font-size:11px;">resolution: 400x400</span>
-        </div>
+            <!-- PRACA 2 -->
+            <article class="work-card">
+                <div class="work-header">
+                    <span class="badge">[PROJ-02]</span>
+                    <span class="work-name">linia · snu</span>
+                </div>
+                  <div class="work-preview">
+                    <!-- ZAMIAST TEGO: <div class="placeholder-art">◈</div> -->
+                    <img src="WARO2.png" alt="projekt mgła" style="width:100%;height:auto;display:block;" />
+                </div>
+                <div class="work-meta">
+                    <span class="tag">#ilustracja</span>
+                    <span class="tag">#portret</span>
+                    <span class="date">2025</span>
+                </div>
+            </article>
 
-      </div>
-    </section>
+            <!-- PRACA 3 -->
+            <article class="work-card">
+                <div class="work-header">
+                    <span class="badge">[PROJ-03]</span>
+                    <span class="work-name">echo · terminal</span>
+                </div>
+                  <div class="work-preview">
+                    <!-- ZAMIAST TEGO: <div class="placeholder-art">◈</div> -->
+                    <img src="WARO3.png" alt="projekt mgła" style="width:100%;height:auto;display:block;" />
+                </div>
+                <div class="work-meta">
+                    <span class="tag">#UI</span>
+                    <span class="tag">#retro</span>
+                    <span class="date">2025</span>
+                </div>
+            </article>
 
-    <!-- STOPKA -->
-    <footer class="terminal-footer">
-      <div>
-        <span style="color:#555;">[</span>
-        <span style="color:#88ccff;">Waro</span>
-        <span style="color:#555;">::</span>
-        <span style="color:#d9b3ff;">Soulmate</span>
-        <span style="color:#555;">]</span>
-        <span style="color:#444;margin-left:8px;">// terminal gallery</span>
-      </div>
-      <div>
-        <span style="color:#555;">SYSTEM</span>
-        <span style="color:#444;">|</span>
-        <span class="dot-green">●</span> ONLINE
-        <span class="cursor-block"></span>
-      </div>
-    </footer>
+            <!-- PRACA 4 -->
+            <article class="work-card">
+                <div class="work-header">
+                    <span class="badge">[PROJ-04]</span>
+                    <span class="work-name">anthurium · dat</span>
+                </div>
+                 <div class="work-preview">
+                    <!-- ZAMIAST TEGO: <div class="placeholder-art">◈</div> -->
+                    <img src="WARO4.png" alt="projekt mgła" style="width:100%;height:auto;display:block;" />
+                </div>
+                <div class="work-meta">
+                    <span class="tag">#postać</span>
+                    <span class="tag">#lore</span>
+                    <span class="date">2026</span>
+                </div>
+            </article>
 
-  </div>
+        </section>
+
+        <!-- === STOPKA + KONTAKT === -->
+        <footer class="terminal-footer">
+            <div class="contact-block">
+                <div class="contact-line">
+                    <span class="prompt-small">❯</span>
+                    <span class="contact-label">mail</span>
+                    <span class="contact-value">waro.soulmate@terminal.art</span>
+                </div>
+                <div class="contact-line">
+                    <span class="prompt-small">❯</span>
+                    <span class="contact-label">discord</span>
+                    <span class="contact-value">waro#3371</span>
+                </div>
+                <div class="contact-line">
+                    <span class="prompt-small">❯</span>
+                    <span class="contact-label">repo</span>
+                    <span class="contact-value">github.com/waro-soulmate</span>
+                </div>
+            </div>
+            <div class="footer-status">
+                <span class="cursor-blink-small">█</span>
+                <span class="sys-msg">SYSTEM :: READY — wszystkie prace zarchiwizowane</span>
+            </div>
+        </footer>
+
+    </main>
 
 </body>
 </html>
