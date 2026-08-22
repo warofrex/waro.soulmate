@@ -112,82 +112,96 @@ body {
     user-select: none;
     font-family: 'Consolas', 'Lucida Console', monospace;
     mix-blend-mode: screen;
+
+    /* normalnie całkowicie niewidoczne */
+    opacity: 0;
 }
 
-/* WARSTWA 1 – CZERWONA, SZYBKA */
-.glitch-1 {
+/* krótki glitch */
+.glitch-layer.is-glitching {
+    opacity: 0.8;
+}
+
+.glitch-1.is-glitching {
     color: #ff0040;
-    animation: glitch1 0.15s infinite;
-    clip-path: inset(0 0 70% 0);
-    opacity: 0.9;
+    clip-path: inset(0 0 65% 0);
+    animation: subtleGlitchRed 90ms steps(2, end) infinite;
 }
 
-/* WARSTWA 2 – NIEBIESKA, SZYBKA */
-.glitch-2 {
+.glitch-2.is-glitching {
     color: #00e5ff;
-    animation: glitch2 0.2s infinite;
-    clip-path: inset(70% 0 0 0);
-    opacity: 0.9;
+    clip-path: inset(65% 0 0 0);
+    animation: subtleGlitchBlue 75ms steps(2, end) infinite;
 }
 
-/* WARSTWA 3 – BIAŁA, BŁYSKOWA */
-.glitch-3 {
+.glitch-3.is-glitching {
     color: #ffffff;
-    animation: glitch3 0.12s infinite;
-    clip-path: inset(30% 0 50% 0);
-    opacity: 0.7;
+    clip-path: inset(30% 0 45% 0);
+    animation: subtleGlitchWhite 60ms steps(2, end) infinite;
 }
 
-/* ============================================================
-   SZYBKIE, NIEREGULARNE ANIMACJE
-   ============================================================ */
-@keyframes glitch1 {
-    0% { transform: translate(calc(-50% + 0px), -50%); }
-    10% { transform: translate(calc(-50% + 25px), -50%); }
-    20% { transform: translate(calc(-50% - 20px), -50%); }
-    30% { transform: translate(calc(-50% + 35px), -50%); }
-    40% { transform: translate(calc(-50% - 30px), -50%); }
-    50% { transform: translate(calc(-50% + 15px), -50%); }
-    60% { transform: translate(calc(-50% - 40px), -50%); }
-    70% { transform: translate(calc(-50% + 45px), -50%); }
-    80% { transform: translate(calc(-50% - 15px), -50%); }
-    90% { transform: translate(calc(-50% + 20px), -50%); }
-    100% { transform: translate(calc(-50% + 0px), -50%); }
+
+/* bardzo małe przesunięcia */
+@keyframes subtleGlitchRed {
+    0% {
+        transform: translate(-50%, -50%);
+    }
+
+    25% {
+        transform: translate(calc(-50% + 3px), calc(-50% - 1px));
+    }
+
+    50% {
+        transform: translate(calc(-50% - 2px), calc(-50% + 1px));
+    }
+
+    75% {
+        transform: translate(calc(-50% + 1px), -50%);
+    }
+
+    100% {
+        transform: translate(-50%, -50%);
+    }
 }
 
-@keyframes glitch2 {
-    0% { transform: translate(calc(-50% + 0px), -50%); }
-    15% { transform: translate(calc(-50% - 35px), -50%); }
-    30% { transform: translate(calc(-50% + 30px), -50%); }
-    45% { transform: translate(calc(-50% - 25px), -50%); }
-    60% { transform: translate(calc(-50% + 40px), -50%); }
-    75% { transform: translate(calc(-50% - 45px), -50%); }
-    90% { transform: translate(calc(-50% + 10px), -50%); }
-    100% { transform: translate(calc(-50% + 0px), -50%); }
+@keyframes subtleGlitchBlue {
+    0% {
+        transform: translate(-50%, -50%);
+    }
+
+    30% {
+        transform: translate(calc(-50% - 2px), calc(-50% + 1px));
+    }
+
+    60% {
+        transform: translate(calc(-50% + 4px), -50%);
+    }
+
+    100% {
+        transform: translate(-50%, -50%);
+    }
 }
 
-@keyframes glitch3 {
-    0% { transform: translate(calc(-50% + 0px), -50%); opacity: 0.7; }
-    5% { transform: translate(calc(-50% - 50px), -50%); opacity: 1; }
-    10% { transform: translate(calc(-50% + 60px), -50%); opacity: 0.3; }
-    15% { transform: translate(calc(-50% - 30px), -50%); opacity: 0.9; }
-    20% { transform: translate(calc(-50% + 40px), -50%); opacity: 0.4; }
-    25% { transform: translate(calc(-50% - 70px), -50%); opacity: 1; }
-    30% { transform: translate(calc(-50% + 20px), -50%); opacity: 0.6; }
-    35% { transform: translate(calc(-50% - 40px), -50%); opacity: 0.8; }
-    40% { transform: translate(calc(-50% + 50px), -50%); opacity: 0.2; }
-    45% { transform: translate(calc(-50% - 20px), -50%); opacity: 1; }
-    50% { transform: translate(calc(-50% + 30px), -50%); opacity: 0.5; }
-    55% { transform: translate(calc(-50% - 60px), -50%); opacity: 0.9; }
-    60% { transform: translate(calc(-50% + 10px), -50%); opacity: 0.3; }
-    65% { transform: translate(calc(-50% - 45px), -50%); opacity: 1; }
-    70% { transform: translate(calc(-50% + 55px), -50%); opacity: 0.6; }
-    75% { transform: translate(calc(-50% - 25px), -50%); opacity: 0.8; }
-    80% { transform: translate(calc(-50% + 35px), -50%); opacity: 0.4; }
-    85% { transform: translate(calc(-50% - 50px), -50%); opacity: 1; }
-    90% { transform: translate(calc(-50% + 15px), -50%); opacity: 0.5; }
-    95% { transform: translate(calc(-50% - 30px), -50%); opacity: 0.9; }
-    100% { transform: translate(calc(-50% + 0px), -50%); opacity: 0.7; }
+@keyframes subtleGlitchWhite {
+    0% {
+        transform: translate(-50%, -50%);
+        opacity: 0.4;
+    }
+
+    40% {
+        transform: translate(calc(-50% + 2px), -50%);
+        opacity: 0.8;
+    }
+
+    70% {
+        transform: translate(calc(-50% - 3px), calc(-50% + 1px));
+        opacity: 0.3;
+    }
+
+    100% {
+        transform: translate(-50%, -50%);
+        opacity: 0.4;
+    }
 }
 
 /* ============================================================
