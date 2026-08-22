@@ -94,6 +94,8 @@ body {
     z-index: 2;
     user-select: none;
     font-family: 'Consolas', 'Lucida Console', monospace;
+
+    transition: transform 0.03s;
 }
 
 /* ============================================================
