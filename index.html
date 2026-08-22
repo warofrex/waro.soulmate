@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Waro Soulmate — terminal portfolio</title>
+    <title>Waro Soulmate — glitch terminal</title>
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -12,62 +12,103 @@
     <div class="crt-overlay"></div>
     <div class="scanline"></div>
 
-    <main class="terminal">
-
-        <!-- === NAGŁÓWEK === -->
-        <header class="terminal-header">
-            <div class="title-line">
-                <span class="prompt">❯</span>
-                <span class="title">Waro Soulmate</span>
-                <span class="cursor-blink">█</span>
+    <!-- === SEKCJA GLITCH === -->
+    <section class="glitch-section">
+        <div class="glitch-container">
+            <!-- Główny napis -->
+            <h1 class="glitch-title" data-text="Waro Soulmate">Waro Soulmate</h1>
+            
+            <!-- Glitchowe kopie -->
+            <div class="glitch-layer glitch-left" data-text="Waro Soulmate"></div>
+            <div class="glitch-layer glitch-right" data-text="Waro Soulmate"></div>
+            <div class="glitch-layer glitch-top" data-text="Waro Soulmate"></div>
+            <div class="glitch-layer glitch-bottom" data-text="Waro Soulmate"></div>
+            
+            <!-- Losowe teksty w tle -->
+            <div class="glitch-texts">
+                <span class="glitch-word">trust me</span>
+                <span class="glitch-word">fight corporations</span>
+                <span class="glitch-word">fuck ai</span>
+                <span class="glitch-word">resist</span>
+                <span class="glitch-word">never give up</span>
+                <span class="glitch-word">stay human</span>
+                <span class="glitch-word">think different</span>
+                <span class="glitch-word">create</span>
+                <span class="glitch-word">rebel</span>
+                <span class="glitch-word">dream</span>
+                <span class="glitch-word">build</span>
+                <span class="glitch-word">art not ai</span>
+                <span class="glitch-word">authenticity</span>
+                <span class="glitch-word">real</span>
+                <span class="glitch-word">unique</span>
             </div>
-            <div class="subtitle">
-                <span class="path">~/portfolio/gallery</span>
-                <span class="status">[online]</span>
-            </div>
-        </header>
-
-        <!-- === FILTRY LAT === -->
-        <div class="filter-bar">
-            <span class="filter-label">[FILTER]</span>
-            <button class="filter-btn active" data-year="all">wszystkie</button>
-            <button class="filter-btn" data-year="2026">2026</button>
-            <button class="filter-btn" data-year="2025">2025</button>
-            <button class="filter-btn" data-year="2023">2023</button>
-            <span class="filter-count" id="countDisplay">znaleziono: 0</span>
         </div>
+        
+        <!-- Strzałka przewijania -->
+        <div class="scroll-indicator">
+            <span>▼</span>
+            <span style="font-size:0.6rem;display:block;margin-top:0.3rem;">scroll down</span>
+        </div>
+    </section>
 
-        <!-- === SIATKA PRAC === -->
-        <section class="works-grid" id="galleryGrid">
-            <!-- prace będą wstawiane dynamicznie przez JavaScript -->
-        </section>
+    <!-- === SEKCJA PORTFOLIO === -->
+    <section class="portfolio-section">
+        <div class="terminal">
+            <!-- Nagłówek portfolio -->
+            <header class="terminal-header">
+                <div class="title-line">
+                    <span class="prompt">❯</span>
+                    <span class="title">portfolio</span>
+                    <span class="cursor-blink">█</span>
+                </div>
+                <div class="subtitle">
+                    <span class="path">~/works</span>
+                    <span class="status">[gallery]</span>
+                </div>
+            </header>
 
-        <!-- === STOPKA + KONTAKT === -->
-        <footer class="terminal-footer">
-            <div class="contact-block">
-                <div class="contact-line">
-                    <span class="prompt-small">❯</span>
-                    <span class="contact-label">mail</span>
-                    <span class="contact-value">waro.soulmate@terminal.art</span>
-                </div>
-                <div class="contact-line">
-                    <span class="prompt-small">❯</span>
-                    <span class="contact-label">discord</span>
-                    <span class="contact-value">waro#3371</span>
-                </div>
-                <div class="contact-line">
-                    <span class="prompt-small">❯</span>
-                    <span class="contact-label">repo</span>
-                    <span class="contact-value">github.com/waro-soulmate</span>
-                </div>
+            <!-- Filtry -->
+            <div class="filter-bar">
+                <span class="filter-label">[FILTER]</span>
+                <button class="filter-btn active" data-year="all">wszystkie</button>
+                <button class="filter-btn" data-year="2025">2025</button>
+                <button class="filter-btn" data-year="2026">2026</button>
+                <span class="filter-count" id="countDisplay">znaleziono: 0</span>
             </div>
-            <div class="footer-status">
-                <span class="cursor-blink-small">█</span>
-                <span class="sys-msg" id="systemMsg">SYSTEM :: SCANNING_FILES...</span>
-            </div>
-        </footer>
 
-    </main>
+            <!-- Siatka prac -->
+            <section class="works-grid" id="galleryGrid">
+                <div style="grid-column:1/-1;text-align:center;color:#3a5a3a;padding:3rem;font-size:1.1rem;border:1px dashed #1a2a1a;border-radius:4px;">
+                    ⚡ ładowanie...
+                </div>
+            </section>
+
+            <!-- Stopka -->
+            <footer class="terminal-footer">
+                <div class="contact-block">
+                    <div class="contact-line">
+                        <span class="prompt-small">❯</span>
+                        <span class="contact-label">mail</span>
+                        <span class="contact-value">waro.soulmate@terminal.art</span>
+                    </div>
+                    <div class="contact-line">
+                        <span class="prompt-small">❯</span>
+                        <span class="contact-label">discord</span>
+                        <span class="contact-value">waro#3371</span>
+                    </div>
+                    <div class="contact-line">
+                        <span class="prompt-small">❯</span>
+                        <span class="contact-label">repo</span>
+                        <span class="contact-value">github.com/waro-soulmate</span>
+                    </div>
+                </div>
+                <div class="footer-status">
+                    <span class="cursor-blink-small">█</span>
+                    <span class="sys-msg" id="systemMsg">SYSTEM :: READY</span>
+                </div>
+            </footer>
+        </div>
+    </section>
 
     <script src="script.js"></script>
 </body>
