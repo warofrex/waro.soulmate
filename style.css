@@ -18,7 +18,7 @@ body {
 }
 
 /* ============================================================
-   NAKŁADKI CRT / SCANLINE (efekty retro)
+   NAKŁADKI CRT / SCANLINE
    ============================================================ */
 .crt-overlay {
     position: fixed;
@@ -51,19 +51,15 @@ body {
 }
 
 @keyframes scanMove {
-    0% {
-        transform: translateY(-100%);
-    }
-    100% {
-        transform: translateY(100vh);
-    }
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100vh); }
 }
 
 /* ============================================================
    KONTENER GŁÓWNY – TERMINAL
    ============================================================ */
 .terminal {
-    max-width: 1200px;
+    max-width: 1400px;
     width: 100%;
     background: #0c0c0c;
     border: 1px solid #2a2a2a;
@@ -75,21 +71,17 @@ body {
 }
 
 @keyframes flicker {
-    0% {
-        opacity: 0.98;
-    }
-    100% {
-        opacity: 1;
-    }
+    0% { opacity: 0.98; }
+    100% { opacity: 1; }
 }
 
 /* ============================================================
-   NAGŁÓWEK – DUŻY NAPIS "Waro Soulmate"
+   NAGŁÓWEK
    ============================================================ */
 .terminal-header {
     border-bottom: 1px dashed #2e2e2e;
     padding-bottom: 1.2rem;
-    margin-bottom: 2.2rem;
+    margin-bottom: 1.5rem;
 }
 
 .title-line {
@@ -127,13 +119,8 @@ body {
 }
 
 @keyframes blink {
-    0%,
-    100% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0;
-    }
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
 }
 
 .subtitle {
@@ -163,108 +150,173 @@ body {
 }
 
 /* ============================================================
-   SIATKA PRAC – 4 KARTY
+   FILTRY LAT
+   ============================================================ */
+.filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6rem 1rem;
+    padding: 0.8rem 1rem;
+    background: #0a0f0a;
+    border: 1px solid #1a2a1a;
+    border-radius: 4px;
+    margin-bottom: 2rem;
+}
+
+.filter-label {
+    color: #4a7a4a;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-right: 0.5rem;
+}
+
+.filter-btn {
+    background: transparent;
+    border: 1px solid #1f331f;
+    color: #6a8a6a;
+    padding: 0.25rem 1rem;
+    font-family: inherit;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.25s;
+    border-radius: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.filter-btn:hover {
+    border-color: #3a7a3a;
+    color: #a0d0a0;
+    background: #0f1a0f;
+}
+
+.filter-btn.active {
+    border-color: #3acf6b;
+    color: #b0ffb0;
+    background: #112211;
+    box-shadow: 0 0 15px rgba(58, 207, 107, 0.08);
+}
+
+.filter-count {
+    color: #4a6a4a;
+    font-size: 0.75rem;
+    margin-left: auto;
+    border-left: 1px solid #1a2a1a;
+    padding-left: 1rem;
+}
+
+/* ============================================================
+   SIATKA PRAC
    ============================================================ */
 .works-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: 1.5rem;
-    margin: 2rem 0 2.5rem;
+    margin: 0 0 2rem;
+    min-height: 300px;
 }
 
 .work-card {
     background: #0f0f0f;
-    border: 1px solid #242424;
-    padding: 0.9rem 0.9rem 0.8rem;
-    transition: border 0.2s, box-shadow 0.2s;
+    border: 1px solid #1e1e1e;
+    padding: 0.8rem;
+    transition: all 0.3s;
     border-radius: 4px;
     display: flex;
     flex-direction: column;
 }
 
+.work-card.hidden {
+    display: none;
+}
+
 .work-card:hover {
     border-color: #3a7a4a;
-    box-shadow: 0 0 20px rgba(50, 200, 80, 0.04);
+    box-shadow: 0 0 25px rgba(50, 200, 80, 0.05);
 }
 
 .work-header {
     display: flex;
     align-items: baseline;
     gap: 0.6rem;
-    border-bottom: 1px dotted #222;
+    border-bottom: 1px dotted #1a1a1a;
     padding-bottom: 0.4rem;
     margin-bottom: 0.7rem;
 }
 
 .badge {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
     color: #3a7a4a;
-    background: #162016;
+    background: #0f1a0f;
     padding: 0.1rem 0.5rem;
     border-radius: 2px;
     letter-spacing: 0.5px;
-    border: 1px solid #1f3a1f;
+    border: 1px solid #1a2a1a;
 }
 
 .work-name {
-    font-size: 1rem;
+    font-size: 0.85rem;
     font-weight: 600;
-    color: #d0e8d0;
+    color: #c8e0c8;
     letter-spacing: 0.3px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .work-preview {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 100px;
-    background: #0a0a0a;
-    image-rendering: pixelated;
-    image-rendering: crisp-edges;
-    filter: contrast(1.2) brightness(0.9) saturate(0.8);
-    border: 1px solid #1a2a1a;
-    margin: 0.5rem 0 0.7rem;
+    min-height: 160px;
+    background: #080a08;
+    border: 1px solid #161616;
+    margin: 0.4rem 0 0.6rem;
     border-radius: 2px;
+    overflow: hidden;
+    position: relative;
 }
 
-.placeholder-art {
-    font-size: 3.2rem;
-    color: #3a6a3a;
-    opacity: 0.7;
-    filter: drop-shadow(0 0 6px rgba(60, 200, 80, 0.1));
+.work-preview img {
+    width: 100%;
+    height: 100%;
+    max-height: 200px;
+    object-fit: cover;
+    display: block;
+    image-rendering: auto;
+    transition: transform 0.3s;
+}
+
+.work-card:hover .work-preview img {
+    transform: scale(1.02);
 }
 
 .work-meta {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 0.5rem 0.7rem;
-    font-size: 0.7rem;
-    color: #6a8a6a;
+    gap: 0.3rem 0.6rem;
+    font-size: 0.65rem;
+    color: #5a7a5a;
     margin-top: 0.2rem;
 }
 
-.tag {
-    background: #151f15;
-    padding: 0.05rem 0.6rem;
+.year-tag {
+    color: #4a6a4a;
+    font-size: 0.6rem;
+    border: 1px solid #1a2a1a;
+    padding: 0.05rem 0.5rem;
     border-radius: 10px;
-    border: 1px solid #1e331e;
-    color: #8ab88a;
-}
-
-.date {
-    margin-left: auto;
-    color: #4a5a4a;
-    font-size: 0.65rem;
-    border-left: 1px solid #1f2a1f;
-    padding-left: 0.6rem;
+    background: #0f140f;
 }
 
 /* ============================================================
    STOPKA / KONTAKT
    ============================================================ */
 .terminal-footer {
-    border-top: 1px dashed #222;
+    border-top: 1px dashed #1a1a1a;
     padding-top: 1.4rem;
     margin-top: 0.4rem;
     display: flex;
@@ -284,7 +336,7 @@ body {
     display: flex;
     align-items: baseline;
     gap: 0.6rem;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: #b0c8b0;
 }
 
@@ -296,18 +348,18 @@ body {
 }
 
 .contact-label {
-    color: #6a8a6a;
+    color: #5a7a5a;
     min-width: 60px;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
 .contact-value {
-    color: #d4e8d4;
+    color: #d0e8d0;
     font-weight: 400;
     word-break: break-all;
-    border-bottom: 1px dotted #2a3a2a;
+    border-bottom: 1px dotted #223222;
     padding-bottom: 1px;
 }
 
@@ -315,12 +367,12 @@ body {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    font-size: 0.75rem;
-    color: #4a6a4a;
-    background: #0f140f;
+    font-size: 0.7rem;
+    color: #3a5a3a;
+    background: #0a100a;
     padding: 0.3rem 1rem;
     border-radius: 20px;
-    border: 1px solid #1a2a1a;
+    border: 1px solid #152015;
 }
 
 .cursor-blink-small {
@@ -329,7 +381,7 @@ body {
 }
 
 .sys-msg {
-    color: #8aaa8a;
+    color: #6a8a6a;
 }
 
 /* ============================================================
@@ -337,25 +389,33 @@ body {
    ============================================================ */
 @media (max-width: 950px) {
     .works-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1.2rem;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1rem;
     }
     .title-line {
-        font-size: 2.4rem;
+        font-size: 2.2rem;
         flex-wrap: wrap;
     }
 }
 
-@media (max-width: 550px) {
+@media (max-width: 600px) {
     .terminal {
-        padding: 1.2rem;
+        padding: 1rem;
     }
     .works-grid {
-        grid-template-columns: 1fr;
-        gap: 1.2rem;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.8rem;
     }
     .title-line {
-        font-size: 2rem;
+        font-size: 1.8rem;
+    }
+    .filter-bar {
+        gap: 0.4rem;
+        padding: 0.6rem;
+    }
+    .filter-btn {
+        font-size: 0.65rem;
+        padding: 0.15rem 0.6rem;
     }
     .terminal-footer {
         flex-direction: column;
@@ -364,7 +424,10 @@ body {
     .footer-status {
         justify-content: center;
     }
-    .contact-line {
-        flex-wrap: wrap;
+}
+
+@media (max-width: 420px) {
+    .works-grid {
+        grid-template-columns: 1fr;
     }
 }
