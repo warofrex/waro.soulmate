@@ -1,0 +1,217 @@
+/* ===== plik: style.css ===== */
+
+/* Reset i bazowe ustawienia */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+  background-color: #0b0b0b;
+  color: #f0f0f0;
+  scroll-behavior: smooth;
+}
+
+/* ---- SEKCJA POWITALNA (WARO SOULMATE) ---- */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;              /* cały obszar widoku */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  /* Tło graficzne na cały obszar – płynny gradient + wzór */
+  background:
+    radial-gradient(circle at 20% 30%, rgba(255, 180, 200, 0.15) 0%, transparent 60%),
+    radial-gradient(circle at 80% 70%, rgba(120, 200, 255, 0.12) 0%, transparent 50%),
+    linear-gradient(145deg, #1a1423 0%, #2d1b2e 40%, #1f2a3f 100%);
+  background-blend-mode: overlay, normal, normal;
+}
+
+/* Dodatkowa warstwa graficzna – abstrakcyjne kształty (tło "graficzne") */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 10% 90%, rgba(255, 140, 200, 0.2) 0%, transparent 40%),
+    radial-gradient(circle at 95% 10%, rgba(100, 180, 255, 0.25) 0%, transparent 45%),
+    repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.01) 0px, rgba(255, 255, 255, 0.01) 4px, transparent 4px, transparent 12px);
+  pointer-events: none;       /* kliknięcia przechodzą przez warstwę */
+  z-index: 1;
+}
+
+/* Wielki napis – na wierzchu */
+.hero-title {
+  position: relative;
+  z-index: 2;
+  font-size: clamp(4.5rem, 18vw, 9rem);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #f5e9f0;
+  text-shadow:
+    0 0 20px rgba(255, 120, 200, 0.5),
+    0 0 60px rgba(180, 100, 255, 0.3),
+    0 4px 30px rgba(0, 0, 0, 0.7);
+  background: linear-gradient(135deg, #ffe6f0, #d9b3ff, #a8d0ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  padding: 0.2em 0.6em;
+  text-align: center;
+  backdrop-filter: blur(2px);
+  transform: rotate(-0.5deg) scale(1.02);
+  transition: transform 0.3s ease;
+  font-family: 'Trebuchet MS', 'Segoe UI', sans-serif;
+}
+
+.hero-title:hover {
+  transform: rotate(0deg) scale(1.05);
+  text-shadow: 0 0 40px rgba(255, 150, 220, 0.6);
+}
+
+/* Mały "scroll down" – zachęta */
+.scroll-hint {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.9rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(4px);
+  padding: 0.5rem 1.5rem;
+  border-radius: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  pointer-events: none;
+  animation: floatDown 2.8s infinite ease-in-out;
+}
+
+@keyframes floatDown {
+  0% { transform: translateX(-50%) translateY(0); opacity: 0.4; }
+  50% { transform: translateX(-50%) translateY(8px); opacity: 0.9; }
+  100% { transform: translateX(-50%) translateY(0); opacity: 0.4; }
+}
+
+/* ---- GALERIA (po scrollowaniu) ---- */
+.gallery-section {
+  background: #0f0c12;
+  padding: 5rem 2rem 6rem;
+  background-image:
+    radial-gradient(ellipse at 30% 40%, rgba(120, 60, 180, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 70%, rgba(40, 120, 200, 0.06) 0%, transparent 50%);
+  border-top: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.gallery-container {
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2rem;
+  justify-items: center;
+  align-items: start;
+}
+
+/* Karta grafiki */
+.gallery-item {
+  width: 100%;
+  max-width: 350px;
+  background: rgba(30, 25, 40, 0.55);
+  backdrop-filter: blur(6px);
+  border-radius: 28px;
+  padding: 1rem 1rem 1.4rem;
+  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.03);
+  transition: transform 0.3s ease, box-shadow 0.4s ease;
+  border: 1px solid rgba(255, 200, 240, 0.06);
+}
+
+.gallery-item:hover {
+  transform: translateY(-10px) scale(1.01);
+  box-shadow: 0 30px 60px -15px #000000cc, 0 0 0 1px rgba(255, 180, 220, 0.2);
+  background: rgba(40, 30, 55, 0.7);
+}
+
+.gallery-item img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 20px;
+  background: #1e1826;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6);
+  transition: filter 0.3s;
+  filter: brightness(0.95) contrast(1.05);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.gallery-item img:hover {
+  filter: brightness(1.05) contrast(1.1);
+}
+
+/* Podpis / etykieta */
+.gallery-item .img-label {
+  margin-top: 0.9rem;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: rgba(220, 200, 240, 0.7);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding-top: 0.7rem;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+
+/* dekoracyjna kreska nad galerią */
+.gallery-section::before {
+  content: '';
+  display: block;
+  height: 2px;
+  width: 120px;
+  margin: 0 auto 3.5rem;
+  background: linear-gradient(90deg, transparent, #c084fc, #f0a0d0, transparent);
+  border-radius: 10px;
+  opacity: 0.4;
+}
+
+/* stopka */
+footer {
+  text-align: center;
+  padding: 2rem 1rem;
+  background: #07050a;
+  border-top: 1px solid #1f1a26;
+  font-size: 0.75rem;
+  color: #3d3450;
+  letter-spacing: 0.1em;
+}
+
+/* responsywność */
+@media (max-width: 640px) {
+  .gallery-section {
+    padding: 3rem 1.2rem 4rem;
+  }
+  .gallery-grid {
+    gap: 1.5rem;
+  }
+  .gallery-item {
+    max-width: 280px;
+    padding: 0.8rem;
+  }
+  .hero-title {
+    font-size: clamp(3.8rem, 16vw, 5.5rem);
+    letter-spacing: 0.02em;
+  }
+}
