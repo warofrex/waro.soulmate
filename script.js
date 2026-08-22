@@ -15,14 +15,12 @@ let currentFilter = 'all';
 const YOUR_FILES = {
     '2025': [
         'Miszekmaly.png',
-        // dodaj więcej plików jeśli masz
     ],
     '2026': [
         'WARO55.png',
         'WARO2.png',
         'WARO3.png',
         'WARO4.png',
-        // dodaj więcej plików jeśli masz
     ]
 };
 
@@ -45,7 +43,6 @@ async function scanGallery() {
             if (isSupported(filename)) {
                 const path = `${IMAGES_PATH}${year}/${filename}`;
                 
-                // Sprawdź czy plik istnieje
                 try {
                     const response = await fetch(path, { method: 'HEAD' });
                     if (response.ok) {
@@ -66,7 +63,6 @@ async function scanGallery() {
         }
     }
     
-    // Jeśli nic nie znaleziono – pokaż placeholdery
     if (foundImages.length === 0) {
         for (const year of YEARS) {
             foundImages.push({
@@ -86,17 +82,11 @@ async function scanGallery() {
     systemMsg.textContent = `SYSTEM :: GALLERY_READY — ${foundImages.filter(img => img.exists).length} plików`;
 }
 
-// ============================================================
-// SPRAWDZA ROZSZERZENIE
-// ============================================================
 function isSupported(filename) {
     const ext = filename.split('.').pop().toLowerCase();
     return SUPPORTED_EXTENSIONS.includes(ext);
 }
 
-// ============================================================
-// RENDEROWANIE GALERII
-// ============================================================
 function renderGallery(filter) {
     const galleryGrid = document.getElementById('galleryGrid');
     
@@ -143,9 +133,6 @@ function renderGallery(filter) {
     }).join('');
 }
 
-// ============================================================
-// AKTUALIZACJA LICZNIKA
-// ============================================================
 function updateCount(filter) {
     const countDisplay = document.getElementById('countDisplay');
     const filtered = filter === 'all' 
@@ -155,9 +142,6 @@ function updateCount(filter) {
     countDisplay.textContent = `znaleziono: ${realImages.length}`;
 }
 
-// ============================================================
-// OBSŁUGA FILTRÓW
-// ============================================================
 document.querySelectorAll('.filter-btn').forEach(btn => {
     btn.addEventListener('click', function() {
         document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -169,9 +153,6 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
     });
 });
 
-// ============================================================
-// URUCHOMIENIE
-// ============================================================
 scanGallery();
 
 console.log('📂 Waro Soulmate Gallery');
