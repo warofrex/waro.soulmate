@@ -57,7 +57,7 @@ body {
 }
 
 /* ============================================================
-   SEKCJA GLITCH – pełen ekran
+   SEKCJA GLITCH
    ============================================================ */
 .glitch-section {
     min-height: 100vh;
@@ -95,12 +95,12 @@ body {
     letter-spacing: 4px;
     position: relative;
     z-index: 2;
-    animation: flicker 0.15s infinite alternate;
     user-select: none;
+    animation: flicker 0.15s infinite alternate;
 }
 
 @keyframes flicker {
-    0% { opacity: 0.98; }
+    0% { opacity: 0.97; }
     100% { opacity: 1; }
 }
 
@@ -114,159 +114,133 @@ body {
     transform: translate(-50%, -50%);
     font-size: clamp(3rem, 12vw, 8rem);
     font-weight: 900;
-    color: transparent;
     letter-spacing: 4px;
     pointer-events: none;
     z-index: 1;
     user-select: none;
-    opacity: 0.7;
-}
-
-.glitch-layer::before {
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    opacity: 0.8;
 }
 
 /* Lewa warstwa – czerwona */
 .glitch-left {
-    animation: glitchLeft 4s ease-in-out infinite;
-}
-
-.glitch-left::before {
+    animation: glitchLeft 3s ease-in-out infinite;
     color: #b8312f;
-    clip-path: inset(15% 0 65% 0);
-    text-shadow: -3px 0 #b8312f;
+    clip-path: inset(10% 0 60% 0);
 }
 
 /* Prawa warstwa – niebieska */
 .glitch-right {
-    animation: glitchRight 4s ease-in-out infinite;
-}
-
-.glitch-right::before {
+    animation: glitchRight 3.5s ease-in-out infinite;
     color: #2c82c9;
-    clip-path: inset(65% 0 15% 0);
-    text-shadow: 3px 0 #2c82c9;
+    clip-path: inset(60% 0 10% 0);
 }
 
 /* Górna warstwa – zielona */
 .glitch-top {
-    animation: glitchTop 5s ease-in-out infinite;
-    opacity: 0.4;
-}
-
-.glitch-top::before {
+    animation: glitchTop 4s ease-in-out infinite;
     color: #3acf6b;
     clip-path: inset(0 0 85% 0);
-    text-shadow: 0 -3px #3acf6b;
+    opacity: 0.5;
 }
 
 /* Dolna warstwa – fioletowa */
 .glitch-bottom {
-    animation: glitchBottom 5s ease-in-out infinite;
-    opacity: 0.4;
-}
-
-.glitch-bottom::before {
+    animation: glitchBottom 4.5s ease-in-out infinite;
     color: #9b59b6;
     clip-path: inset(85% 0 0 0);
-    text-shadow: 0 3px #9b59b6;
+    opacity: 0.5;
 }
 
 /* ============================================================
    ANIMACJE GLITCH
    ============================================================ */
 @keyframes glitchLeft {
-    0%, 85%, 100% {
+    0%, 90%, 100% {
         transform: translate(calc(-50% + 0px), -50%);
         opacity: 0.7;
     }
+    5% {
+        transform: translate(calc(-50% + 10px), -50%);
+        opacity: 1;
+    }
     10% {
-        transform: translate(calc(-50% + 8px), -50%);
+        transform: translate(calc(-50% + 15px), -50%);
         opacity: 0.9;
     }
     15% {
-        transform: translate(calc(-50% + 12px), -50%);
-        opacity: 1;
-    }
-    20% {
-        transform: translate(calc(-50% + 6px), -50%);
+        transform: translate(calc(-50% + 8px), -50%);
         opacity: 0.8;
     }
-    25% {
-        transform: translate(calc(-50% + 14px), -50%);
+    20% {
+        transform: translate(calc(-50% + 18px), -50%);
         opacity: 1;
     }
-    30% {
-        transform: translate(calc(-50% + 4px), -50%);
+    25% {
+        transform: translate(calc(-50% + 5px), -50%);
         opacity: 0.7;
     }
 }
 
 @keyframes glitchRight {
-    0%, 85%, 100% {
+    0%, 90%, 100% {
         transform: translate(calc(-50% + 0px), -50%);
         opacity: 0.7;
     }
+    5% {
+        transform: translate(calc(-50% - 10px), -50%);
+        opacity: 1;
+    }
     10% {
-        transform: translate(calc(-50% - 8px), -50%);
+        transform: translate(calc(-50% - 15px), -50%);
         opacity: 0.9;
     }
     15% {
-        transform: translate(calc(-50% - 12px), -50%);
-        opacity: 1;
-    }
-    20% {
-        transform: translate(calc(-50% - 6px), -50%);
+        transform: translate(calc(-50% - 8px), -50%);
         opacity: 0.8;
     }
-    25% {
-        transform: translate(calc(-50% - 14px), -50%);
+    20% {
+        transform: translate(calc(-50% - 18px), -50%);
         opacity: 1;
     }
-    30% {
-        transform: translate(calc(-50% - 4px), -50%);
+    25% {
+        transform: translate(calc(-50% - 5px), -50%);
         opacity: 0.7;
     }
 }
 
 @keyframes glitchTop {
-    0%, 80%, 100% {
+    0%, 85%, 100% {
         transform: translate(-50%, calc(-50% + 0px));
         opacity: 0.3;
     }
-    15% {
-        transform: translate(-50%, calc(-50% - 10px));
+    10% {
+        transform: translate(-50%, calc(-50% - 12px));
         opacity: 0.7;
     }
-    25% {
-        transform: translate(-50%, calc(-50% - 16px));
+    20% {
+        transform: translate(-50%, calc(-50% - 18px));
         opacity: 0.4;
     }
-    35% {
+    30% {
         transform: translate(-50%, calc(-50% - 8px));
         opacity: 0.6;
     }
 }
 
 @keyframes glitchBottom {
-    0%, 80%, 100% {
+    0%, 85%, 100% {
         transform: translate(-50%, calc(-50% + 0px));
         opacity: 0.3;
     }
-    15% {
-        transform: translate(-50%, calc(-50% + 10px));
+    10% {
+        transform: translate(-50%, calc(-50% + 12px));
         opacity: 0.7;
     }
-    25% {
-        transform: translate(-50%, calc(-50% + 16px));
+    20% {
+        transform: translate(-50%, calc(-50% + 18px));
         opacity: 0.4;
     }
-    35% {
+    30% {
         transform: translate(-50%, calc(-50% + 8px));
         opacity: 0.6;
     }
@@ -288,47 +262,31 @@ body {
 
 .glitch-word {
     position: absolute;
-    color: rgba(58, 207, 107, 0.06);
+    color: rgba(58, 207, 107, 0.08);
     font-size: clamp(0.7rem, 1.8vw, 1.6rem);
     font-weight: 700;
     letter-spacing: 2px;
     text-transform: uppercase;
     white-space: nowrap;
-    animation: wordFloat 6s ease-in-out infinite;
+    animation: wordPulse 5s ease-in-out infinite;
 }
 
-.glitch-word:nth-child(1) { top: 8%; left: 3%; animation-delay: 0.0s; }
-.glitch-word:nth-child(2) { top: 15%; right: 5%; animation-delay: 0.5s; }
-.glitch-word:nth-child(3) { bottom: 25%; left: 2%; animation-delay: 1.0s; }
-.glitch-word:nth-child(4) { top: 45%; right: 3%; animation-delay: 1.5s; }
-.glitch-word:nth-child(5) { bottom: 12%; right: 12%; animation-delay: 2.0s; }
-.glitch-word:nth-child(6) { top: 65%; left: 8%; animation-delay: 2.5s; }
-.glitch-word:nth-child(7) { top: 30%; left: 18%; animation-delay: 3.0s; }
-.glitch-word:nth-child(8) { bottom: 40%; right: 22%; animation-delay: 3.5s; }
-.glitch-word:nth-child(9) { top: 12%; left: 32%; animation-delay: 0.8s; }
-.glitch-word:nth-child(10) { bottom: 55%; left: 38%; animation-delay: 1.8s; }
-.glitch-word:nth-child(11) { top: 75%; right: 32%; animation-delay: 2.8s; }
-.glitch-word:nth-child(12) { bottom: 8%; left: 48%; animation-delay: 3.8s; }
-.glitch-word:nth-child(13) { top: 42%; left: 58%; animation-delay: 0.3s; }
-.glitch-word:nth-child(14) { bottom: 22%; right: 48%; animation-delay: 1.3s; }
-.glitch-word:nth-child(15) { top: 58%; left: 72%; animation-delay: 2.3s; }
-
-@keyframes wordFloat {
+@keyframes wordPulse {
     0%, 100% {
-        opacity: 0.04;
-        transform: scale(0.95) rotate(0deg);
+        opacity: 0.05;
+        transform: scale(0.95);
     }
     25% {
-        opacity: 0.12;
-        transform: scale(1.03) rotate(1deg);
+        opacity: 0.15;
+        transform: scale(1.05);
     }
     50% {
-        opacity: 0.18;
-        transform: scale(1.06) rotate(-0.5deg);
+        opacity: 0.25;
+        transform: scale(1.1);
     }
     75% {
         opacity: 0.10;
-        transform: scale(1.02) rotate(0.5deg);
+        transform: scale(1.02);
     }
 }
 
@@ -362,7 +320,7 @@ body {
 }
 
 /* ============================================================
-   SEKCJA PORTFOLIO
+   SEKCJA PORTFOLIO (reszta bez zmian)
    ============================================================ */
 .portfolio-section {
     min-height: 100vh;
@@ -385,9 +343,6 @@ body {
     position: relative;
 }
 
-/* ============================================================
-   NAGŁÓWEK PORTFOLIO
-   ============================================================ */
 .terminal-header {
     border-bottom: 1px dashed #2e2e2e;
     padding-bottom: 1rem;
@@ -450,9 +405,6 @@ body {
     border: 1px solid #2a5a2a;
 }
 
-/* ============================================================
-   FILTRY
-   ============================================================ */
 .filter-bar {
     display: flex;
     flex-wrap: wrap;
@@ -507,9 +459,6 @@ body {
     padding-left: 1rem;
 }
 
-/* ============================================================
-   SIATKA PRAC
-   ============================================================ */
 .works-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -604,9 +553,6 @@ body {
     background: #0f140f;
 }
 
-/* ============================================================
-   STOPKA
-   ============================================================ */
 .terminal-footer {
     border-top: 1px dashed #1a1a1a;
     padding-top: 1.4rem;
@@ -676,34 +622,26 @@ body {
     color: #6a8a6a;
 }
 
-/* ============================================================
-   RESPONSYWNOŚĆ
-   ============================================================ */
 @media (max-width: 768px) {
     .works-grid {
         grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
         gap: 1rem;
     }
-    
     .glitch-title,
     .glitch-layer {
         font-size: clamp(2.5rem, 10vw, 4rem);
     }
-    
     .terminal {
         padding: 1rem;
     }
-    
     .filter-bar {
         gap: 0.4rem;
         padding: 0.6rem;
     }
-    
     .filter-btn {
         font-size: 0.65rem;
         padding: 0.15rem 0.6rem;
     }
-    
     .terminal-footer {
         flex-direction: column;
         align-items: stretch;
@@ -715,7 +653,6 @@ body {
         grid-template-columns: 1fr 1fr;
         gap: 0.8rem;
     }
-    
     .glitch-title,
     .glitch-layer {
         font-size: clamp(2rem, 8vw, 3rem);
