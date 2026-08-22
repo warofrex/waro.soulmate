@@ -1,3 +1,31 @@
+
+const glitchLayers = document.querySelectorAll('.glitch-layer');
+
+function triggerGlitch() {
+    glitchLayers.forEach(layer => {
+        layer.classList.add('is-glitching');
+    });
+
+    // bardzo krótki glitch
+    setTimeout(() => {
+        glitchLayers.forEach(layer => {
+            layer.classList.remove('is-glitching');
+        });
+    }, 180);
+
+    // kolejny glitch za losowy czas
+    scheduleNextGlitch();
+}
+
+function scheduleNextGlitch() {
+    const delay = 3000 + Math.random() * 7000;
+
+    setTimeout(triggerGlitch, delay);
+}
+
+// pierwszy glitch po 4–7 sekundach
+setTimeout(triggerGlitch, 4000 + Math.random() * 3000);
+
 // ============================================================
 // AUTOMATYCZNE SKANOWANIE FOLDERÓW
 // ============================================================
