@@ -10,7 +10,7 @@ const SUPPORTED_EXTENSIONS = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp', 'svg']
 const IMAGES_PATH = 'images/';
 
 // Lata które skanujemy
-const YEARS = ['2023', '2024', '2025'];
+const YEARS = ['2025', '2026'];
 
 // ============================================================
 // FUNKCJA: generuje wszystkie możliwe nazwy plików
@@ -117,26 +117,16 @@ function getSampleFiles(year) {
     // Tutaj wpisz nazwy swoich plików (bez rozszerzenia)
     // albo użyj systemu który automatycznie je wykryje
     const samples = {
-        '2023': [
-            'pierwszy-krok.jpg',
-            'noc-w-miescie.png',
-            'portret-ciszy.jpg',
-            'zmierzch.jpg',
-            'echo.jpg'
-        ],
-        '2024': [
-            'anthurium.jpg',
-            'zachod-epsilon.png',
-            'syntezator-snow.jpg',
-            'mgla.jpg',
-            'kosmos.jpg'
-        ],
         '2025': [
-            'mgla.jpg',
-            'linia-snu.png',
-            'echo-terminal.jpg',
-            'nowy-projekt.jpg',
-            'test.jpg'
+            'Miszekmaly.png'
+         
+        ],
+        '2026': [
+            'WARO55',
+            'WARO3',
+            'WARO4',
+            'WARO5',
+            
         ]
     };
     return samples[year] || [];
