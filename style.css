@@ -219,7 +219,10 @@ body {
     justify-content: center;
     min-height: 100px;
     background: #0a0a0a;
-    border: 1px solid #1c1c1c;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    filter: contrast(1.2) brightness(0.9) saturate(0.8);
+    border: 1px solid #1a2a1a;
     margin: 0.5rem 0 0.7rem;
     border-radius: 2px;
 }
