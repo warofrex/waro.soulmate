@@ -122,10 +122,10 @@ function getSampleFiles(year) {
          
         ],
         '2026': [
-            'WARO55',
-            'WARO3',
-            'WARO4',
-            'WARO5'
+            'WARO55.png',
+            'WARO2.png',
+            'WARO3.png',
+            'WARO4.png'
             
         ]
     };
