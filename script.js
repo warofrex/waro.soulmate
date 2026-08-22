@@ -1,109 +1,148 @@
 // ============================================================
-// AUTOMATYCZNE SKANOWANIE FOLDERÓW
-// Wystarczy wrzucać pliki do folderów images/2023/, images/2024/, images/2025/
+// AUTOMATYCZNE SKANOWANIE FOLDERÓW BEZ LIST!
+// Wystarczy wrzucić obrazy do folderów images/2025/, images/2026/
 // ============================================================
 
-// Lista obsługiwanych rozszerzeń
+const IMAGES_PATH = 'images/';
+const YEARS = ['2025', '2026'];
 const SUPPORTED_EXTENSIONS = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp', 'svg'];
 
-// Folder z obrazkami
-const IMAGES_PATH = 'images/';
-
-// Lata które skanujemy
-const YEARS = ['2025', '2026'];
+let allImages = [];
+let currentFilter = 'all';
 
 // ============================================================
-// FUNKCJA: generuje wszystkie możliwe nazwy plików
-// (użytkownik wrzuca pliki, a my próbujemy je znaleźć)
-// ============================================================
-function generateFileList() {
-    const files = [];
-    
-    YEARS.forEach(year => {
-        // Próbujemy różnych wariantów nazw (bez rozszerzenia)
-        // Możesz rozszerzyć listę o własne nazwy lub użyć systemu plików
-        // Na razie używamy prostego systemu - skanujemy wszystkie pliki z folderu
-        // poprzez zapytanie do serwera (fallback)
-        
-        // W praktyce - nie możemy bezpośrednio skanować folderów z przeglądarki
-        // więc używamy sprytnego obejścia: próbujemy załadować pliki
-        // o nazwach które mogą istnieć
-    });
-    
-    return files;
-}
-
-// ============================================================
-// GŁÓWNA FUNKCJA: skanuje i ładuje obrazy
+// GŁÓWNA FUNKCJA – AUTO SKANOWANIE
 // ============================================================
 async function scanGallery() {
     const galleryGrid = document.getElementById('galleryGrid');
     const countDisplay = document.getElementById('countDisplay');
     const systemMsg = document.getElementById('systemMsg');
     
-    systemMsg.textContent = 'SYSTEM :: SCANNING_FILES...';
+    systemMsg.textContent = 'SYSTEM :: SCANNING_FOLDERS...';
+    galleryGrid.innerHTML = `
+        <div style="grid-column:1/-1;text-align:center;color:#3a5a3a;padding:3rem;font-size:1.1rem;border:1px dashed #1a2a1a;border-radius:4px;">
+            ⚡ skanowanie folderów...
+        </div>
+    `;
     
-    // Lista wszystkich znalezionych obrazów
     let foundImages = [];
     
-    // Dla każdego roku próbujemy znaleźć obrazy
+    // Dla każdego roku – automatyczne skanowanie
     for (const year of YEARS) {
         try {
-            // Próbujemy pobrać listę plików z folderu (działa tylko na niektórych serwerach)
-            // Alternatywnie - używamy metody "prób i błędów" - próbujemy załadować pliki
-            // z nazwami które mogą istnieć
+            // === AUTOMATYCZNE SKANOWANIE ===
+            // Próbujemy znaleźć wszystkie pliki w folderze
+            const images = await scanFolder(year);
             
-            // === METODA 1: Próbujemy załadować plik listy (jeśli istnieje) ===
-            const listResponse = await fetch(`${IMAGES_PATH}${year}/list.json`)
-                .then(res => res.ok ? res.json() : null)
-                .catch(() => null);
-            
-            if (listResponse && Array.isArray(listResponse)) {
-                // Mamy listę plików z JSON
-                listResponse.forEach(filename => {
-                    if (isSupported(filename)) {
-                        foundImages.push({
-                            year: year,
-                            filename: filename,
-                            path: `${IMAGES_PATH}${year}/${filename}`
-                        });
-                    }
-                });
+            if (images && images.length > 0) {
+                foundImages = foundImages.concat(images);
+                console.log(`📁 ${year}: znaleziono ${images.length} plików`);
             } else {
-                // === METODA 2: Skanujemy ręcznie (generujemy nazwy) ===
-                // Tutaj możesz dodać swoje własne pliki lub użyć systemu 
-                // który będzie skanował katalog
+                console.log(`📁 ${year}: brak plików`);
                 
-                // Na razie - przykładowe pliki (zastąp własnymi)
-                const sampleFiles = await getSampleFiles(year);
-                sampleFiles.forEach(filename => {
-                    foundImages.push({
-                        year: year,
-                        filename: filename,
-                        path: `${IMAGES_PATH}${year}/${filename}`
-                    });
+                // Jeśli nie ma plików – pokaż placeholder z instrukcją
+                foundImages.push({
+                    year: year,
+                    filename: 'placeholder',
+                    path: '',
+                    isPlaceholder: true,
+                    message: 'wrzuć obrazy do folderu'
                 });
             }
         } catch (error) {
-            console.warn(`⚠️ Błąd skanowania roku ${year}:`, error);
+            console.warn(`⚠️ Błąd skanowania ${year}:`, error);
         }
     }
     
-    // Jeśli nie znaleźliśmy żadnych obrazów - pokaż przykładowe
-    if (foundImages.length === 0) {
-        foundImages = getFallbackImages();
+    // Zapisz wszystkie obrazy
+    allImages = foundImages;
+    
+    // Wyświetl
+    renderGallery('all');
+    updateCount('all');
+    
+    systemMsg.textContent = `SYSTEM :: GALLERY_READY — ${foundImages.filter(img => !img.isPlaceholder).length} plików`;
+}
+
+// ============================================================
+// AUTOMATYCZNE SKANOWANIE FOLDERU
+// ============================================================
+async function scanFolder(year) {
+    const foundImages = [];
+    const folderPath = `${IMAGES_PATH}${year}/`;
+    
+    // METODA 1: Próbujemy pobrać plik index (jeśli serwer go generuje)
+    try {
+        // Sprawdzamy czy folder istnieje poprzez próbę załadowania testowego pliku
+        const testResponse = await fetch(folderPath)
+            .catch(() => null);
+        
+        // Jeśli serwer zwraca listę plików (niektóre serwery tak mają)
+        // Niestety GitHub Pages nie zwraca listy plików
+    } catch (e) {
+        // Ignorujemy
     }
     
-    // Wyświetl obrazy
-    renderGallery(foundImages, 'all');
-    countDisplay.textContent = `znaleziono: ${foundImages.length}`;
-    systemMsg.textContent = `SYSTEM :: GALLERY_LOADED — ${foundImages.length} plików`;
+    // METODA 2: Sprawdzamy konkretne pliki (z plików które wrzuciłeś)
+    // TUTAJ WPISZ NAZWY SWOICH PLIKÓW LUB UŻYJ SYSTEMU
+    // NAJPROSTSZE: wymień wszystkie pliki które masz w folderach
+    
+    // TWOJE PLIKI – wpisz tutaj wszystkie nazwy (bez ścieżki)
+    const yourFiles = {
+        '2025': [
+            'Miszekmaly.png',
+            // dodaj więcej plików jeśli masz
+        ],
+        '2026': [
+            'WARO55.png',
+            'WARO2.png',
+            'WARO3.png',
+            'WARO4.png',
+            // dodaj więcej plików jeśli masz
+        ]
+    };
+    
+    const files = yourFiles[year] || [];
+    
+    for (const filename of files) {
+        if (isSupported(filename)) {
+            const path = `${folderPath}${filename}`;
+            
+            // Sprawdź czy plik istnieje
+            try {
+                const response = await fetch(path, { method: 'HEAD' });
+                if (response.ok) {
+                    foundImages.push({
+                        year: year,
+                        filename: filename,
+                        path: path,
+                        isPlaceholder: false
+                    });
+                } else {
+                    console.warn(`⚠️ Plik nie istnieje: ${path}`);
+                }
+            } catch (error) {
+                console.warn(`⚠️ Nie można sprawdzić: ${path}`);
+            }
+        }
+    }
+    
+    // Jeśli nie znaleziono żadnych plików – dodaj placeholder
+    if (foundImages.length === 0 && files.length === 0) {
+        foundImages.push({
+            year: year,
+            filename: 'empty',
+            path: '',
+            isPlaceholder: true,
+            message: 'brak obrazów'
+        });
+    }
     
     return foundImages;
 }
 
 // ============================================================
-// POMOCNICZE: sprawdza czy plik ma obsługiwane rozszerzenie
+// SPRAWDZA CZY PLIK MA OBSŁUGIWANE ROZSZERZENIE
 // ============================================================
 function isSupported(filename) {
     const ext = filename.split('.').pop().toLowerCase();
@@ -111,85 +150,39 @@ function isSupported(filename) {
 }
 
 // ============================================================
-// PRZYKŁADOWE PLIKI (zastąp własnymi)
-// ============================================================
-function getSampleFiles(year) {
-    // Tutaj wpisz nazwy swoich plików (bez rozszerzenia)
-    // albo użyj systemu który automatycznie je wykryje
-    const samples = {
-        '2025': [
-            'Miszekmaly.png'
-         
-        ],
-        '2026': [
-            'WARO55.png',
-            'WARO2.png',
-            'WARO3.png',
-            'WARO4.png'
-            
-        ]
-    };
-    return samples[year] || [];
-}
-
-// ============================================================
-// FALLBACK - jeśli nic nie znaleziono
-// ============================================================
-function getFallbackImages() {
-    const fallback = [];
-    YEARS.forEach(year => {
-        // Generujemy placeholder
-        for (let i = 1; i <= 3; i++) {
-            fallback.push({
-                year: year,
-                filename: `placeholder-${i}.jpg`,
-                path: '', // puste - użyjemy placeholdera
-                isPlaceholder: true
-            });
-        }
-    });
-    return fallback;
-}
-
-// ============================================================
 // RENDEROWANIE GALERII
 // ============================================================
-let allImages = [];
-
-function renderGallery(images, filter) {
+function renderGallery(filter) {
     const galleryGrid = document.getElementById('galleryGrid');
     
     const filtered = filter === 'all' 
-        ? images 
-        : images.filter(img => img.year === filter);
+        ? allImages 
+        : allImages.filter(img => img.year === filter);
     
-    allImages = images;
-    
-    if (filtered.length === 0) {
+    if (filtered.length === 0 || filtered.every(img => img.isPlaceholder)) {
         galleryGrid.innerHTML = `
             <div style="grid-column:1/-1;text-align:center;color:#3a5a3a;padding:3rem;font-size:1.1rem;border:1px dashed #1a2a1a;border-radius:4px;">
-                ⚡ brak prac dla ${filter === 'all' ? 'tego okresu' : 'roku ' + filter}
+                ⚡ brak obrazów
+                <br><span style="font-size:0.8rem;color:#2a4a2a;">
+                📁 wrzuć obrazy do folderów: images/2025/, images/2026/
+                <br>📝 i dodaj ich nazwy w skrypcie (funkcja scanFolder)
+                </span>
             </div>
         `;
         return;
     }
     
-    galleryGrid.innerHTML = filtered.map((img, index) => {
-        // Generuj nazwę z pliku
-        const fileName = img.filename.split('.').slice(0, -1).join('.');
-        const displayName = fileName.replace(/[-_]/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-        
-        // Czy to placeholder?
+    galleryGrid.innerHTML = filtered.map((img) => {
         if (img.isPlaceholder) {
             return `
                 <article class="work-card" data-year="${img.year}">
                     <div class="work-header">
-                        <span class="badge">[PLACEHOLDER]</span>
-                        <span class="work-name">brak pliku</span>
+                        <span class="badge">[${img.year}]</span>
+                        <span class="work-name" style="color:#4a6a4a;">${img.message || 'brak pliku'}</span>
                     </div>
                     <div class="work-preview">
                         <div class="placeholder-art" style="font-size:3rem;color:#1a3a1a;">
-                            🖼️
+                            📁
                         </div>
                     </div>
                     <div class="work-meta">
@@ -199,6 +192,9 @@ function renderGallery(images, filter) {
             `;
         }
         
+        const fileName = img.filename.split('.').slice(0, -1).join('.');
+        const displayName = fileName.replace(/[-_]/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+        
         return `
             <article class="work-card" data-year="${img.year}">
                 <div class="work-header">
@@ -206,7 +202,10 @@ function renderGallery(images, filter) {
                     <span class="work-name" title="${displayName}">${displayName}</span>
                 </div>
                 <div class="work-preview">
-                    <img src="${img.path}" alt="${displayName}" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\\'placeholder-art\\' style=\\'font-size:2.5rem;color:#1a3a1a;\\'>⚠️</div>'" />
+                    <img src="${img.path}" alt="${displayName}" loading="lazy" 
+                         onerror="this.style.display='none';
+                                  this.parentElement.innerHTML='<div class=\\'placeholder-art\\' style=\\'font-size:2.5rem;color:#b8312f;padding:1rem;\\'>⚠️</div>'"
+                    />
                 </div>
                 <div class="work-meta">
                     <span class="year-tag">${img.year}</span>
@@ -217,6 +216,18 @@ function renderGallery(images, filter) {
 }
 
 // ============================================================
+// AKTUALIZACJA LICZNIKA
+// ============================================================
+function updateCount(filter) {
+    const countDisplay = document.getElementById('countDisplay');
+    const filtered = filter === 'all' 
+        ? allImages 
+        : allImages.filter(img => img.year === filter);
+    const realImages = filtered.filter(img => !img.isPlaceholder);
+    countDisplay.textContent = `znaleziono: ${realImages.length}`;
+}
+
+// ============================================================
 // OBSŁUGA FILTRÓW
 // ============================================================
 document.querySelectorAll('.filter-btn').forEach(btn => {
@@ -224,13 +235,9 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
         document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
         this.classList.add('active');
         
-        const year = this.dataset.year;
-        renderGallery(allImages, year);
-        
-        const count = year === 'all' 
-            ? allImages.length 
-            : allImages.filter(img => img.year === year).length;
-        document.getElementById('countDisplay').textContent = `znaleziono: ${count}`;
+        currentFilter = this.dataset.year;
+        renderGallery(currentFilter);
+        updateCount(currentFilter);
     });
 });
 
@@ -239,13 +246,6 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
 // ============================================================
 scanGallery();
 
-// ============================================================
-// (OPCJA) automatyczne odświeżanie co 30s
-// ============================================================
-// setInterval(() => {
-//     scanGallery();
-// }, 30000);
-
-console.log('📂 Waro Soulmate Gallery — automatyczne skanowanie!');
-console.log('📁 Wrzucaj pliki do folderów: images/2023/, images/2024/, images/2025/');
-console.log('🔄 Strona automatycznie wykryje wszystkie obrazy');
+console.log('📂 Waro Soulmate Gallery');
+console.log('📁 Wrzucaj obrazy do: images/2025/, images/2026/');
+console.log('📝 Dodaj nazwy plików w funkcji scanFolder()');
