@@ -1,9 +1,53 @@
+<!-- ===== plik: index.html ===== -->
 <!DOCTYPE html>
-<html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Waro Soulmate · galeria</title>
+  <!-- podłączamy zewnętrzny arkusz CSS -->
+  <link rel="stylesheet" href="style.css" />
+</head>
 <body>
 
-<h1>My First Heading</h1>
-<p>My first paragraph.</p>
+  <!-- === SEKCJA HERO (WARO SOULMATE + GRAFIKA TŁA) === -->
+  <section class="hero">
+    <h1 class="hero-title">Waro Soulmate</h1>
+    <div class="scroll-hint">⬇ przewiń ⬇</div>
+  </section>
+
+  <!-- === GALERIA (4 GRAFIKI) === -->
+  <section class="gallery-section" id="galeria">
+    <div class="gallery-container">
+      <div class="gallery-grid">
+        <!-- 1. grafika – podmienić src na własną -->
+        <div class="gallery-item">
+          <img src="a.png" alt="Grafika 1 — Waro Soulmate" loading="lazy" />
+          <div class="img-label">✦ esencja ✦</div>
+        </div>
+        <!-- 2. grafika -->
+        <div class="gallery-item">
+          <img src="b.png" alt="Grafika 2 — Waro Soulmate" loading="lazy" />
+          <div class="img-label">✦ wibracja ✦</div>
+        </div>
+        <!-- 3. grafika -->
+        <div class="gallery-item">
+          <img src="c.png" alt="Grafika 3 — Waro Soulmate" loading="lazy" />
+          <div class="img-label">✦ połączenie ✦</div>
+        </div>
+        <!-- 4. grafika -->
+        <div class="gallery-item">
+          <img src="d.png" alt="Grafika 4 — Waro Soulmate" loading="lazy" />
+          <div class="img-label">✦ harmonia ✦</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- stopka (opcjonalna) -->
+  <footer>
+    <span>Waro Soulmate · galeria 4 grafik</span>
+  </footer>
 
 </body>
 </html>
