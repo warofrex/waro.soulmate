@@ -1,339 +1,367 @@
-/* ===== plik: style.css ===== */
-
-/* ===== RESET ===== */
+/* ============================================================
+   GLOBAL RESET / BAZA
+   ============================================================ */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-  background: #050505;
-  font-family: 'Consolas', 'Lucida Console', 'Courier New', monospace;
-  color: #e0e0e0;
-  line-height: 1.6;
-  padding: 20px;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+    background: #0b0b0b;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Consolas', 'Lucida Console', 'Courier New', monospace;
+    padding: 1.5rem;
 }
 
-/* ===== GŁÓWNY KONTENER ===== */
-.terminal-wrapper {
-  max-width: 1200px;
-  width: 100%;
-  border: 1px solid #333;
-  padding: 20px;
-  background: #050505;
-  box-shadow: 0 0 60px rgba(0, 180, 255, 0.03), inset 0 0 80px rgba(0, 0, 0, 0.8);
-  position: relative;
-  z-index: 1;
+/* ============================================================
+   NAKŁADKI CRT / SCANLINE (efekty retro)
+   ============================================================ */
+.crt-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9998;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.4) 0px,
+        rgba(0, 0, 0, 0.05) 2px,
+        transparent 3px,
+        transparent 5px
+    );
 }
 
-/* ===== TŁO Z GRAFIKĄ (subtelne efekty) ===== */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background:
-    radial-gradient(circle at 10% 20%, rgba(0, 180, 255, 0.02) 0%, transparent 60%),
-    radial-gradient(circle at 90% 80%, rgba(180, 80, 255, 0.015) 0%, transparent 50%),
-    repeating-linear-gradient(45deg, rgba(255,255,255,0.003) 0px, rgba(255,255,255,0.003) 2px, transparent 2px, transparent 10px);
-  pointer-events: none;
-  z-index: 0;
+.scanline {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: rgba(0, 255, 100, 0.06);
+    pointer-events: none;
+    z-index: 9999;
+    animation: scanMove 7s linear infinite;
+    opacity: 0.5;
 }
 
-/* ===== NAGŁÓWEK ===== */
+@keyframes scanMove {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(100vh);
+    }
+}
+
+/* ============================================================
+   KONTENER GŁÓWNY – TERMINAL
+   ============================================================ */
+.terminal {
+    max-width: 1200px;
+    width: 100%;
+    background: #0c0c0c;
+    border: 1px solid #2a2a2a;
+    padding: 2rem 2rem 1.5rem;
+    box-shadow: 0 0 40px rgba(0, 200, 80, 0.03), inset 0 0 60px rgba(0, 0, 0, 0.8);
+    border-radius: 6px;
+    position: relative;
+    animation: flicker 0.2s infinite alternate;
+}
+
+@keyframes flicker {
+    0% {
+        opacity: 0.98;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* ============================================================
+   NAGŁÓWEK – DUŻY NAPIS "Waro Soulmate"
+   ============================================================ */
 .terminal-header {
-  border-bottom: 1px solid #444;
-  padding-bottom: 6px;
-  margin-bottom: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: 8px 12px;
+    border-bottom: 1px dashed #2e2e2e;
+    padding-bottom: 1.2rem;
+    margin-bottom: 2.2rem;
 }
 
-.brand {
-  color: #fff;
-  font-size: 18px;
-  letter-spacing: 2px;
-  background: linear-gradient(135deg, #ffe6f0, #d9b3ff, #a8d0ff);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-weight: 800;
-}
-
-.badge {
-  color: #666;
-  font-weight: normal;
-  font-size: 11px;
-  letter-spacing: 0.3px;
-  margin-left: 8px;
-}
-
-.status {
-  font-size: 11px;
-  color: #555;
-}
-
-.dot-green {
-  color: #66ff66;
-}
-
-/* ===== HERO – WIELKI NAPIS ===== */
-.hero {
-  position: relative;
-  width: 100%;
-  height: 70vh;
-  min-height: 400px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  margin-bottom: 30px;
-  border: 1px solid #2a2a2a;
-  background:
-    radial-gradient(circle at 20% 30%, rgba(255, 180, 200, 0.08) 0%, transparent 60%),
-    radial-gradient(circle at 80% 70%, rgba(120, 200, 255, 0.06) 0%, transparent 50%),
-    linear-gradient(145deg, #0a0810 0%, #1a0f1a 40%, #0f1520 100%);
-}
-
-.hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image:
-    radial-gradient(circle at 10% 90%, rgba(255, 140, 200, 0.1) 0%, transparent 40%),
-    radial-gradient(circle at 95% 10%, rgba(100, 180, 255, 0.12) 0%, transparent 45%),
-    repeating-linear-gradient(45deg, rgba(255,255,255,0.01) 0px, rgba(255,255,255,0.01) 4px, transparent 4px, transparent 12px);
-  pointer-events: none;
-  z-index: 1;
-}
-
-.hero-title {
-  position: relative;
-  z-index: 2;
-  font-size: clamp(4rem, 16vw, 8rem);
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  background: linear-gradient(135deg, #ffe6f0, #d9b3ff, #a8d0ff);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 40px rgba(180, 100, 255, 0.15);
-  padding: 0.2em 0.6em;
-  text-align: center;
-  font-family: 'Consolas', 'Lucida Console', monospace;
-  transform: scale(1.02);
-  transition: transform 0.3s ease, text-shadow 0.3s ease;
-}
-
-.hero-title:hover {
-  transform: scale(1.05);
-  text-shadow: 0 0 60px rgba(180, 100, 255, 0.25);
-}
-
-.scroll-hint {
-  position: absolute;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 3;
-  color: rgba(255, 255, 255, 0.3);
-  font-size: 0.8rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(4px);
-  padding: 0.4rem 1.2rem;
-  border-radius: 30px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  pointer-events: none;
-  animation: floatDown 2.8s infinite ease-in-out;
-}
-
-@keyframes floatDown {
-  0% { transform: translateX(-50%) translateY(0); opacity: 0.3; }
-  50% { transform: translateX(-50%) translateY(8px); opacity: 0.8; }
-  100% { transform: translateX(-50%) translateY(0); opacity: 0.3; }
-}
-
-/* ===== GALERIA ===== */
-.gallery-section {
-  padding: 10px 0 10px;
-  border-top: 1px solid #2a2a2a;
-  margin-top: 10px;
-}
-
-.gallery-container {
-  max-width: 100%;
-  margin: 0 auto;
-}
-
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
-  justify-items: center;
-  align-items: start;
-}
-
-.gallery-item {
-  width: 100%;
-  max-width: 320px;
-  background: rgba(8, 8, 8, 0.8);
-  border: 1px solid #333;
-  padding: 10px 10px 12px;
-  transition: border-color 0.2s, background 0.2s, transform 0.25s;
-  display: flex;
-  flex-direction: column;
-}
-
-.gallery-item:hover {
-  border-color: #5a5a5a;
-  background: rgba(12, 12, 12, 0.9);
-  transform: translateY(-4px);
-}
-
-.gallery-item img {
-  display: block;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-  background: #0a0a0a;
-  border: 1px solid #2a2a2a;
-  transition: filter 0.3s, border-color 0.3s;
-  filter: brightness(0.92) contrast(1.05);
-}
-
-.gallery-item img:hover {
-  filter: brightness(1.02) contrast(1.08);
-  border-color: #555;
-}
-
-.img-label {
-  margin-top: 8px;
-  text-align: center;
-  font-size: 0.8rem;
-  letter-spacing: 0.06em;
-  color: rgba(200, 180, 220, 0.7);
-  border-top: 1px solid #2a2a2a;
-  padding-top: 6px;
-  text-transform: uppercase;
-}
-
-.img-status {
-  text-align: center;
-  font-size: 0.65rem;
-  color: #444;
-  margin-top: 4px;
-  letter-spacing: 0.1em;
-  transition: color 0.2s;
-}
-
-.gallery-item:hover .img-status {
-  color: #66ff66;
-}
-
-/* ===== STOPKA GALERII ===== */
-.gallery-footer {
-  margin-top: 20px;
-  padding-top: 12px;
-  border-top: 1px solid #2a2a2a;
-  font-size: 12px;
-  color: #555;
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 4px 12px;
+.title-line {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 2.8rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #d4ffd4;
+    text-shadow: 0 0 12px rgba(80, 255, 120, 0.15);
 }
 
 .prompt {
-  color: #666;
+    color: #3acf6b;
+    font-weight: 400;
+    font-size: 2.6rem;
+    margin-right: 6px;
 }
 
-.green {
-  color: #66ff66;
+.title {
+    background: linear-gradient(135deg, #b0ffb0, #6fdf8f);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+    letter-spacing: 1px;
 }
 
-/* ===== STOPKA GŁÓWNA ===== */
-.terminal-footer {
-  border-top: 1px dashed #666;
-  margin-top: 20px;
-  padding-top: 14px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 8px;
-  font-size: 11px;
-  color: #555;
-}
-
-.cursor-block {
-  display: inline-block;
-  width: 10px;
-  height: 16px;
-  background: #88ccff;
-  opacity: 0.5;
-  animation: blink 1s step-end infinite;
-  vertical-align: text-bottom;
-  margin-left: 4px;
+.cursor-blink {
+    color: #3acf6b;
+    font-weight: 300;
+    animation: blink 1.2s step-end infinite;
+    margin-left: 4px;
 }
 
 @keyframes blink {
-  0%, 100% { opacity: 0.5; }
-  50% { opacity: 0; }
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
 }
 
-/* ===== RESPONSYWNOŚĆ ===== */
-@media (max-width: 700px) {
-  body {
-    padding: 10px;
-  }
-
-  .terminal-wrapper {
-    padding: 14px;
-  }
-
-  .hero {
-    height: 50vh;
-    min-height: 300px;
-  }
-
-  .gallery-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
-  }
-
-  .gallery-item {
-    max-width: 100%;
-  }
+.subtitle {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: #5a6a5a;
+    margin-top: 0.3rem;
+    padding-left: 0.2rem;
+    border-left: 2px solid #1f3a1f;
+    padding-left: 12px;
 }
 
-@media (max-width: 480px) {
-  .gallery-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
+.path {
+    color: #5f8b5f;
+}
 
-  .hero-title {
-    font-size: clamp(3rem, 14vw, 4.5rem);
-  }
+.status {
+    color: #3acf6b;
+    font-weight: 600;
+    letter-spacing: 1px;
+    font-size: 0.8rem;
+    background: #112211;
+    padding: 0.1rem 0.8rem;
+    border-radius: 12px;
+    border: 1px solid #2a5a2a;
+}
 
-  .terminal-header {
+/* ============================================================
+   SIATKA PRAC – 4 KARTY
+   ============================================================ */
+.works-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin: 2rem 0 2.5rem;
+}
+
+.work-card {
+    background: #0f0f0f;
+    border: 1px solid #242424;
+    padding: 0.9rem 0.9rem 0.8rem;
+    transition: border 0.2s, box-shadow 0.2s;
+    border-radius: 4px;
+    display: flex;
     flex-direction: column;
-    align-items: flex-start;
-  }
+}
 
-  .brand {
-    font-size: 16px;
-  }
+.work-card:hover {
+    border-color: #3a7a4a;
+    box-shadow: 0 0 20px rgba(50, 200, 80, 0.04);
+}
+
+.work-header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    border-bottom: 1px dotted #222;
+    padding-bottom: 0.4rem;
+    margin-bottom: 0.7rem;
+}
+
+.badge {
+    font-size: 0.65rem;
+    color: #3a7a4a;
+    background: #162016;
+    padding: 0.1rem 0.5rem;
+    border-radius: 2px;
+    letter-spacing: 0.5px;
+    border: 1px solid #1f3a1f;
+}
+
+.work-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #d0e8d0;
+    letter-spacing: 0.3px;
+}
+
+.work-preview {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100px;
+    background: #0a0a0a;
+    border: 1px solid #1c1c1c;
+    margin: 0.5rem 0 0.7rem;
+    border-radius: 2px;
+}
+
+.placeholder-art {
+    font-size: 3.2rem;
+    color: #3a6a3a;
+    opacity: 0.7;
+    filter: drop-shadow(0 0 6px rgba(60, 200, 80, 0.1));
+}
+
+.work-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 0.7rem;
+    font-size: 0.7rem;
+    color: #6a8a6a;
+    margin-top: 0.2rem;
+}
+
+.tag {
+    background: #151f15;
+    padding: 0.05rem 0.6rem;
+    border-radius: 10px;
+    border: 1px solid #1e331e;
+    color: #8ab88a;
+}
+
+.date {
+    margin-left: auto;
+    color: #4a5a4a;
+    font-size: 0.65rem;
+    border-left: 1px solid #1f2a1f;
+    padding-left: 0.6rem;
+}
+
+/* ============================================================
+   STOPKA / KONTAKT
+   ============================================================ */
+.terminal-footer {
+    border-top: 1px dashed #222;
+    padding-top: 1.4rem;
+    margin-top: 0.4rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1rem 2rem;
+}
+
+.contact-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.contact-line {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    font-size: 0.9rem;
+    color: #b0c8b0;
+}
+
+.prompt-small {
+    color: #3acf6b;
+    font-weight: 700;
+    font-size: 0.8rem;
+    width: 1.2rem;
+}
+
+.contact-label {
+    color: #6a8a6a;
+    min-width: 60px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.contact-value {
+    color: #d4e8d4;
+    font-weight: 400;
+    word-break: break-all;
+    border-bottom: 1px dotted #2a3a2a;
+    padding-bottom: 1px;
+}
+
+.footer-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    color: #4a6a4a;
+    background: #0f140f;
+    padding: 0.3rem 1rem;
+    border-radius: 20px;
+    border: 1px solid #1a2a1a;
+}
+
+.cursor-blink-small {
+    color: #3acf6b;
+    animation: blink 1.2s step-end infinite;
+}
+
+.sys-msg {
+    color: #8aaa8a;
+}
+
+/* ============================================================
+   RESPONSYWNOŚĆ
+   ============================================================ */
+@media (max-width: 950px) {
+    .works-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.2rem;
+    }
+    .title-line {
+        font-size: 2.4rem;
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 550px) {
+    .terminal {
+        padding: 1.2rem;
+    }
+    .works-grid {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+    }
+    .title-line {
+        font-size: 2rem;
+    }
+    .terminal-footer {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .footer-status {
+        justify-content: center;
+    }
+    .contact-line {
+        flex-wrap: wrap;
+    }
 }
