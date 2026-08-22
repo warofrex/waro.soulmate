@@ -4,50 +4,90 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Waro Soulmate · galeria</title>
-  <!-- podłączamy zewnętrzny arkusz CSS -->
+  <title>Waro Soulmate · terminal gallery</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- === SEKCJA HERO (WARO SOULMATE + GRAFIKA TŁA) === -->
-  <section class="hero">
-    <h1 class="hero-title">Waro Soulmate</h1>
-    <div class="scroll-hint">⬇ przewiń ⬇</div>
-  </section>
+  <div class="terminal-wrapper">
 
-  <!-- === GALERIA (4 GRAFIKI) === -->
-  <section class="gallery-section" id="galeria">
-    <div class="gallery-container">
-      <div class="gallery-grid">
-        <!-- 1. grafika – podmienić src na własną -->
-        <div class="gallery-item">
-          <img src="WARO55.png" alt="Grafika 1 — Waro Soulmate" loading="lazy" />
-          <div class="img-label">✦ esencja ✦</div>
-        </div>
-        <!-- 2. grafika -->
-        <div class="gallery-item">
-          <img src="WARO2.png" alt="Grafika 2 — Waro Soulmate" loading="lazy" />
-          <div class="img-label">✦ wibracja ✦</div>
-        </div>
-        <!-- 3. grafika -->
-        <div class="gallery-item">
-          <img src="WARO3.png" alt="Grafika 3 — Waro Soulmate" loading="lazy" />
-          <div class="img-label">✦ połączenie ✦</div>
-        </div>
-        <!-- 4. grafika -->
-        <div class="gallery-item">
-          <img src="WARO4.png" alt="Grafika 4 — Waro Soulmate" loading="lazy" />
-          <div class="img-label">✦ harmonia ✦</div>
-        </div>
+    <!-- NAGŁÓWEK -->
+    <header class="terminal-header">
+      <div>
+        <span class="brand">Waro Soulmate</span>
+        <span class="badge">// GALLERY v1.0</span>
       </div>
-    </div>
-  </section>
+      <div class="status">
+        <span class="dot-green">●</span> ONLINE
+      </div>
+    </header>
 
-  <!-- stopka (opcjonalna) -->
-  <footer>
-    <span>Waro Soulmate · galeria 4 grafik</span>
-  </footer>
+    <!-- HERO – WIELKI NAPIS + GRAFIKA W TLE -->
+    <section class="hero">
+      <h1 class="hero-title">Waro Soulmate</h1>
+      <div class="scroll-hint">⬇ przewiń ⬇</div>
+    </section>
+
+    <!-- GALERIA -->
+    <section class="gallery-section">
+      <div class="gallery-container">
+
+        <div class="gallery-grid">
+          <!-- 1 -->
+          <div class="gallery-item">
+            <img src="WARO55" alt="Grafika 1" loading="lazy" />
+            <div class="img-label">✦ esencja ✦</div>
+            <div class="img-status">[LOADED]</div>
+          </div>
+          <!-- 2 -->
+          <div class="gallery-item">
+            <img src="WARO2" alt="Grafika 2" loading="lazy" />
+            <div class="img-label">✦ wibracja ✦</div>
+            <div class="img-status">[LOADED]</div>
+          </div>
+          <!-- 3 -->
+          <div class="gallery-item">
+            <img src="WARO3" alt="Grafika 3" loading="lazy" />
+            <div class="img-label">✦ połączenie ✦</div>
+            <div class="img-status">[LOADED]</div>
+          </div>
+          <!-- 4 -->
+          <div class="gallery-item">
+            <img src="WARO4" alt="Grafika 4" loading="lazy" />
+            <div class="img-label">✦ harmonia ✦</div>
+            <div class="img-status">[LOADED]</div>
+          </div>
+        </div>
+
+        <!-- linia statusu galerii -->
+        <div class="gallery-footer">
+          <span class="prompt">$</span> gallery status: <span class="green">4 assets loaded</span>
+          <span style="color:#444;margin-left:16px;">//</span>
+          <span style="color:#555;font-size:11px;">resolution: 400x400</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- STOPKA -->
+    <footer class="terminal-footer">
+      <div>
+        <span style="color:#555;">[</span>
+        <span style="color:#88ccff;">Waro</span>
+        <span style="color:#555;">::</span>
+        <span style="color:#d9b3ff;">Soulmate</span>
+        <span style="color:#555;">]</span>
+        <span style="color:#444;margin-left:8px;">// terminal gallery</span>
+      </div>
+      <div>
+        <span style="color:#555;">SYSTEM</span>
+        <span style="color:#444;">|</span>
+        <span class="dot-green">●</span> ONLINE
+        <span class="cursor-block"></span>
+      </div>
+    </footer>
+
+  </div>
 
 </body>
 </html>
