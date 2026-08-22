@@ -125,7 +125,7 @@ function getSampleFiles(year) {
             'WARO55',
             'WARO3',
             'WARO4',
-            'WARO5',
+            'WARO5'
             
         ]
     };
