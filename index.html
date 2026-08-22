@@ -22,82 +22,24 @@
                 <span class="cursor-blink">█</span>
             </div>
             <div class="subtitle">
-                <span class="path">~/portfolio/works</span>
+                <span class="path">~/portfolio/gallery</span>
                 <span class="status">[online]</span>
             </div>
         </header>
 
-        <!-- === SIATKA PRAC (4) === -->
-        <section class="works-grid">
+        <!-- === FILTRY LAT === -->
+        <div class="filter-bar">
+            <span class="filter-label">[FILTER]</span>
+            <button class="filter-btn active" data-year="all">wszystkie</button>
+            <button class="filter-btn" data-year="2025">2025</button>
+            <button class="filter-btn" data-year="2024">2024</button>
+            <button class="filter-btn" data-year="2023">2023</button>
+            <span class="filter-count" id="countDisplay">znaleziono: 0</span>
+        </div>
 
-            <!-- PRACA 1 -->
-            <article class="work-card">
-                <div class="work-header">
-                    <span class="badge">[PROJ-01]</span>
-                    <span class="work-name">projekt · mgła</span>
-                </div>
-                <div class="work-preview">
-                    <!-- ZAMIAST TEGO: <div class="placeholder-art">◈</div> -->
-                    <img src="WARO55.png" alt="projekt mgła" style="width:100%;height:auto;display:block;" />
-                </div>
-                <div class="work-meta">
-                    <span class="tag">#koncept</span>
-                    <span class="tag">#cyber</span>
-                    <span class="date">2026</span>
-                </div>
-            </article>
-
-            <!-- PRACA 2 -->
-            <article class="work-card">
-                <div class="work-header">
-                    <span class="badge">[PROJ-02]</span>
-                    <span class="work-name">linia · snu</span>
-                </div>
-                  <div class="work-preview">
-                    <!-- ZAMIAST TEGO: <div class="placeholder-art">◈</div> -->
-                    <img src="WARO2.png" alt="projekt mgła" style="width:100%;height:auto;display:block;" />
-                </div>
-                <div class="work-meta">
-                    <span class="tag">#ilustracja</span>
-                    <span class="tag">#portret</span>
-                    <span class="date">2025</span>
-                </div>
-            </article>
-
-            <!-- PRACA 3 -->
-            <article class="work-card">
-                <div class="work-header">
-                    <span class="badge">[PROJ-03]</span>
-                    <span class="work-name">echo · terminal</span>
-                </div>
-                  <div class="work-preview">
-                    <!-- ZAMIAST TEGO: <div class="placeholder-art">◈</div> -->
-                    <img src="WARO3.png" alt="projekt mgła" style="width:100%;height:auto;display:block;" />
-                </div>
-                <div class="work-meta">
-                    <span class="tag">#UI</span>
-                    <span class="tag">#retro</span>
-                    <span class="date">2025</span>
-                </div>
-            </article>
-
-            <!-- PRACA 4 -->
-            <article class="work-card">
-                <div class="work-header">
-                    <span class="badge">[PROJ-04]</span>
-                    <span class="work-name">anthurium · dat</span>
-                </div>
-                 <div class="work-preview">
-                    <!-- ZAMIAST TEGO: <div class="placeholder-art">◈</div> -->
-                    <img src="WARO4.png" alt="projekt mgła" style="width:100%;height:auto;display:block;" />
-                </div>
-                <div class="work-meta">
-                    <span class="tag">#postać</span>
-                    <span class="tag">#lore</span>
-                    <span class="date">2026</span>
-                </div>
-            </article>
-
+        <!-- === SIATKA PRAC === -->
+        <section class="works-grid" id="galleryGrid">
+            <!-- prace będą wstawiane dynamicznie przez JavaScript -->
         </section>
 
         <!-- === STOPKA + KONTAKT === -->
@@ -121,11 +63,12 @@
             </div>
             <div class="footer-status">
                 <span class="cursor-blink-small">█</span>
-                <span class="sys-msg">SYSTEM :: READY — wszystkie prace zarchiwizowane</span>
+                <span class="sys-msg" id="systemMsg">SYSTEM :: SCANNING_FILES...</span>
             </div>
         </footer>
 
     </main>
 
+    <script src="script.js"></script>
 </body>
 </html>
