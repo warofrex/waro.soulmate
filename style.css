@@ -1,4 +1,269 @@
 /* ============================================================
+   RESET / BAZA
+   ============================================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #0b0b0b;
+    font-family: 'Consolas', 'Lucida Console', 'Courier New', monospace;
+    color: #d4ffd4;
+    overflow-x: hidden;
+}
+
+/* ============================================================
+   NAKŁADKI CRT
+   ============================================================ */
+.crt-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9998;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.4) 0px,
+        rgba(0, 0, 0, 0.05) 2px,
+        transparent 3px,
+        transparent 5px
+    );
+}
+
+.scanline {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: rgba(0, 255, 100, 0.05);
+    pointer-events: none;
+    z-index: 9999;
+    animation: scanMove 7s linear infinite;
+    opacity: 0.5;
+}
+
+@keyframes scanMove {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100vh); }
+}
+
+/* ============================================================
+   SEKCJA GLITCH
+   ============================================================ */
+.glitch-section {
+    min-height: 100vh;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #0a0a0a;
+    position: relative;
+    overflow: hidden;
+}
+
+.glitch-container {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+}
+
+/* ============================================================
+   NAPIS GŁÓWNY – CZYSTY, BIELSKI
+   ============================================================ */
+.glitch-title {
+    font-size: clamp(3rem, 12vw, 8rem);
+    font-weight: 900;
+    color: #ffffff;
+    text-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+    letter-spacing: 4px;
+    position: relative;
+    z-index: 2;
+    user-select: none;
+    font-family: 'Consolas', 'Lucida Console', monospace;
+}
+
+/* ============================================================
+   AGRESYWNE WARSTWY GLITCH – SZYBKIE, KONTRASTOWE
+   ============================================================ */
+.glitch-layer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: clamp(3rem, 12vw, 8rem);
+    font-weight: 900;
+    letter-spacing: 4px;
+    pointer-events: none;
+    z-index: 1;
+    user-select: none;
+    font-family: 'Consolas', 'Lucida Console', monospace;
+    mix-blend-mode: screen;
+}
+
+/* WARSTWA 1 – CZERWONA, SZYBKA */
+.glitch-1 {
+    color: #ff0040;
+    animation: glitch1 0.15s infinite;
+    clip-path: inset(0 0 70% 0);
+    opacity: 0.9;
+}
+
+/* WARSTWA 2 – NIEBIESKA, SZYBKA */
+.glitch-2 {
+    color: #00e5ff;
+    animation: glitch2 0.2s infinite;
+    clip-path: inset(70% 0 0 0);
+    opacity: 0.9;
+}
+
+/* WARSTWA 3 – BIAŁA, BŁYSKOWA */
+.glitch-3 {
+    color: #ffffff;
+    animation: glitch3 0.12s infinite;
+    clip-path: inset(30% 0 50% 0);
+    opacity: 0.7;
+}
+
+/* ============================================================
+   SZYBKIE, NIEREGULARNE ANIMACJE GLITCH
+   ============================================================ */
+@keyframes glitch1 {
+    0% { transform: translate(calc(-50% + 0px), -50%); }
+    10% { transform: translate(calc(-50% + 25px), -50%); }
+    20% { transform: translate(calc(-50% - 20px), -50%); }
+    30% { transform: translate(calc(-50% + 35px), -50%); }
+    40% { transform: translate(calc(-50% - 30px), -50%); }
+    50% { transform: translate(calc(-50% + 15px), -50%); }
+    60% { transform: translate(calc(-50% - 40px), -50%); }
+    70% { transform: translate(calc(-50% + 45px), -50%); }
+    80% { transform: translate(calc(-50% - 15px), -50%); }
+    90% { transform: translate(calc(-50% + 20px), -50%); }
+    100% { transform: translate(calc(-50% + 0px), -50%); }
+}
+
+@keyframes glitch2 {
+    0% { transform: translate(calc(-50% + 0px), -50%); }
+    15% { transform: translate(calc(-50% - 35px), -50%); }
+    30% { transform: translate(calc(-50% + 30px), -50%); }
+    45% { transform: translate(calc(-50% - 25px), -50%); }
+    60% { transform: translate(calc(-50% + 40px), -50%); }
+    75% { transform: translate(calc(-50% - 45px), -50%); }
+    90% { transform: translate(calc(-50% + 10px), -50%); }
+    100% { transform: translate(calc(-50% + 0px), -50%); }
+}
+
+@keyframes glitch3 {
+    0% { transform: translate(calc(-50% + 0px), -50%); opacity: 0.7; }
+    5% { transform: translate(calc(-50% - 50px), -50%); opacity: 1; }
+    10% { transform: translate(calc(-50% + 60px), -50%); opacity: 0.3; }
+    15% { transform: translate(calc(-50% - 30px), -50%); opacity: 0.9; }
+    20% { transform: translate(calc(-50% + 40px), -50%); opacity: 0.4; }
+    25% { transform: translate(calc(-50% - 70px), -50%); opacity: 1; }
+    30% { transform: translate(calc(-50% + 20px), -50%); opacity: 0.6; }
+    35% { transform: translate(calc(-50% - 40px), -50%); opacity: 0.8; }
+    40% { transform: translate(calc(-50% + 50px), -50%); opacity: 0.2; }
+    45% { transform: translate(calc(-50% - 20px), -50%); opacity: 1; }
+    50% { transform: translate(calc(-50% + 30px), -50%); opacity: 0.5; }
+    55% { transform: translate(calc(-50% - 60px), -50%); opacity: 0.9; }
+    60% { transform: translate(calc(-50% + 10px), -50%); opacity: 0.3; }
+    65% { transform: translate(calc(-50% - 45px), -50%); opacity: 1; }
+    70% { transform: translate(calc(-50% + 55px), -50%); opacity: 0.6; }
+    75% { transform: translate(calc(-50% - 25px), -50%); opacity: 0.8; }
+    80% { transform: translate(calc(-50% + 35px), -50%); opacity: 0.4; }
+    85% { transform: translate(calc(-50% - 50px), -50%); opacity: 1; }
+    90% { transform: translate(calc(-50% + 15px), -50%); opacity: 0.5; }
+    95% { transform: translate(calc(-50% - 30px), -50%); opacity: 0.9; }
+    100% { transform: translate(calc(-50% + 0px), -50%); opacity: 0.7; }
+}
+
+/* ============================================================
+   TEKSTY W TLE
+   ============================================================ */
+.glitch-texts {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.glitch-word {
+    position: absolute;
+    color: rgba(58, 207, 107, 0.08);
+    font-size: clamp(0.7rem, 1.8vw, 1.6rem);
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    animation: wordPulse 5s ease-in-out infinite;
+}
+
+@keyframes wordPulse {
+    0%, 100% {
+        opacity: 0.05;
+        transform: scale(0.95);
+    }
+    25% {
+        opacity: 0.15;
+        transform: scale(1.05);
+    }
+    50% {
+        opacity: 0.25;
+        transform: scale(1.1);
+    }
+    75% {
+        opacity: 0.10;
+        transform: scale(1.02);
+    }
+}
+
+/* ============================================================
+   STRZAŁKA PRZEWIJANIA
+   ============================================================ */
+.scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #3a5a3a;
+    font-size: 1.5rem;
+    text-align: center;
+    animation: bounce 2s infinite;
+    cursor: pointer;
+    z-index: 3;
+}
+
+.scroll-indicator span {
+    display: block;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateX(-50%) translateY(0);
+    }
+    50% {
+        transform: translateX(-50%) translateY(10px);
+    }
+}
+
+/* ============================================================
    ABOUT ME – RETRO TERMINAL
    ============================================================ */
 .about-section {
@@ -204,9 +469,352 @@
 }
 
 /* ============================================================
+   SEKCJA PORTFOLIO
+   ============================================================ */
+.portfolio-section {
+    min-height: 100vh;
+    background: #0c0c0c;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.terminal {
+    max-width: 1400px;
+    width: 100%;
+    background: #0a0a0a;
+    border: 1px solid #2a2a2a;
+    padding: 2rem 2rem 1.5rem;
+    box-shadow: 0 0 40px rgba(0, 200, 80, 0.02), inset 0 0 60px rgba(0, 0, 0, 0.8);
+    border-radius: 6px;
+    position: relative;
+}
+
+/* ============================================================
+   NAGŁÓWEK PORTFOLIO
+   ============================================================ */
+.terminal-header {
+    border-bottom: 1px dashed #2e2e2e;
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.title-line {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #d4ffd4;
+}
+
+.prompt {
+    color: #3acf6b;
+    font-weight: 400;
+}
+
+.title {
+    background: linear-gradient(135deg, #b0ffb0, #6fdf8f);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.cursor-blink {
+    color: #3acf6b;
+    animation: blink 1.2s step-end infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+.subtitle {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: #5a6a5a;
+    margin-top: 0.3rem;
+    padding-left: 12px;
+    border-left: 2px solid #1f3a1f;
+}
+
+.path {
+    color: #5f8b5f;
+}
+
+.status {
+    color: #3acf6b;
+    font-weight: 600;
+    font-size: 0.8rem;
+    background: #112211;
+    padding: 0.1rem 0.8rem;
+    border-radius: 12px;
+    border: 1px solid #2a5a2a;
+}
+
+/* ============================================================
+   FILTRY
+   ============================================================ */
+.filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6rem 1rem;
+    padding: 0.8rem 1rem;
+    background: #0a0f0a;
+    border: 1px solid #1a2a1a;
+    border-radius: 4px;
+    margin-bottom: 2rem;
+}
+
+.filter-label {
+    color: #4a7a4a;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.filter-btn {
+    background: transparent;
+    border: 1px solid #1f331f;
+    color: #6a8a6a;
+    padding: 0.25rem 1rem;
+    font-family: inherit;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.25s;
+    border-radius: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.filter-btn:hover {
+    border-color: #3a7a3a;
+    color: #a0d0a0;
+    background: #0f1a0f;
+}
+
+.filter-btn.active {
+    border-color: #3acf6b;
+    color: #b0ffb0;
+    background: #112211;
+    box-shadow: 0 0 15px rgba(58, 207, 107, 0.08);
+}
+
+.filter-count {
+    color: #4a6a4a;
+    font-size: 0.75rem;
+    margin-left: auto;
+    border-left: 1px solid #1a2a1a;
+    padding-left: 1rem;
+}
+
+/* ============================================================
+   SIATKA PRAC
+   ============================================================ */
+.works-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.5rem;
+    margin: 0 0 2rem;
+    min-height: 300px;
+}
+
+.work-card {
+    background: #0f0f0f;
+    border: 1px solid #1e1e1e;
+    padding: 0.8rem;
+    transition: all 0.3s;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+}
+
+.work-card:hover {
+    border-color: #3a7a4a;
+    box-shadow: 0 0 25px rgba(50, 200, 80, 0.05);
+}
+
+.work-header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    border-bottom: 1px dotted #1a1a1a;
+    padding-bottom: 0.4rem;
+    margin-bottom: 0.7rem;
+}
+
+.badge {
+    font-size: 0.6rem;
+    color: #3a7a4a;
+    background: #0f1a0f;
+    padding: 0.1rem 0.5rem;
+    border-radius: 2px;
+    border: 1px solid #1a2a1a;
+}
+
+.work-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #c8e0c8;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.work-preview {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 160px;
+    background: #080a08;
+    border: 1px solid #161616;
+    margin: 0.4rem 0 0.6rem;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.work-preview img {
+    width: 100%;
+    height: 100%;
+    max-height: 200px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s;
+}
+
+.work-card:hover .work-preview img {
+    transform: scale(1.02);
+}
+
+.work-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.3rem 0.6rem;
+    font-size: 0.65rem;
+    color: #5a7a5a;
+    margin-top: 0.2rem;
+}
+
+.year-tag {
+    color: #4a6a4a;
+    font-size: 0.6rem;
+    border: 1px solid #1a2a1a;
+    padding: 0.05rem 0.5rem;
+    border-radius: 10px;
+    background: #0f140f;
+}
+
+/* ============================================================
+   STOPKA
+   ============================================================ */
+.terminal-footer {
+    border-top: 1px dashed #1a1a1a;
+    padding-top: 1.4rem;
+    margin-top: 0.4rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1rem 2rem;
+}
+
+.contact-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.contact-line {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    font-size: 0.85rem;
+    color: #b0c8b0;
+}
+
+.prompt-small {
+    color: #3acf6b;
+    font-weight: 700;
+    font-size: 0.8rem;
+    width: 1.2rem;
+}
+
+.contact-label {
+    color: #5a7a5a;
+    min-width: 60px;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.contact-value {
+    color: #d0e8d0;
+    font-weight: 400;
+    word-break: break-all;
+    border-bottom: 1px dotted #223222;
+    padding-bottom: 1px;
+}
+
+.footer-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.7rem;
+    color: #3a5a3a;
+    background: #0a100a;
+    padding: 0.3rem 1rem;
+    border-radius: 20px;
+    border: 1px solid #152015;
+}
+
+.cursor-blink-small {
+    color: #3acf6b;
+    animation: blink 1.2s step-end infinite;
+}
+
+.sys-msg {
+    color: #6a8a6a;
+}
+
+/* ============================================================
    RESPONSYWNOŚĆ
    ============================================================ */
 @media (max-width: 768px) {
+    .works-grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 1rem;
+    }
+    
+    .glitch-title,
+    .glitch-layer {
+        font-size: clamp(2.5rem, 10vw, 4rem);
+    }
+    
+    .terminal {
+        padding: 1rem;
+    }
+    
+    .filter-bar {
+        gap: 0.4rem;
+        padding: 0.6rem;
+    }
+    
+    .filter-btn {
+        font-size: 0.65rem;
+        padding: 0.15rem 0.6rem;
+    }
+    
+    .terminal-footer {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
     .about-content {
         flex-direction: column;
     }
@@ -225,6 +833,16 @@
 }
 
 @media (max-width: 480px) {
+    .works-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.8rem;
+    }
+    
+    .glitch-title,
+    .glitch-layer {
+        font-size: clamp(2rem, 8vw, 3rem);
+    }
+
     .about-container {
         padding: 1.2rem;
     }
