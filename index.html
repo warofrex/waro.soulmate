@@ -15,15 +15,11 @@
     <!-- === SEKCJA GLITCH === -->
     <section class="glitch-section">
         <div class="glitch-container">
-            <!-- Główny napis -->
             <h1 class="glitch-title">Waro Soulmate</h1>
-            
-            <!-- Agresywne warstwy glitch -->
             <div class="glitch-layer glitch-1" data-text="Waro Soulmate">Waro Soulmate</div>
             <div class="glitch-layer glitch-2" data-text="Waro Soulmate">Waro Soulmate</div>
             <div class="glitch-layer glitch-3" data-text="Waro Soulmate">Waro Soulmate</div>
             
-            <!-- Teksty w tle -->
             <div class="glitch-texts">
                 <span class="glitch-word" style="top:8%;left:3%;animation-delay:0s;">trust me</span>
                 <span class="glitch-word" style="top:15%;right:5%;animation-delay:0.5s;">fight corporations</span>
@@ -42,8 +38,6 @@
                 <span class="glitch-word" style="top:58%;left:75%;animation-delay:2.3s;">unique</span>
             </div>
         </div>
-        
-        <!-- Strzałka przewijania -->
         <div class="scroll-indicator">
             <span>▼</span>
             <span style="font-size:0.6rem;display:block;margin-top:0.3rem;">scroll down</span>
@@ -63,16 +57,13 @@
                 <div class="about-text">
                     <p>
                         <span class="highlight">Lorem ipsum</span> dolor sit amet, consectetur adipiscing elit. 
-                        Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                        Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                     </p>
                     <p>
-                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-                        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
                     </p>
                     <p>
-                        <span class="highlight">Sed ut perspiciatis</span> unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, 
-                        totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+                        <span class="highlight">Sed ut perspiciatis</span> unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
                     </p>
                 </div>
                 
@@ -94,12 +85,7 @@
                             <span class="stat-label">LOCATION</span>
                             <span class="stat-value">Terminal</span>
                         </div>
-                        <div class="stat-line">
-                            <span class="stat-label">UPTIME</span>
-                            <span class="stat-value">∞</span>
-                        </div>
                     </div>
-                    
                     <div class="about-tags">
                         <span class="tag">#creative</span>
                         <span class="tag">#digital</span>
@@ -109,7 +95,45 @@
                     </div>
                 </div>
             </div>
-            
+
+            <!-- === FILMY === -->
+            <div class="movies-section">
+                <button class="movies-toggle" id="moviesToggle">
+                    <span class="toggle-icon">▶</span>
+                    <span class="toggle-text">MOVIES_DATABASE</span>
+                    <span class="toggle-status">[click to expand]</span>
+                </button>
+                
+                <div class="movies-content" id="moviesContent">
+                    <div class="movies-grid">
+                        <div class="movie-category">
+                            <div class="category-header">
+                                <span class="category-icon">★</span>
+                                <span class="category-title">FAVORITES</span>
+                                <span class="category-count" id="favCount">0</span>
+                            </div>
+                            <div class="movie-list" id="favoritesList">
+                                <div class="loading-movies">⏳ ładowanie...</div>
+                            </div>
+                        </div>
+                        <div class="movie-category">
+                            <div class="category-header">
+                                <span class="category-icon">⌛</span>
+                                <span class="category-title">TO_WATCH</span>
+                                <span class="category-count" id="watchCount">0</span>
+                            </div>
+                            <div class="movie-list" id="watchlistList">
+                                <div class="loading-movies">⏳ ładowanie...</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="movies-footer">
+                        <span class="movies-path">~/movies.db</span>
+                        <span class="movies-source">[TMDB]</span>
+                    </div>
+                </div>
+            </div>
+
             <div class="about-footer">
                 <span class="about-path">~/about_me</span>
                 <span class="about-status">[READ-ONLY]</span>
