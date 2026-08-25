@@ -73,28 +73,6 @@ body {
 /* ============================================================
    GLITCH
    ============================================================ */
-.glitch-section {
-    min-height: 100vh;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background: #0a0a0a;
-    position: relative;
-    overflow: hidden;
-}
-
-.glitch-container {
-    position: relative;
-    width: 100%;
-    max-width: 1200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 60vh;
-}
-
 .glitch-title {
     font-size: clamp(3rem, 12vw, 8rem);
     font-weight: 900;
@@ -105,103 +83,9 @@ body {
     z-index: 2;
     user-select: none;
     font-family: 'Consolas', 'Lucida Console', monospace;
-}
 
-.glitch-layer {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: clamp(3rem, 12vw, 8rem);
-    font-weight: 900;
-    letter-spacing: 4px;
-    pointer-events: none;
-    z-index: 1;
-    user-select: none;
-    font-family: 'Consolas', 'Lucida Console', monospace;
-    mix-blend-mode: screen;
+    transition: transform 0.03s;
 }
-
-.glitch-1 {
-    color: #ff0040;
-    animation: glitch1 0.15s infinite;
-    clip-path: inset(0 0 70% 0);
-    opacity: 0.9;
-}
-
-.glitch-2 {
-    color: #00e5ff;
-    animation: glitch2 0.2s infinite;
-    clip-path: inset(70% 0 0 0);
-    opacity: 0.9;
-}
-
-.glitch-3 {
-    color: #ffffff;
-    animation: glitch3 0.12s infinite;
-    clip-path: inset(30% 0 50% 0);
-    opacity: 0.7;
-}
-
-@keyframes glitch1 {
-    0%, 100% { transform: translate(calc(-50% + 0px), -50%); }
-    10% { transform: translate(calc(-50% + 25px), -50%); }
-    20% { transform: translate(calc(-50% - 20px), -50%); }
-    30% { transform: translate(calc(-50% + 35px), -50%); }
-    40% { transform: translate(calc(-50% - 30px), -50%); }
-    50% { transform: translate(calc(-50% + 15px), -50%); }
-    60% { transform: translate(calc(-50% - 40px), -50%); }
-    70% { transform: translate(calc(-50% + 45px), -50%); }
-    80% { transform: translate(calc(-50% - 15px), -50%); }
-    90% { transform: translate(calc(-50% + 20px), -50%); }
-}
-
-@keyframes glitch2 {
-    0%, 100% { transform: translate(calc(-50% + 0px), -50%); }
-    15% { transform: translate(calc(-50% - 35px), -50%); }
-    30% { transform: translate(calc(-50% + 30px), -50%); }
-    45% { transform: translate(calc(-50% - 25px), -50%); }
-    60% { transform: translate(calc(-50% + 40px), -50%); }
-    75% { transform: translate(calc(-50% - 45px), -50%); }
-    90% { transform: translate(calc(-50% + 10px), -50%); }
-}
-
-@keyframes glitch3 {
-    0%, 100% { transform: translate(calc(-50% + 0px), -50%); opacity: 0.7; }
-    5% { transform: translate(calc(-50% - 50px), -50%); opacity: 1; }
-    10% { transform: translate(calc(-50% + 60px), -50%); opacity: 0.3; }
-    15% { transform: translate(calc(-50% - 30px), -50%); opacity: 0.9; }
-    20% { transform: translate(calc(-50% + 40px), -50%); opacity: 0.4; }
-    25% { transform: translate(calc(-50% - 70px), -50%); opacity: 1; }
-    30% { transform: translate(calc(-50% + 20px), -50%); opacity: 0.6; }
-    35% { transform: translate(calc(-50% - 40px), -50%); opacity: 0.8; }
-    40% { transform: translate(calc(-50% + 50px), -50%); opacity: 0.2; }
-    45% { transform: translate(calc(-50% - 20px), -50%); opacity: 1; }
-    50% { transform: translate(calc(-50% + 30px), -50%); opacity: 0.5; }
-}
-
-.glitch-texts {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 0;
-    overflow: hidden;
-}
-
-.glitch-word {
-    position: absolute;
-    color: rgba(58, 207, 107, 0.08);
-    font-size: clamp(0.7rem, 1.8vw, 1.6rem);
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    white-space: nowrap;
-    animation: wordPulse 5s ease-in-out infinite;
-}
-
 @keyframes wordPulse {
     0%, 100% { opacity: 0.05; transform: scale(0.95); }
     25% { opacity: 0.15; transform: scale(1.05); }
