@@ -17,7 +17,7 @@ async function fetchMoviesFromList(listId) {
     }
 
     try {
-        const url = `https://api.themoviedb.org/3/list/${listId}?api_key=${TMDB_API_KEY}&language=pl-PL`;
+        const url = `https://api.themoviedb.org/3/list/${listId}?api_key=${TMDB_API_KEY}&language=en-US`;
         const response = await fetch(url);
 
         if (!response.ok) {
