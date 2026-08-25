@@ -61,22 +61,11 @@ body {
    DELIKATNIEJSZY EFEKT CRT DLA ZDJĘĆ
    ============================================================ */
 
-/* Zmniejszamy intensywność nakładki tylko dla sekcji z obrazami */
-.portfolio-section .crt-overlay {
-    opacity: 0.05 !important;  /* Normalnie 0.4 */
-}
-
-.portfolio-section .scanline {
-    opacity: 0.02 !important;  /* Normalnie 0.5 */
-}
-
-/* Dla plakatów filmów w about me */
-.about-section .crt-overlay {
-    opacity: 0.05 !important;
-}
-
-.about-section .scanline {
-    opacity: 0.02 !important;
+.work-preview img,
+.movie-item img {
+    filter: none !important;
+    backdrop-filter: none !important;
+    image-rendering: auto;
 }
 
 
