@@ -4,8 +4,8 @@ const fs = require('fs');
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
 
 // === TUTAJ WPISZ ID TWOICH LIST Z TMDB ===
-const FAVORITE_LIST_ID = '123456';   // <-- ZASTĄP SWOIM ID
-const WATCHLIST_ID = '789012';      // <-- ZASTĄP SWOIM ID
+const FAVORITE_LIST_ID = '8688704';   // <-- ZASTĄP SWOIM ID
+const WATCHLIST_ID = '8688705';      // <-- ZASTĄP SWOIM ID
 
 async function fetchMoviesFromList(listId) {
     try {
