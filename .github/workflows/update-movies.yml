@@ -2,8 +2,13 @@ name: Update Movies Data
 
 on:
   schedule:
-    - cron: '0 0 * * 0'  # Co tydzień w niedzielę
-  workflow_dispatch:       # Możesz uruchomić ręcznie
+    - cron: '0 0 * * 0'
+  workflow_dispatch:
+
+# DODAJ TĘ SEKCJĘ
+permissions:
+  contents: write
+  pull-requests: write
 
 jobs:
   update:
@@ -11,12 +16,12 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4  # ZMIANA: v3 → v4
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4  # ZMIANA: v3 → v4
+        uses: actions/setup-node@v4
         with:
-          node-version: '22'        # ZMIANA: 18 → 22 (zalecana wersja LTS)
+          node-version: '22'
 
       - name: Update movies from TMDB
         env:
