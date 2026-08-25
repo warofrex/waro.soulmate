@@ -32,19 +32,34 @@ let FAVORITE_MOVIES = [];
 let WATCHLIST_MOVIES = [];
 
 async function loadMoviesData() {
+    console.log('🎬 Ładowanie danych filmów...');
+    
     try {
+        // Dodajemy timestamp, żeby ominąć cache przeglądarki
         const timestamp = Date.now();
         const response = await fetch(`movies-data.js?t=${timestamp}`);
-        const script = await response.text();
         
+        if (!response.ok) {
+            console.error(`❌ Błąd HTTP: ${response.status} - ${response.statusText}`);
+            return false;
+        }
+        
+        const script = await response.text();
+        console.log('📄 Otrzymano dane, długość:', script.length);
+        
+        // Bezpieczne wykonanie kodu
         const fn = new Function(script + '; return { FAVORITE_MOVIES, WATCHLIST_MOVIES };');
         const data = fn();
         
         FAVORITE_MOVIES = data.FAVORITE_MOVIES || [];
         WATCHLIST_MOVIES = data.WATCHLIST_MOVIES || [];
         
-        console.log(`🎬 Załadowano ${FAVORITE_MOVIES.length} ulubionych filmów`);
-        console.log(`🎬 Załadowano ${WATCHLIST_MOVIES.length} filmów do obejrzenia`);
+        console.log(`✅ Załadowano ${FAVORITE_MOVIES.length} ulubionych filmów`);
+        console.log(`✅ Załadowano ${WATCHLIST_MOVIES.length} filmów do obejrzenia`);
+        
+        if (FAVORITE_MOVIES.length > 0) {
+            console.log('📽️ Przykładowy film:', FAVORITE_MOVIES[0]);
+        }
         
         return true;
     } catch (error) {
@@ -60,7 +75,12 @@ async function loadMoviesData() {
 // ============================================================
 function loadMoviePosters(movies, containerId) {
     const container = document.getElementById(containerId);
-    if (!container) return;
+    if (!container) {
+        console.error(`❌ Nie znaleziono kontenera: ${containerId}`);
+        return;
+    }
+    
+    console.log(`📊 Ładowanie ${movies.length} filmów do ${containerId}`);
     
     if (!movies || movies.length === 0) {
         container.innerHTML = `
@@ -69,52 +89,81 @@ function loadMoviePosters(movies, containerId) {
         return;
     }
     
-    container.innerHTML = movies.map(movie => `
-        <div class="movie-item" title="${movie.title} (${movie.year})">
-            <img src="${movie.poster}" alt="${movie.title}" loading="lazy" 
-                 onerror="this.style.display='none';this.parentElement.innerHTML='<div style=\\'padding:1.5rem;text-align:center;color:#2a4a2a;font-size:0.7rem;\\'>🎬<br>${movie.title}</div>'">
-            <div class="movie-title">${movie.title}</div>
-            <div class="movie-year">${movie.year}</div>
-        </div>
-    `).join('');
+    container.innerHTML = movies.map((movie, index) => {
+        // Bezpieczne tworzenie tytułu
+        const title = movie.title || 'Brak tytułu';
+        const year = movie.year || 'N/A';
+        const poster = movie.poster || '';
+        
+        return `
+            <div class="movie-item" title="${title} (${year})">
+                <img src="${poster}" alt="${title}" loading="lazy" 
+                     onerror="this.style.display='none';this.parentElement.innerHTML='<div style=\\'padding:1.5rem;text-align:center;color:#2a4a2a;font-size:0.7rem;\\'>🎬<br>${title}</div>'">
+                <div class="movie-title">${title}</div>
+                <div class="movie-year">${year}</div>
+            </div>
+        `;
+    }).join('');
+    
+    console.log(`✅ Załadowano ${movies.length} plakatów do ${containerId}`);
 }
 
 // ============================================================
 // OBSŁUGA ROZWIJANIA SEKCJI FILMÓW
 // ============================================================
 document.addEventListener('DOMContentLoaded', async function() {
+    console.log('🚀 Strona załadowana, inicjalizacja...');
+    
     const toggle = document.getElementById('moviesToggle');
     const content = document.getElementById('moviesContent');
     const favCount = document.getElementById('favCount');
     const watchCount = document.getElementById('watchCount');
     
+    if (!toggle || !content) {
+        console.error('❌ Nie znaleziono elementów moviesToggle lub moviesContent');
+        return;
+    }
+    
     let isLoaded = false;
     
-    await loadMoviesData();
+    // Załaduj dane filmów od razu (nie czekamy na kliknięcie)
+    const dataLoaded = await loadMoviesData();
+    
+    if (dataLoaded) {
+        console.log('✅ Dane filmów załadowane pomyślnie');
+        // Aktualizuj liczniki od razu
+        favCount.textContent = FAVORITE_MOVIES.length;
+        watchCount.textContent = WATCHLIST_MOVIES.length;
+    } else {
+        console.warn('⚠️ Nie udało się załadować danych filmów');
+    }
     
     toggle.addEventListener('click', function() {
+        console.log('🔄 Kliknięto przycisk filmów');
         this.classList.toggle('active');
         content.classList.toggle('open');
         
         if (!isLoaded && content.classList.contains('open')) {
+            console.log('📽️ Ładowanie plakatów...');
             loadMoviePosters(FAVORITE_MOVIES, 'favoritesList');
             loadMoviePosters(WATCHLIST_MOVIES, 'watchlistList');
-            
-            favCount.textContent = FAVORITE_MOVIES.length;
-            watchCount.textContent = WATCHLIST_MOVIES.length;
-            
             isLoaded = true;
         }
     });
 });
 
 // ============================================================
-// SKANOWANIE GALERII
+// SKANOWANIE GALERII (reszta kodu)
 // ============================================================
 async function scanGallery() {
     const galleryGrid = document.getElementById('galleryGrid');
     const countDisplay = document.getElementById('countDisplay');
     const systemMsg = document.getElementById('systemMsg');
+    
+    if (!galleryGrid) {
+        console.error('❌ Nie znaleziono galleryGrid');
+        return;
+    }
     
     systemMsg.textContent = 'SYSTEM :: SCANNING_FILES...';
     
@@ -136,6 +185,9 @@ async function scanGallery() {
                             path: path,
                             exists: true
                         });
+                        console.log(`✅ ${year}/${filename} — znaleziono`);
+                    } else {
+                        console.warn(`⚠️ ${year}/${filename} — nie istnieje (${response.status})`);
                     }
                 } catch (error) {
                     console.warn(`⚠️ ${year}/${filename} — błąd:`, error);
@@ -170,6 +222,7 @@ function isSupported(filename) {
 
 function renderGallery(filter) {
     const galleryGrid = document.getElementById('galleryGrid');
+    if (!galleryGrid) return;
     
     const filtered = filter === 'all' 
         ? allImages 
@@ -216,6 +269,8 @@ function renderGallery(filter) {
 
 function updateCount(filter) {
     const countDisplay = document.getElementById('countDisplay');
+    if (!countDisplay) return;
+    
     const filtered = filter === 'all' 
         ? allImages 
         : allImages.filter(img => img.year === filter);
@@ -234,6 +289,7 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
     });
 });
 
+// Uruchom skanowanie galerii
 scanGallery();
 
 console.log('📂 Waro Soulmate Gallery');
