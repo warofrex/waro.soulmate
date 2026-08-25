@@ -73,6 +73,28 @@ body {
 /* ============================================================
    GLITCH
    ============================================================ */
+.glitch-section {
+    min-height: 100vh;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #0a0a0a;
+    position: relative;
+    overflow: hidden;
+}
+
+.glitch-container {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+}
+
 .glitch-title {
     font-size: clamp(3rem, 12vw, 8rem);
     font-weight: 900;
@@ -86,6 +108,46 @@ body {
 
     transition: transform 0.03s;
 }
+
+.glitch-layer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: clamp(3rem, 12vw, 8rem);
+    font-weight: 900;
+    letter-spacing: 4px;
+    pointer-events: none;
+    z-index: 1;
+    user-select: none;
+    font-family: 'Consolas', 'Lucida Console', monospace;
+    mix-blend-mode: screen;
+}
+
+
+.glitch-texts {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.glitch-word {
+    position: absolute;
+    color: rgba(58, 207, 107, 0.08);
+    font-size: clamp(0.7rem, 1.8vw, 1.6rem);
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    animation: wordPulse 5s ease-in-out infinite;
+    transition: transform 0.03s;
+}
+
 @keyframes wordPulse {
     0%, 100% { opacity: 0.05; transform: scale(0.95); }
     25% { opacity: 0.15; transform: scale(1.05); }
