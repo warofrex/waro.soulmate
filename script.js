@@ -1,83 +1,3 @@
-const glitchTitle = document.getElementById("glitchTitle");
-
-const originalText = "Waro Soulmate";
-
-const glitchChars = [
-    "█", "▓", "▒", "░",
-    "0", "1", "X", "#", "%",
-    "§", "∆", "¥", "µ", "ø", "Ξ"
-];
-
-const glitchFonts = [
-    "'Courier New', monospace",
-    "'Lucida Console', monospace",
-    "'Consolas', monospace",
-    "monospace"
-];
-
-function glitchTitleEffect() {
-    const duration = 120 + Math.random() * 180;
-    const endTime = Date.now() + duration;
-
-    const interval = setInterval(() => {
-
-        if (Date.now() >= endTime) {
-            clearInterval(interval);
-
-            glitchTitle.textContent = originalText;
-            glitchTitle.style.fontFamily =
-                "'Consolas', 'Lucida Console', monospace";
-            glitchTitle.style.transform = "translate(0, 0)";
-            glitchTitle.style.letterSpacing = "4px";
-
-            return;
-        }
-
-        // Losowe znaki
-        let glitched = originalText
-            .split("")
-            .map(char => {
-                if (char === " ") return " ";
-
-                return Math.random() < 0.25
-                    ? glitchChars[Math.floor(Math.random() * glitchChars.length)]
-                    : char;
-            })
-            .join("");
-
-        glitchTitle.textContent = glitched;
-
-        // Losowy font
-        glitchTitle.style.fontFamily =
-            glitchFonts[Math.floor(Math.random() * glitchFonts.length)];
-
-        // Bardzo niewielkie przesunięcie
-        const x = (Math.random() - 0.5) * 10;
-        const y = (Math.random() - 0.5) * 4;
-
-        glitchTitle.style.transform =
-            `translate(${x}px, ${y}px)`;
-
-        // Minimalna zmiana odstępów
-        glitchTitle.style.letterSpacing =
-            `${3 + Math.random() * 4}px`;
-
-    }, 25);
-}
-
-
-// Pierwszy glitch po kilku sekundach
-function scheduleGlitch() {
-    const delay = 3000 + Math.random() * 6000;
-
-    setTimeout(() => {
-        glitchTitleEffect();
-        scheduleGlitch();
-    }, delay);
-}
-
-scheduleGlitch();
-
 // ============================================================
 // AUTOMATYCZNE SKANOWANIE FOLDERÓW
 // ============================================================
@@ -105,7 +25,91 @@ const YOUR_FILES = {
 };
 
 // ============================================================
-// GŁÓWNA FUNKCJA
+// ŁADOWANIE DANYCH FILMÓW Z GENEROWANEGO PLIKU
+// ============================================================
+
+let FAVORITE_MOVIES = [];
+let WATCHLIST_MOVIES = [];
+
+async function loadMoviesData() {
+    try {
+        const timestamp = Date.now();
+        const response = await fetch(`movies-data.js?t=${timestamp}`);
+        const script = await response.text();
+        
+        const fn = new Function(script + '; return { FAVORITE_MOVIES, WATCHLIST_MOVIES };');
+        const data = fn();
+        
+        FAVORITE_MOVIES = data.FAVORITE_MOVIES || [];
+        WATCHLIST_MOVIES = data.WATCHLIST_MOVIES || [];
+        
+        console.log(`🎬 Załadowano ${FAVORITE_MOVIES.length} ulubionych filmów`);
+        console.log(`🎬 Załadowano ${WATCHLIST_MOVIES.length} filmów do obejrzenia`);
+        
+        return true;
+    } catch (error) {
+        console.error('❌ Błąd ładowania filmów:', error);
+        FAVORITE_MOVIES = [];
+        WATCHLIST_MOVIES = [];
+        return false;
+    }
+}
+
+// ============================================================
+// FUNKCJA: ŁADOWANIE PLAKATÓW
+// ============================================================
+function loadMoviePosters(movies, containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    
+    if (!movies || movies.length === 0) {
+        container.innerHTML = `
+            <div class="no-movies">📽️ brak filmów w tej kategorii</div>
+        `;
+        return;
+    }
+    
+    container.innerHTML = movies.map(movie => `
+        <div class="movie-item" title="${movie.title} (${movie.year})">
+            <img src="${movie.poster}" alt="${movie.title}" loading="lazy" 
+                 onerror="this.style.display='none';this.parentElement.innerHTML='<div style=\\'padding:1.5rem;text-align:center;color:#2a4a2a;font-size:0.7rem;\\'>🎬<br>${movie.title}</div>'">
+            <div class="movie-title">${movie.title}</div>
+            <div class="movie-year">${movie.year}</div>
+        </div>
+    `).join('');
+}
+
+// ============================================================
+// OBSŁUGA ROZWIJANIA SEKCJI FILMÓW
+// ============================================================
+document.addEventListener('DOMContentLoaded', async function() {
+    const toggle = document.getElementById('moviesToggle');
+    const content = document.getElementById('moviesContent');
+    const favCount = document.getElementById('favCount');
+    const watchCount = document.getElementById('watchCount');
+    
+    let isLoaded = false;
+    
+    await loadMoviesData();
+    
+    toggle.addEventListener('click', function() {
+        this.classList.toggle('active');
+        content.classList.toggle('open');
+        
+        if (!isLoaded && content.classList.contains('open')) {
+            loadMoviePosters(FAVORITE_MOVIES, 'favoritesList');
+            loadMoviePosters(WATCHLIST_MOVIES, 'watchlistList');
+            
+            favCount.textContent = FAVORITE_MOVIES.length;
+            watchCount.textContent = WATCHLIST_MOVIES.length;
+            
+            isLoaded = true;
+        }
+    });
+});
+
+// ============================================================
+// SKANOWANIE GALERII
 // ============================================================
 async function scanGallery() {
     const galleryGrid = document.getElementById('galleryGrid');
@@ -132,9 +136,6 @@ async function scanGallery() {
                             path: path,
                             exists: true
                         });
-                        console.log(`✅ ${year}/${filename} — znaleziono`);
-                    } else {
-                        console.warn(`⚠️ ${year}/${filename} — nie istnieje`);
                     }
                 } catch (error) {
                     console.warn(`⚠️ ${year}/${filename} — błąd:`, error);
