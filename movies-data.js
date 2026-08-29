@@ -1,7 +1,7 @@
 // ============================================================
 // AUTOMATYCZNIE GENEROWANE – NIE EDYTUJ RĘCZNIE!
-// Ostatnia aktualizacja: 28.08.2026, 13:38:41
-// Liczba filmów: 4 ulubionych, 2 do obejrzenia
+// Ostatnia aktualizacja: 29.08.2026, 08:29:50
+// Liczba filmów: 5 ulubionych, 1 do obejrzenia
 // ============================================================
 
 const FAVORITE_MOVIES = [
@@ -24,6 +24,10 @@ const FAVORITE_MOVIES = [
         "title": "All Dogs Go to Heaven",
         "year": "1989",
         "poster": "https://image.tmdb.org/t/p/w154/nmWh1NglDinfkHD9zCNqGWyhl7Q.jpg"
+    },
+    {
+        "year": "N/A",
+        "poster": "https://image.tmdb.org/t/p/w154/fqldf2t8ztc9aiwn3k6mlX3tvRT.jpg"
     }
 ];
 
@@ -32,10 +36,5 @@ const WATCHLIST_MOVIES = [
         "title": "Stormy Night",
         "year": "2005",
         "poster": "https://image.tmdb.org/t/p/w154/4YWTD0MZtf0RItKMQpgvuqHuFHq.jpg"
-    },
-    {
-        "title": "The Naked Gun: From the Files of Police Squad!",
-        "year": "1988",
-        "poster": "https://image.tmdb.org/t/p/w154/zT0mhZqZQJE1gSY5Eg9qcGP4NYo.jpg"
     }
 ];
