@@ -1,7 +1,7 @@
 // ============================================================
 // AUTOMATYCZNIE GENEROWANE – NIE EDYTUJ RĘCZNIE!
-// Ostatnia aktualizacja: 2.09.2026, 06:41:28
-// Liczba filmów: 5 ulubionych, 1 do obejrzenia
+// Ostatnia aktualizacja: 3.09.2026, 06:44:02
+// Liczba filmów: 5 ulubionych, 2 do obejrzenia
 // ============================================================
 
 const FAVORITE_MOVIES = [
@@ -36,5 +36,10 @@ const WATCHLIST_MOVIES = [
         "title": "Stormy Night",
         "year": "2005",
         "poster": "https://image.tmdb.org/t/p/w154/4YWTD0MZtf0RItKMQpgvuqHuFHq.jpg"
+    },
+    {
+        "title": "Good Boy",
+        "year": "2025",
+        "poster": "https://image.tmdb.org/t/p/w154/daInKxjoRNLFWIus64fHAy91V0k.jpg"
     }
 ];
