@@ -1,6 +1,6 @@
 // ============================================================
 // AUTOMATYCZNIE GENEROWANE – NIE EDYTUJ RĘCZNIE!
-// Ostatnia aktualizacja: 27.09.2026, 07:25:57
+// Ostatnia aktualizacja: 28.09.2026, 08:03:47
 // Liczba filmów: 5 ulubionych, 2 do obejrzenia
 // ============================================================
 
@@ -18,7 +18,7 @@ const FAVORITE_MOVIES = [
     {
         "title": "Project Hail Mary",
         "year": "2026",
-        "poster": "https://image.tmdb.org/t/p/w154/yihdXomYb5kTeSivtFndMy5iDmf.jpg"
+        "poster": "https://image.tmdb.org/t/p/w154/iOb2fjXLbpJgyQXe46n1WtGCnaa.jpg"
     },
     {
         "title": "All Dogs Go to Heaven",
