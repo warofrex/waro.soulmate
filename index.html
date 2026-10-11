@@ -1,199 +1,125 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="pl" data-theme="light">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Waro Soulmate — glitch terminal</title>
-    <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Waro_soulmate — Portfolio</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- nakładki CRT / scanline -->
-    <div class="crt-overlay"></div>
-    <div class="scanline"></div>
+   <!-- Przełącznik języka -->
+  <button class="lang-toggle" id="lang-toggle" title="Zmień język / Change language">
+    <span class="flag-pl">🇵🇱</span>
+    <span class="flag-en">🇬🇧</span>
+  </button>
 
-    <!-- === SEKCJA GLITCH === -->
-    <section class="glitch-section">
-        <div class="glitch-container">
-            <h1 class="glitch-title" id="glitchTitle">Waro Soulmate</h1>
+  <!-- Przełącznik motywu -->
+  <button class="theme-toggle" id="theme-toggle" title="Zmień motyw">
+    <span class="theme-icon-light">☀️</span>
+    <span class="theme-icon-dark">🌙</span>
+  </button>
 
-            
-            <div class="glitch-texts">
-                <span class="glitch-word" style="top:8%;left:3%;animation-delay:0s;">trust me</span>
-                <span class="glitch-word" style="top:15%;right:5%;animation-delay:0.5s;">fight corporations</span>
-                <span class="glitch-word" style="bottom:25%;left:2%;animation-delay:1s;">fuck ai</span>
-                <span class="glitch-word" style="top:45%;right:3%;animation-delay:1.5s;">resist</span>
-                <span class="glitch-word" style="bottom:12%;right:12%;animation-delay:2s;">never give up</span>
-                <span class="glitch-word" style="top:65%;left:8%;animation-delay:2.5s;">stay human</span>
-                <span class="glitch-word" style="top:30%;left:18%;animation-delay:3s;">think different</span>
-                <span class="glitch-word" style="bottom:40%;right:22%;animation-delay:3.5s;">create</span>
-                <span class="glitch-word" style="top:12%;left:35%;animation-delay:0.8s;">rebel</span>
-                <span class="glitch-word" style="bottom:55%;left:40%;animation-delay:1.8s;">dream</span>
-                <span class="glitch-word" style="top:75%;right:32%;animation-delay:2.8s;">build</span>
-                <span class="glitch-word" style="bottom:8%;left:50%;animation-delay:3.8s;">art not ai</span>
-                <span class="glitch-word" style="top:42%;left:60%;animation-delay:0.3s;">authenticity</span>
-                <span class="glitch-word" style="bottom:22%;right:48%;animation-delay:1.3s;">real</span>
-                <span class="glitch-word" style="top:58%;left:75%;animation-delay:2.3s;">unique</span>
-            </div>
-        </div>
-        <div class="scroll-indicator">
-            <span>▼</span>
-            <span style="font-size:0.6rem;display:block;margin-top:0.3rem;">scroll down</span>
-        </div>
+  <!-- Dekoracje w tle -->
+  <img class="deco deco-1" src="deco1.png" alt="" onerror="this.style.display='none'">
+  <img class="deco deco-2" src="deco2.png" alt="" onerror="this.style.display='none'">
+  <img class="deco deco-3" src="deco3.png" alt="" onerror="this.style.display='none'">
+  <img class="deco deco-4" src="deco4.png" alt="" onerror="this.style.display='none'">
+
+  <!-- Baner z avatarem -->
+  <header class="banner">
+    <img class="banner-bg" src="baner.png" alt="Baner">
+    <img class="avatar" src="avatar.png" alt="Avatar" onerror="this.style.display='none'">
+  </header>
+
+  <h1 class="hero-title">Waro_soulmate</h1>
+
+  <!-- Nawigacja -->
+  <nav>
+    <div class="nav-inner" id="nav">
+      <button data-target="about" class="active">
+        <span class="pl">O mnie</span><span class="en">About me</span>
+      </button>
+      <button data-target="portfolio">
+        <span class="pl">Portfolio</span><span class="en">Portfolio</span>
+      </button>
+      <button data-target="price">
+        <span class="pl">Cennik</span><span class="en">Price list</span>
+      </button>
+      <button data-target="tos">
+        <span class="pl">Regulamin</span><span class="en">ToS</span>
+      </button>
+      <button data-target="contact">
+        <span class="pl">Kontakt</span><span class="en">Contact</span>
+      </button>
+    </div>
+  </nav>
+
+  <main>
+
+    <section class="panel active" id="about">
+      <h2><span class="pl">O mnie</span><span class="en">About me</span></h2>
+      <div class="card">
+        <p>
+          <span class="pl">Cześć! Jestem Waro_soulmate — tutaj opisz siebie i swój styl pracy.</span>
+          <span class="en">Hi! I'm Waro_soulmate — describe yourself and your work style here.</span>
+        </p>
+      </div>
     </section>
 
-    <!-- === SEKCJA ABOUT ME === -->
-    <section class="about-section">
-        <div class="about-container">
-            <div class="about-header">
-                <span class="about-prompt">❯</span>
-                <span class="about-title">about me</span>
-                <span class="about-cursor">█</span>
-            </div>
-            
-            <div class="about-content">
-                <div class="about-text">
-                    <p>
-                        <span class="highlight">Lorem ipsum</span> dolor sit amet, consectetur adipiscing elit. 
-                        Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                    </p>
-                    <p>
-                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                    </p>
-                    <p>
-                        <span class="highlight">Sed ut perspiciatis</span> unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
-                    </p>
-                </div>
-                
-                <div class="about-sidebar">
-                    <div class="about-stats">
-                        <div class="stat-line">
-                            <span class="stat-label">NAME</span>
-                            <span class="stat-value">Waro Soulmate</span>
-                        </div>
-                        <div class="stat-line">
-                            <span class="stat-label">STATUS</span>
-                            <span class="stat-value" style="color:#3acf6b;">● ONLINE</span>
-                        </div>
-                        <div class="stat-line">
-                            <span class="stat-label">ROLE</span>
-                            <span class="stat-value">Artist / Creator</span>
-                        </div>
-                        <div class="stat-line">
-                            <span class="stat-label">LOCATION</span>
-                            <span class="stat-value">Terminal</span>
-                        </div>
-                    </div>
-                    <div class="about-tags">
-                        <span class="tag">#creative</span>
-                        <span class="tag">#digital</span>
-                        <span class="tag">#retro</span>
-                        <span class="tag">#cyber</span>
-                        <span class="tag">#human</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- === FILMY === -->
-            <div class="movies-section">
-                <button class="movies-toggle" id="moviesToggle">
-                    <span class="toggle-icon">▶</span>
-                    <span class="toggle-text">MOVIES_DATABASE</span>
-                    <span class="toggle-status">[click to expand]</span>
-                </button>
-                
-                <div class="movies-content" id="moviesContent">
-                    <div class="movies-grid">
-                        <div class="movie-category">
-                            <div class="category-header">
-                                <span class="category-icon">★</span>
-                                <span class="category-title">FAVORITES</span>
-                                <span class="category-count" id="favCount">0</span>
-                            </div>
-                            <div class="movie-list" id="favoritesList">
-                                <div class="loading-movies">⏳ ładowanie...</div>
-                            </div>
-                        </div>
-                        <div class="movie-category">
-                            <div class="category-header">
-                                <span class="category-icon">⌛</span>
-                                <span class="category-title">TO_WATCH</span>
-                                <span class="category-count" id="watchCount">0</span>
-                            </div>
-                            <div class="movie-list" id="watchlistList">
-                                <div class="loading-movies">⏳ ładowanie...</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="movies-footer">
-                        <span class="movies-path">~/movies.db</span>
-                        <span class="movies-source">[TMDB]</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="about-footer">
-                <span class="about-path">~/about_me</span>
-                <span class="about-status">[READ-ONLY]</span>
-            </div>
-        </div>
+    <section class="panel" id="portfolio">
+      <h2>Portfolio</h2>
+      <p>
+        <span class="pl">Kliknij grafikę, aby powiększyć.</span>
+        <span class="en">Click an image to enlarge.</span>
+      </p>
+      <div class="gallery" id="gallery">
+        <img src="praca1.png" alt="Praca 1" onerror="this.style.display='none'">
+        <img src="praca2.png" alt="Praca 2" onerror="this.style.display='none'">
+        <img src="praca3.png" alt="Praca 3" onerror="this.style.display='none'">
+        <img src="praca4.png" alt="Praca 4" onerror="this.style.display='none'">
+      </div>
     </section>
 
-    <!-- === SEKCJA PORTFOLIO === -->
-    <section class="portfolio-section">
-        <div class="terminal">
-            <header class="terminal-header">
-                <div class="title-line">
-                    <span class="prompt">❯</span>
-                    <span class="title">portfolio</span>
-                    <span class="cursor-blink">█</span>
-                </div>
-                <div class="subtitle">
-                    <span class="path">~/works</span>
-                    <span class="status">[gallery]</span>
-                </div>
-            </header>
-
-            <div class="filter-bar">
-                <span class="filter-label">[FILTER]</span>
-                <button class="filter-btn active" data-year="all">wszystkie</button>
-                <button class="filter-btn" data-year="2025">2025</button>
-                <button class="filter-btn" data-year="2026">2026</button>
-                <span class="filter-count" id="countDisplay">znaleziono: 0</span>
-            </div>
-
-            <section class="works-grid" id="galleryGrid">
-                <div style="grid-column:1/-1;text-align:center;color:#3a5a3a;padding:3rem;font-size:1.1rem;border:1px dashed #1a2a1a;border-radius:4px;">
-                    ⚡ ładowanie...
-                </div>
-            </section>
-
-            <footer class="terminal-footer">
-                <div class="contact-block">
-                    <div class="contact-line">
-                        <span class="prompt-small">❯</span>
-                        <span class="contact-label">mail</span>
-                        <span class="contact-value">waro.soulmate@terminal.art</span>
-                    </div>
-                    <div class="contact-line">
-                        <span class="prompt-small">❯</span>
-                        <span class="contact-label">discord</span>
-                        <span class="contact-value">waro#3371</span>
-                    </div>
-                    <div class="contact-line">
-                        <span class="prompt-small">❯</span>
-                        <span class="contact-label">repo</span>
-                        <span class="contact-value">github.com/waro-soulmate</span>
-                    </div>
-                </div>
-                <div class="footer-status">
-                    <span class="cursor-blink-small">█</span>
-                    <span class="sys-msg" id="systemMsg">SYSTEM :: READY</span>
-                </div>
-            </footer>
-        </div>
+    <section class="panel" id="price">
+      <h2><span class="pl">Cennik</span><span class="en">Price list</span></h2>
+      <div class="card">
+        <p>
+          <span class="pl">(miejsce na cennik)</span>
+          <span class="en">(price list placeholder)</span>
+        </p>
+      </div>
     </section>
 
-    <script src="script.js"></script>
+    <section class="panel" id="tos">
+      <h2><span class="pl">Regulamin</span><span class="en">Terms of Service</span></h2>
+      <div class="card">
+        <p>
+          <span class="pl">(miejsce na regulamin)</span>
+          <span class="en">(terms of service placeholder)</span>
+        </p>
+      </div>
+    </section>
+
+    <section class="panel" id="contact">
+      <h2><span class="pl">Kontakt</span><span class="en">Contact</span></h2>
+      <div class="card">
+        <p>
+          <span class="pl">Napisz do mnie:</span>
+          <span class="en">Write to me:</span>
+          <a href="mailto:twoj@email.com">twoj@email.com</a>
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>© <span id="year"></span> Waro_soulmate</footer>
+
+  <div class="lightbox" id="lightbox">
+    <img id="lightbox-img" src="" alt="">
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>

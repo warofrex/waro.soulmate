@@ -1,380 +1,66 @@
-const glitchTitle = document.getElementById("glitchTitle");
+const root = document.documentElement;
 
-const originalText = "Waro Soulmate";
+// ===== Język =====
+const langToggle = document.getElementById('lang-toggle');
 
-const glitchChars = [
-    "█", "▓", "▒", "░",
-    "0", "1", "X", "#", "%",
-    "§", "∆", "¥", "µ", "ø", "Ξ"
-];
-
-const glitchFonts = [
-    "'Courier New', monospace",
-    "'Lucida Console', monospace",
-    "'Consolas', monospace",
-    "monospace"
-];
-
-function glitchTitleEffect() {
-    const duration = 120 + Math.random() * 180;
-    const endTime = Date.now() + duration;
-
-    const interval = setInterval(() => {
-
-        if (Date.now() >= endTime) {
-            clearInterval(interval);
-
-            glitchTitle.textContent = originalText;
-            glitchTitle.style.fontFamily =
-                "'Consolas', 'Lucida Console', monospace";
-            glitchTitle.style.transform = "translate(0, 0)";
-            glitchTitle.style.letterSpacing = "4px";
-
-            return;
-        }
-
-        // Losowe znaki
-        let glitched = originalText
-            .split("")
-            .map(char => {
-                if (char === " ") return " ";
-
-                return Math.random() < 0.25
-                    ? glitchChars[Math.floor(Math.random() * glitchChars.length)]
-                    : char;
-            })
-            .join("");
-
-        glitchTitle.textContent = glitched;
-
-        // Losowy font
-        glitchTitle.style.fontFamily =
-            glitchFonts[Math.floor(Math.random() * glitchFonts.length)];
-
-        // Bardzo niewielkie przesunięcie
-        const x = (Math.random() - 0.5) * 10;
-        const y = (Math.random() - 0.5) * 4;
-
-        glitchTitle.style.transform =
-            `translate(${x}px, ${y}px)`;
-
-        // Minimalna zmiana odstępów
-        glitchTitle.style.letterSpacing =
-            `${3 + Math.random() * 4}px`;
-
-    }, 25);
+let lang = localStorage.getItem('lang');
+if (!lang) {
+  const browser = (navigator.language || 'en').toLowerCase();
+  lang = browser.startsWith('pl') ? 'pl' : 'en';
 }
+root.setAttribute('lang', lang);
 
-
-// Pierwszy glitch po kilku sekundach
-function scheduleGlitch() {
-    const delay = 3000 + Math.random() * 6000;
-
-    setTimeout(() => {
-        glitchTitleEffect();
-        scheduleGlitch();
-    }, delay);
-}
-
-scheduleGlitch();
-
-
-
-
-// ============================================================
-// AUTOMATYCZNE SKANOWANIE FOLDERÓW
-// ============================================================
-
-const IMAGES_PATH = 'images/';
-const YEARS = ['2025', '2026'];
-const SUPPORTED_EXTENSIONS = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp', 'svg'];
-
-let allImages = [];
-let currentFilter = 'all';
-
-// ============================================================
-// TWOJE PLIKI – dodaj tutaj wszystkie nazwy obrazów
-// ============================================================
-const YOUR_FILES = {
-    '2025': [
-        'Miszekmaly.png',
-    ],
-    '2026': [
-        'WARO55.png',
-        'WARO2.png',
-        'WARO3.png',
-        'WARO4.png',
-    ]
-};
-
-// ============================================================
-// ŁADOWANIE DANYCH FILMÓW Z GENEROWANEGO PLIKU
-// ============================================================
-
-let FAVORITE_MOVIES = [];
-let WATCHLIST_MOVIES = [];
-
-async function loadMoviesData() {
-    console.log('🎬 Ładowanie danych filmów...');
-    
-    try {
-        // Dodajemy timestamp, żeby ominąć cache przeglądarki
-        const timestamp = Date.now();
-        const response = await fetch(`movies-data.js?t=${timestamp}`);
-        
-        if (!response.ok) {
-            console.error(`❌ Błąd HTTP: ${response.status} - ${response.statusText}`);
-            return false;
-        }
-        
-        const script = await response.text();
-        console.log('📄 Otrzymano dane, długość:', script.length);
-        
-        // Bezpieczne wykonanie kodu
-        const fn = new Function(script + '; return { FAVORITE_MOVIES, WATCHLIST_MOVIES };');
-        const data = fn();
-        
-        FAVORITE_MOVIES = data.FAVORITE_MOVIES || [];
-        WATCHLIST_MOVIES = data.WATCHLIST_MOVIES || [];
-        
-        console.log(`✅ Załadowano ${FAVORITE_MOVIES.length} ulubionych filmów`);
-        console.log(`✅ Załadowano ${WATCHLIST_MOVIES.length} filmów do obejrzenia`);
-        
-        if (FAVORITE_MOVIES.length > 0) {
-            console.log('📽️ Przykładowy film:', FAVORITE_MOVIES[0]);
-        }
-        
-        return true;
-    } catch (error) {
-        console.error('❌ Błąd ładowania filmów:', error);
-        FAVORITE_MOVIES = [];
-        WATCHLIST_MOVIES = [];
-        return false;
-    }
-}
-
-// ============================================================
-// FUNKCJA: ŁADOWANIE PLAKATÓW
-// ============================================================
-function loadMoviePosters(movies, containerId) {
-    const container = document.getElementById(containerId);
-    if (!container) {
-        console.error(`❌ Nie znaleziono kontenera: ${containerId}`);
-        return;
-    }
-    
-    console.log(`📊 Ładowanie ${movies.length} filmów do ${containerId}`);
-    
-    if (!movies || movies.length === 0) {
-        container.innerHTML = `
-            <div class="no-movies">📽️ brak filmów w tej kategorii</div>
-        `;
-        return;
-    }
-    
-    container.innerHTML = movies.map((movie, index) => {
-        // Bezpieczne tworzenie tytułu
-        const title = movie.title || 'Brak tytułu';
-        const year = movie.year || 'N/A';
-        const poster = movie.poster || '';
-        
-        return `
-            <div class="movie-item" title="${title} (${year})">
-                <img src="${poster}" alt="${title}" loading="lazy" 
-                     onerror="this.style.display='none';this.parentElement.innerHTML='<div style=\\'padding:1.5rem;text-align:center;color:#2a4a2a;font-size:0.7rem;\\'>🎬<br>${title}</div>'">
-                <div class="movie-title">${title}</div>
-                <div class="movie-year">${year}</div>
-            </div>
-        `;
-    }).join('');
-    
-    console.log(`✅ Załadowano ${movies.length} plakatów do ${containerId}`);
-}
-
-// ============================================================
-// OBSŁUGA ROZWIJANIA SEKCJI FILMÓW
-// ============================================================
-document.addEventListener('DOMContentLoaded', async function() {
-    console.log('🚀 Strona załadowana, inicjalizacja...');
-    
-    const toggle = document.getElementById('moviesToggle');
-    const content = document.getElementById('moviesContent');
-    const favCount = document.getElementById('favCount');
-    const watchCount = document.getElementById('watchCount');
-    
-    if (!toggle || !content) {
-        console.error('❌ Nie znaleziono elementów moviesToggle lub moviesContent');
-        return;
-    }
-    
-    let isLoaded = false;
-    
-    // Załaduj dane filmów od razu (nie czekamy na kliknięcie)
-    const dataLoaded = await loadMoviesData();
-    
-    if (dataLoaded) {
-        console.log('✅ Dane filmów załadowane pomyślnie');
-        // Aktualizuj liczniki od razu
-        favCount.textContent = FAVORITE_MOVIES.length;
-        watchCount.textContent = WATCHLIST_MOVIES.length;
-    } else {
-        console.warn('⚠️ Nie udało się załadować danych filmów');
-    }
-    
-    toggle.addEventListener('click', function() {
-        console.log('🔄 Kliknięto przycisk filmów');
-        this.classList.toggle('active');
-        content.classList.toggle('open');
-        
-        if (!isLoaded && content.classList.contains('open')) {
-            console.log('📽️ Ładowanie plakatów...');
-            loadMoviePosters(FAVORITE_MOVIES, 'favoritesList');
-            loadMoviePosters(WATCHLIST_MOVIES, 'watchlistList');
-            isLoaded = true;
-        }
-    });
+langToggle.addEventListener('click', () => {
+  lang = lang === 'pl' ? 'en' : 'pl';
+  root.setAttribute('lang', lang);
+  localStorage.setItem('lang', lang);
 });
 
-// ============================================================
-// SKANOWANIE GALERII (reszta kodu)
-// ============================================================
-async function scanGallery() {
-    const galleryGrid = document.getElementById('galleryGrid');
-    const countDisplay = document.getElementById('countDisplay');
-    const systemMsg = document.getElementById('systemMsg');
-    
-    if (!galleryGrid) {
-        console.error('❌ Nie znaleziono galleryGrid');
-        return;
-    }
-    
-    systemMsg.textContent = 'SYSTEM :: SCANNING_FILES...';
-    
-    let foundImages = [];
-    
-    for (const year of YEARS) {
-        const files = YOUR_FILES[year] || [];
-        
-        for (const filename of files) {
-            if (isSupported(filename)) {
-                const path = `${IMAGES_PATH}${year}/${filename}`;
-                
-                try {
-                    const response = await fetch(path, { method: 'HEAD' });
-                    if (response.ok) {
-                        foundImages.push({
-                            year: year,
-                            filename: filename,
-                            path: path,
-                            exists: true
-                        });
-                        console.log(`✅ ${year}/${filename} — znaleziono`);
-                    } else {
-                        console.warn(`⚠️ ${year}/${filename} — nie istnieje (${response.status})`);
-                    }
-                } catch (error) {
-                    console.warn(`⚠️ ${year}/${filename} — błąd:`, error);
-                }
-            }
-        }
-    }
-    
-    if (foundImages.length === 0) {
-        for (const year of YEARS) {
-            foundImages.push({
-                year: year,
-                filename: 'placeholder',
-                path: '',
-                exists: false,
-                isPlaceholder: true
-            });
-        }
-    }
-    
-    allImages = foundImages;
-    renderGallery('all');
-    updateCount('all');
-    
-    systemMsg.textContent = `SYSTEM :: GALLERY_READY — ${foundImages.filter(img => img.exists).length} plików`;
-}
+// ===== Motyw =====
+const themeToggle = document.getElementById('theme-toggle');
+root.setAttribute('data-theme', localStorage.getItem('theme') || 'light');
 
-function isSupported(filename) {
-    const ext = filename.split('.').pop().toLowerCase();
-    return SUPPORTED_EXTENSIONS.includes(ext);
-}
-
-function renderGallery(filter) {
-    const galleryGrid = document.getElementById('galleryGrid');
-    if (!galleryGrid) return;
-    
-    const filtered = filter === 'all' 
-        ? allImages 
-        : allImages.filter(img => img.year === filter);
-    
-    const realImages = filtered.filter(img => img.exists);
-    
-    if (realImages.length === 0) {
-        galleryGrid.innerHTML = `
-            <div style="grid-column:1/-1;text-align:center;color:#3a5a3a;padding:3rem;font-size:1.1rem;border:1px dashed #1a2a1a;border-radius:4px;">
-                ⚡ brak obrazów
-                <br><span style="font-size:0.8rem;color:#2a4a2a;">
-                📁 wrzuć obrazy do folderów: images/2025/, images/2026/
-                <br>📝 i dodaj ich nazwy w YOUR_FILES w script.js
-                </span>
-            </div>
-        `;
-        return;
-    }
-    
-    galleryGrid.innerHTML = realImages.map((img) => {
-        const fileName = img.filename.split('.').slice(0, -1).join('.');
-        const displayName = fileName.replace(/[-_]/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-        
-        return `
-            <article class="work-card" data-year="${img.year}">
-                <div class="work-header">
-                    <span class="badge">[${img.year}]</span>
-                    <span class="work-name" title="${displayName}">${displayName}</span>
-                </div>
-                <div class="work-preview">
-                    <img src="${img.path}" alt="${displayName}" loading="lazy" 
-                         onerror="this.style.display='none';
-                                  this.parentElement.innerHTML='<div style=\\'font-size:2.5rem;color:#b8312f;padding:1rem;\\'>⚠️</div>'"
-                    />
-                </div>
-                <div class="work-meta">
-                    <span class="year-tag">${img.year}</span>
-                </div>
-            </article>
-        `;
-    }).join('');
-}
-
-function updateCount(filter) {
-    const countDisplay = document.getElementById('countDisplay');
-    if (!countDisplay) return;
-    
-    const filtered = filter === 'all' 
-        ? allImages 
-        : allImages.filter(img => img.year === filter);
-    const realImages = filtered.filter(img => img.exists);
-    countDisplay.textContent = `znaleziono: ${realImages.length}`;
-}
-
-document.querySelectorAll('.filter-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-        this.classList.add('active');
-        
-        currentFilter = this.dataset.year;
-        renderGallery(currentFilter);
-        updateCount(currentFilter);
-    });
+themeToggle.addEventListener('click', () => {
+  const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  root.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
 });
 
-// Uruchom skanowanie galerii
-scanGallery();
+// ===== Rok w stopce =====
+document.getElementById('year').textContent = new Date().getFullYear();
 
-console.log('📂 Waro Soulmate Gallery');
-console.log('📁 Wrzucaj obrazy do: images/2025/, images/2026/');
-console.log('📝 Dodaj nazwy plików w YOUR_FILES');
+// ===== Przełączanie zakładek =====
+const nav = document.getElementById('nav');
+const panels = document.querySelectorAll('.panel');
+
+nav.addEventListener('click', (e) => {
+  const btn = e.target.closest('button');
+  if (!btn) return;
+
+  nav.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  panels.forEach(p => p.classList.toggle('active', p.id === btn.dataset.target));
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// ===== Lightbox =====
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
+
+document.getElementById('gallery').addEventListener('click', (e) => {
+  if (e.target.tagName === 'IMG') {
+    lightboxImg.src = e.target.src;
+    lightboxImg.alt = e.target.alt;
+    lightbox.classList.add('open');
+  }
+});
+
+lightbox.addEventListener('click', () => {
+  lightbox.classList.remove('open');
+  lightboxImg.src = '';
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') lightbox.classList.remove('open');
+});
