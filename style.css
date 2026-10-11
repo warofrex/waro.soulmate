@@ -42,12 +42,22 @@ body{
   transition:background .3s, color .3s;
 }
 
-/* ===== Przełączniki (motyw + język) ===== */
-.theme-toggle,
-.lang-toggle{
+/* ===== Wspólna ramka przełączników ===== */
+.toggles{
   position:fixed;
   top:16px;
+  right:16px;
   z-index:200;
+  display:flex;
+  align-items:center;
+  gap:4px;
+  padding:4px;
+  border-radius:999px;
+  background:var(--deep-crimson);                 /* ramka zawsze biała */
+}
+
+.theme-toggle,
+.lang-toggle{
   width:32px;
   height:32px;
   border-radius:50%;
@@ -60,33 +70,21 @@ body{
   padding:0;
   line-height:1;
   font-family:inherit;
-  transition:transform .2s;
+  color:#000000;                       /* ikony czarne — difference odwróci je razem z tłem */
+  transition:transform .15s;
 }
 .theme-toggle:hover,
 .lang-toggle:hover{transform:scale(1.12);}
 
 /* Motyw */
-.theme-toggle{
-  right:16px;
-  color:var(--deep-crimson);
-  font-size:1rem;
-}
+.theme-toggle{font-size:1rem;}
 .theme-toggle .theme-icon-dark{display:none;}
 html[data-theme="dark"] .theme-toggle .theme-icon-light{display:none;}
 html[data-theme="dark"] .theme-toggle .theme-icon-dark{display:inline;}
 
 /* Język */
-.lang-toggle{
-  right:56px;
-  color:var(--jet-black);
-  font-weight:700;
-}
-.lang-toggle span{
-  font-size:1rem;
-  line-height:1;
-}
-
-/* Flagi */
+.lang-toggle{font-weight:700;}
+.lang-toggle span{font-size:1rem;line-height:1;}
 html[lang="pl"] .flag-pl{display:none;}
 html[lang="en"] .flag-en{display:none;}
 
@@ -128,20 +126,30 @@ html[lang="en"] .pl{display:none;}
   );
 }
 
-/* Avatar */
+/* Avatar — duże popiersie */
 .avatar{
   position:absolute;
   left:50%;
-  bottom:-60px;
+  bottom:-120px;                    /* więcej wystaje poniżej banera */
   transform:translateX(-50%);
-  width:160px;
-  height:160px;
-  object-fit:cover;
-  border-radius:14px;
-  border:4px solid var(--bg-soft);
-  box-shadow:0 8px 24px var(--shadow);
-  background:var(--bg-soft);
+  width:auto;
+  height:320px;                     /* ← duże popiersie */
+  max-width:90%;
+  object-fit:contain;
+  background:transparent;           /* bez tła */
+  border:none;                      /* bez ramki */
+  border-radius:0;
+  box-shadow:none;
+  filter:drop-shadow(0 8px 24px rgba(0,0,0,.4));
   z-index:2;
+  pointer-events:none;
+  user-select:none;
+}
+
+/* Na ciemnym motywie — ciemniejsza obwódka */
+html[data-theme="dark"] .avatar{
+  filter:drop-shadow(0 0 12px rgba(153,30,33,.5))
+         drop-shadow(0 8px 24px rgba(0,0,0,.6));
 }
 
 /* ===== Wielki napis ===== */
@@ -415,11 +423,9 @@ footer{
 
 @media (max-width:700px){
   .avatar{
-    width:120px;
-    height:120px;
-    bottom:-50px;
+    height:200px;         /* ← było 120×120px */
+    bottom:-90px;
   }
-  .hero-title{margin-top:74px;}
-
+  .hero-title{margin-top:140px;}   /* ← więcej miejsca na większy avatar */
 }
 
