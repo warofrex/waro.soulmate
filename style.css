@@ -3,7 +3,7 @@
 html[ data-theme="light"]{
   --cool-steel:#939AA3;
   --rich-mahogany:#311716;
-  --jet-black:#282C36;
+  --jet-black:#1c1e24;
   --true-cobalt:#1A207E;
   --carbon-black:#14171B;
   --deep-crimson:#991E21;
@@ -257,17 +257,17 @@ main{
 /* ===== Portfolio – galeria (masonry) ===== */
 .gallery{
   column-count:4;
-  column-gap:12px;
-  margin-top:20px;
+  column-gap:3px;
+  margin-top:3px;
 }
 .gallery img{
   width:100%;
   height:auto;              /* ← natywne proporcje obrazu */
   display:block;
-  border-radius:12px;
+  border-radius:2px;
   border:none;
   cursor:zoom-in;
-  margin-bottom:12px;       /* odstęp między obrazami w kolumnie */
+  margin-bottom:3px;       /* odstęp między obrazami w kolumnie */
   break-inside:avoid;       /* nie dzieli obrazu między kolumny */
   transition:transform .2s;
   background:var(--bg-soft);
@@ -302,7 +302,7 @@ main{
 .lightbox img{
   max-width:95%;
   max-height:95%;
-  border-radius:12px;
+  border-radius:2px;
   box-shadow:0 20px 60px rgba(0,0,0,.6);
 }
 
@@ -417,6 +417,159 @@ footer{
   .about-table th,
   .about-table td{
     padding:6px 8px;
+  }
+}
+
+.vgen-embed{
+  margin-top:20px;
+  border-radius:var(--radius);
+  overflow:hidden;
+  background:var(--bg-soft);
+  box-shadow:0 4px 20px var(--shadow);
+}
+.vgen-embed iframe{
+  width:100%;
+  height:600px;
+  border:none;
+  display:block;
+}
+
+
+/* ===== ToS — lista ===== */
+.tos-list{
+  margin:12px 0 0;
+  padding-left:20px;
+  color:var(--deep-crimson);
+}
+.tos-list li{
+  margin-bottom:10px;
+  line-height:1.6;
+}
+.tos-list li:last-child{
+  margin-bottom:0;
+}
+
+/* Wyróżniona notka (np. "ToS może ulec zmianie") */
+.tos-note{
+  list-style:none;
+  margin-left:-20px;
+  padding:10px 14px;
+  border-left:3px solid var(--deep-crimson);
+  background:rgba(153,30,33,.08);
+  border-radius:6px;
+  font-style:italic;
+  opacity:.85;
+  margin-top:14px;
+}
+
+/* Nagłówki h3 w kartach */
+.card h3{
+  font-size:1rem;
+  font-weight:700;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  margin:0 0 8px;
+  color:var(--deep-crimson);
+  opacity:.85;
+}
+
+/* Karty w ToS — odstępy między nimi */
+#tos .card{
+  margin-top:20px;
+}
+#tos .card p{
+  margin:8px 0;
+}
+
+/* ===== Kontakt — wizytówka ===== */
+.biz-card{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:36px;
+  margin-top:24px;
+  padding:32px 36px;
+  background:var(--bg-soft);
+  border-radius:var(--radius);
+  box-shadow:0 8px 30px var(--shadow);
+  align-items:center;
+  position:relative;
+  overflow:hidden;
+}
+
+.biz-info{
+  display:flex;
+  flex-direction:column;
+  gap:24px;
+}
+
+.biz-block h3{
+  font-size:.78rem;
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  margin:0 0 10px;
+  color:var(--deep-crimson);
+  opacity:.65;
+}
+
+.biz-links{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px 22px;
+}
+
+.contact-link{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  color:var(--deep-crimson);
+  text-decoration:none;
+  font-weight:600;
+  font-size:clamp(0.9rem, 1.3vw, 1rem);
+  transition:opacity .2s, transform .15s;
+}
+.contact-link:hover{
+  opacity:.7;
+  transform:translateY(-2px);
+}
+
+.contact-link img{
+  width:22px;
+  height:22px;
+  object-fit:contain;
+  flex-shrink:0;
+  display:block;
+   filter:brightness(0) saturate(100%) invert(13%) sepia(85%) saturate(3000%) hue-rotate(350deg) brightness(85%) contrast(95%);
+}
+
+/* Naklejka po prawej */
+.biz-sticker img{
+  max-width:220px;
+  width:100%;
+  height:auto;
+  display:block;
+  pointer-events:none;
+  user-select:none;
+  filter:drop-shadow(0 10px 25px var(--shadow));
+}
+
+/* Responsywność */
+@media (max-width:700px){
+  .biz-card{
+    grid-template-columns:1fr;
+    gap:24px;
+    padding:24px 20px;
+  }
+  .biz-sticker{
+    order:-1;
+    display:flex;
+    justify-content:center;
+  }
+  .biz-sticker img{
+    max-width:140px;
+  }
+  .biz-links{
+    gap:10px 16px;
   }
 }
 
