@@ -148,8 +148,8 @@ html[lang="en"] .pl{display:none;}
 
 /* Na ciemnym motywie — ciemniejsza obwódka */
 html[data-theme="dark"] .avatar{
-  filter:drop-shadow(0 0 12px rgba(153,30,33,.5))
-         drop-shadow(0 8px 24px rgba(0,0,0,.6));
+  filter:drop-shadow(0 8px 24px rgba(0,0,0,.4));
+  z-index:2;
 }
 
 /* ===== Wielki napis ===== */
