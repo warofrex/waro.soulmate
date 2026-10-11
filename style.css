@@ -1,6 +1,6 @@
 /* ===== Motyw jasny (domyślny) ===== */
 :root,
-html[data-theme="light"]{
+html[ data-theme="light"]{
   --cool-steel:#939AA3;
   --rich-mahogany:#311716;
   --jet-black:#282C36;
@@ -42,33 +42,57 @@ body{
   transition:background .3s, color .3s;
 }
 
-/* ===== Przełącznik motywu ===== */
-.theme-toggle{
+/* ===== Przełączniki (motyw + język) ===== */
+.theme-toggle,
+.lang-toggle{
   position:fixed;
   top:16px;
-  right:16px;
   z-index:200;
-  width:24px;
-  height:24px;
+  width:32px;
+  height:32px;
   border-radius:50%;
   border:none;
-  background:var(--bg-soft);
-  color:var(--deep-crimson);
+  background:transparent;
   cursor:pointer;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:1.3rem;
+  padding:0;
   line-height:1;
-  box-shadow:0 4px 16px var(--shadow);
-  transition:transform .2s, background .3s;
+  font-family:inherit;
+  transition:transform .2s;
 }
-.theme-toggle:hover{transform:scale(1.08);}
+.theme-toggle:hover,
+.lang-toggle:hover{transform:scale(1.12);}
+
+/* Motyw */
+.theme-toggle{
+  right:16px;
+  color:var(--deep-crimson);
+  font-size:1rem;
+}
 .theme-toggle .theme-icon-dark{display:none;}
 html[data-theme="dark"] .theme-toggle .theme-icon-light{display:none;}
 html[data-theme="dark"] .theme-toggle .theme-icon-dark{display:inline;}
 
+/* Język */
+.lang-toggle{
+  right:56px;
+  color:var(--jet-black);
+  font-weight:700;
+}
+.lang-toggle span{
+  font-size:1rem;
+  line-height:1;
+}
 
+/* Flagi */
+html[lang="pl"] .flag-pl{display:none;}
+html[lang="en"] .flag-en{display:none;}
+
+/* Ukrywanie tekstów wg języka */
+html[lang="pl"] .en{display:none;}
+html[lang="en"] .pl{display:none;}
 
 /* ===== Baner z avatarem ===== */
 .banner{
@@ -222,25 +246,37 @@ main{
 }
 .card a{color:var(--deep-crimson);}
 
-/* ===== Portfolio – galeria ===== */
+/* ===== Portfolio – galeria (masonry) ===== */
 .gallery{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
-  gap:12px;
+  column-count:4;
+  column-gap:12px;
   margin-top:20px;
 }
 .gallery img{
   width:100%;
-  aspect-ratio:1/1;
-  object-fit:cover;
+  height:auto;              /* ← natywne proporcje obrazu */
+  display:block;
   border-radius:12px;
   border:none;
   cursor:zoom-in;
+  margin-bottom:12px;       /* odstęp między obrazami w kolumnie */
+  break-inside:avoid;       /* nie dzieli obrazu między kolumny */
   transition:transform .2s;
   background:var(--bg-soft);
 }
 .gallery img:hover{
-  transform:scale(1.03);
+  transform:scale(1.02);
+}
+
+/* Responsywność */
+@media (max-width:900px){
+  .gallery{column-count:3;}
+}
+@media (max-width:600px){
+  .gallery{column-count:2;}
+}
+@media (max-width:380px){
+  .gallery{column-count:1;}
 }
 
 /* ===== Lightbox ===== */
@@ -272,35 +308,110 @@ footer{
   z-index:1;
 }
 
-/* ===== Przełącznik języka ===== */
-.lang-toggle{
-  position:fixed;
-  top:16px;
-  right:76px;
-  z-index:200;
-  width:24px;
-  height:24px;
-  border-radius:50%;
-  border:none;
-  background:var(--bg-soft);
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:1rem;
-  line-height:1;
-  box-shadow:0 4px 16px var(--shadow);
-  transition:transform .2s, background .3s;
+/* ===== Cytat pod wielkim napisem ===== */
+.hero-quote{
+  text-align:center;
+  font-size:clamp(0.85rem, 1.6vw, 1.1rem);
+  font-style:italic;
+  color:var(--deep-crimson);
+  margin:8px 24px 0;
+  opacity:.85;
+  position:relative;
+  z-index:1;
 }
-.lang-toggle:hover{transform:scale(1.08);}
 
-/* Flagi — pokazujemy tę, na którą można przełączyć */
-html[lang="pl"] .flag-pl{display:none;}
-html[lang="en"] .flag-en{display:none;}
+/* ===== About me — układ ===== */
+.about-wrap{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:32px;
+  margin-top:24px;
+  align-items:start;
+}
 
-/* ===== Ukrywanie tekstów wg języka ===== */
-html[lang="pl"] .en{display:none;}
-html[lang="en"] .pl{display:none;}
+.about-info{
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+
+/* Główny opis — największy */
+.about-lead{
+  font-size:clamp(1.1rem, 2.4vw, 1.5rem);
+  font-weight:600;
+  line-height:1.4;
+  color:var(--deep-crimson);
+  margin:0;
+}
+
+/* Tabela z drobnymi informacjami */
+.about-table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:clamp(0.85rem, 1.3vw, 0.95rem);
+  color:var(--deep-crimson);
+}
+.about-table th,
+.about-table td{
+  text-align:left;
+  padding:8px 12px;
+  vertical-align:top;
+  border-bottom:1px solid rgba(153,30,33,.15);
+}
+.about-table th{
+  font-weight:700;
+  letter-spacing:.02em;
+  width:45%;
+  color:var(--deep-crimson);
+  opacity:.85;
+}
+.about-table td{
+  opacity:.75;
+}
+.about-table tr:last-child th,
+.about-table tr:last-child td{
+  border-bottom:none;
+}
+
+/* Obraz po prawej */
+.about-image{
+  position:sticky;
+  top:100px;
+}
+.about-image img{
+  max-width:280px;
+  width:100%;
+  height:auto;
+  display:block;
+  pointer-events:none;
+  user-select:none;
+  filter:drop-shadow(0 10px 30px var(--shadow));
+}
+
+@media (max-width:700px){
+  .about-wrap{
+    grid-template-columns:1fr;
+    gap:16px;
+  }
+  .about-image{
+    position:static;
+    order:-1;
+    display:flex;
+    justify-content:center;
+  }
+  .about-image img{
+    max-width:140px;     /* ← było 180px */
+    max-height:180px;    /* ← twardy limit wysokości */
+    width:auto;
+    height:auto;
+    object-fit:contain;
+  }
+  .about-table th,
+  .about-table td{
+    padding:6px 8px;
+  }
+}
+
 
 @media (max-width:700px){
   .avatar{
@@ -309,4 +420,6 @@ html[lang="en"] .pl{display:none;}
     bottom:-50px;
   }
   .hero-title{margin-top:74px;}
+
 }
+
