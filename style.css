@@ -48,8 +48,8 @@ body{
   top:16px;
   right:16px;
   z-index:200;
-  width:48px;
-  height:48px;
+  width:24px;
+  height:24px;
   border-radius:50%;
   border:none;
   background:var(--bg-soft);
@@ -74,18 +74,37 @@ html[data-theme="dark"] .theme-toggle .theme-icon-dark{display:inline;}
 .banner{
   position:relative;
   width:100%;
-  max-width:var(--maxw);
   margin:0 auto;
-  padding:16px 16px 0;
+  padding:16px 0 0;
   z-index:1;
+  background:#f50000;       /* czerwone wypełnienie od krawędzi do krawędzi */
 }
 .banner-bg{
-  width:100%;
-  height:280px;
+  width:70%;
+  height:auto;
   display:block;
-  object-fit:cover;
-  border-radius:var(--radius);
+  margin:0 auto;
+  object-fit:contain;
+  object-position:center;
+  background:#f50000;
+  /* Delikatne wtapianie tylko na samych krawędziach */
+  -webkit-mask-image:linear-gradient(
+    to right,
+    transparent 0%,
+    #000 4%,
+    #000 96%,
+    transparent 100%
+  );
+  mask-image:linear-gradient(
+    to right,
+    transparent 0%,
+    #000 4%,
+    #000 96%,
+    transparent 100%
+  );
 }
+
+/* Avatar */
 .avatar{
   position:absolute;
   left:50%;
@@ -114,16 +133,7 @@ html[data-theme="dark"] .theme-toggle .theme-icon-dark{display:inline;}
   z-index:1;
 }
 
-/* ===== Responsywność ===== */
-@media (max-width:700px){
-  .banner-bg{height:200px;}
-  .avatar{
-    width:120px;
-    height:120px;
-    bottom:-50px;
-  }
-  .hero-title{margin-top:74px;}
-}
+
 
 /* ===== Nawigacja ===== */
 nav{
@@ -139,21 +149,23 @@ nav{
   margin:0 auto;
   display:flex;
   justify-content:center;
-  gap:8px;
-  padding:8px 12px;
+  gap:clamp(2px, 0.8vw, 8px);
+  padding:8px clamp(8px, 2vw, 20px);
   overflow-x:auto;
   scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;
 }
 .nav-inner::-webkit-scrollbar{display:none;}
+
 .nav-inner button{
-  flex:0 0 auto;
+  flex:0 1 auto;
   background:transparent;
   border:1.5px solid transparent;
   color:var(--deep-crimson);
-  font:inherit;
-  font-size:.95rem;
+  font-family:inherit;
+  font-size:clamp(0.7rem, 1.6vw, 0.95rem);   /* ← skaluje się z ekranem */
   font-weight:600;
-  padding:10px 16px;
+  padding:clamp(6px, 1.2vw, 10px) clamp(8px, 1.8vw, 16px);
   border-radius:6px;
   cursor:pointer;
   transition:.2s;
@@ -266,8 +278,8 @@ footer{
   top:16px;
   right:76px;
   z-index:200;
-  width:48px;
-  height:48px;
+  width:24px;
+  height:24px;
   border-radius:50%;
   border:none;
   background:var(--bg-soft);
@@ -275,7 +287,7 @@ footer{
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:1.5rem;
+  font-size:1rem;
   line-height:1;
   box-shadow:0 4px 16px var(--shadow);
   transition:transform .2s, background .3s;
@@ -289,3 +301,12 @@ html[lang="en"] .flag-en{display:none;}
 /* ===== Ukrywanie tekstów wg języka ===== */
 html[lang="pl"] .en{display:none;}
 html[lang="en"] .pl{display:none;}
+
+@media (max-width:700px){
+  .avatar{
+    width:120px;
+    height:120px;
+    bottom:-50px;
+  }
+  .hero-title{margin-top:74px;}
+}
