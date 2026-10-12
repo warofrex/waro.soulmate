@@ -3,8 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Waro_soulmate WEBSITE</title>
-<link rel="stylesheet" href="style.css">
+<title>Waro_soulmate</title>
+  <!-- Font z Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -62,7 +67,7 @@
       <div class="about-wrap">
         <div class="about-info">
           <p class="about-lead">
-            <span class="pl">Polski Ilustrator, Inżynier Akademi Górniczo-Hutniczej w Krakowie na kierunku Inżynieria Obliczeniowa, obecnie na stopniu magisterskim "Informatyka i Systemy Inteligentnte". Optymistycznie nastawiony, że któregoś dnia wszyscy poznają moje imię.</span>
+            <span class="pl"> <p>Polski Ilustrator</p> Inżynier Akademi Górniczo-Hutniczej w Krakowie na kierunku Inżynieria Obliczeniowa, obecnie na stopniu magisterskim "Informatyka i Systemy Inteligentnte". Optymistycznie nastawiony, że któregoś dnia wszyscy poznają moje imię.</span>
             <span class="en">Polish Illustrator, Engineer at AGH University of Science and Technology in Computer Engineering, currently pursuing a master's degree in "Computer Science and Intelligent Systems". Optimistically looking forward to the day when everyone will know my name.</span>
           </p>
 
@@ -108,9 +113,25 @@
           </table>
         </div>
 
+
+        
+
         <div class="about-image">
           <img src="Maro.png" alt="" onerror="this.style.display='none'">
         </div>
+
+        <div class="spotify-player">
+        <div class="spotify-header">
+          <svg class="spotify-logo" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="12" fill="#1ED760"/>
+            <path fill="#191414" d="M16.95 16.5c-.15.24-.45.33-.7.18-1.9-1.16-4.3-1.42-7.13-.78-.28.06-.56-.12-.62-.4-.06-.28.12-.56.4-.62 3.1-.7 5.74-.4 7.87.9.24.14.33.45.18.72Zm1.33-2.94c-.19.3-.57.4-.88.21-2.17-1.33-5.48-1.72-8.05-.94-.35.11-.72-.09-.83-.44-.11-.35.09-.72.44-.83 2.94-.89 6.59-.45 9.09 1.08.31.19.4.57.23.92Zm.11-3.06C15.85 8.78 11.36 8.6 8.79 9.38c-.42.13-.86-.11-.99-.53-.13-.42.11-.86.53-.99 2.95-.9 7.91-.71 11.04 1.14.38.23.5.72.27 1.1-.23.38-.72.5-1.1.27Z"/>
+          </svg>
+          <span class="spotify-label">Now playing</span>
+        </div>
+        <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/2OgOgEBfiZEj2XlIY2XD7f?utm_source=generator&theme=0&si=b573dafdad4c4767" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      </div>
+
+        
       </div>
     </section>
 
@@ -157,7 +178,7 @@
 
   <!-- Tutaj wstaw treść cennika -->
   <div class="card">
-    <p>(miejsce na cennik)</p>
+    <p>.</p>
   </div>
 </section>
 
@@ -295,6 +316,8 @@
 
         </div>
 
+        
+
         <div class="biz-sticker">
           <img src="warowlepa.png" alt="" onerror="this.style.display='none'">
         </div>
@@ -302,7 +325,10 @@
     </section>
   </main>
 
-  <footer>© <span id="year"></span> Waro_soulmate</footer>
+    <footer>
+    <img class="footer-deco" src="vernea.png" alt="" onerror="this.style.display='none'">
+    © <span id="year"></span> Waro_soulmate
+  </footer>
 
   <div class="lightbox" id="lightbox">
     <img id="lightbox-img" src="" alt="">

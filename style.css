@@ -40,6 +40,9 @@ body{
   overflow-x:hidden;
   min-height:100vh;
   transition:background .3s, color .3s;
+
+
+  
 }
 
 /* ===== Wspólna ramka przełączników ===== */
@@ -97,7 +100,6 @@ html[lang="en"] .pl{display:none;}
   position:relative;
   width:100%;
   margin:0 auto;
-  padding:16px 0 0;
   z-index:1;
   background:#f50000;       /* czerwone wypełnienie od krawędzi do krawędzi */
 }
@@ -140,20 +142,15 @@ html[lang="en"] .pl{display:none;}
   border:none;                      /* bez ramki */
   border-radius:0;
   box-shadow:none;
-  filter:drop-shadow(0 8px 24px rgba(0,0,0,.4));
   z-index:2;
   pointer-events:none;
   user-select:none;
 }
 
-/* Na ciemnym motywie — ciemniejsza obwódka */
-html[data-theme="dark"] .avatar{
-  filter:drop-shadow(0 8px 24px rgba(0,0,0,.4));
-  z-index:2;
-}
 
 /* ===== Wielki napis ===== */
 .hero-title{
+  font-family:'Luckiest Guy', system-ui, sans-serif;
   text-align:center;
   font-size:clamp(2.4rem, 9vw, 6rem);
   font-weight:800;
@@ -276,6 +273,38 @@ main{
   transform:scale(1.02);
 }
 
+/* ===== Odtwarzacz Spotify ===== */
+.spotify-player{
+  margin-top:32px;
+  padding:16px 20px 8px;
+  background:#181818;                  /* ciemne tło Spotify */
+  border-radius:12px;
+  box-shadow:0 8px 24px rgba(0,0,0,.5);
+}
+
+.spotify-header{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:12px;
+  color:#B3B3B3;                       /* muted label Spotify */
+  font-size:.78rem;
+  font-weight:600;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+
+.spotify-logo{
+  width:20px;
+  height:20px;
+  flex-shrink:0;
+}
+
+.spotify-player iframe{
+  display:block;
+  border-radius:8px;
+}
+
 /* Responsywność */
 @media (max-width:900px){
   .gallery{column-count:3;}
@@ -308,12 +337,30 @@ main{
 
 /* ===== Stopka ===== */
 footer{
+  position:relative;
   text-align:center;
   color:var(--deep-crimson);
   font-size:.85rem;
   padding:24px 16px 48px;
-  position:relative;
   z-index:1;
+}
+
+.footer-deco{
+  position:absolute;
+  bottom:0;
+  right:0;
+  height:120px;
+  width:auto;
+  pointer-events:none;
+  user-select:none;
+
+}
+
+/* Responsywność */
+@media (max-width:700px){
+  .footer-deco{
+    height:80px;
+  }
 }
 
 /* ===== Cytat pod wielkim napisem ===== */
@@ -393,7 +440,6 @@ footer{
   display:block;
   pointer-events:none;
   user-select:none;
-  filter:drop-shadow(0 10px 30px var(--shadow));
 }
 
 @media (max-width:700px){
@@ -566,7 +612,6 @@ footer{
   display:block;
   pointer-events:none;
   user-select:none;
-  filter:drop-shadow(0 10px 25px var(--shadow));
 }
 
 /* Responsywność */
