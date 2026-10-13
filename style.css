@@ -274,20 +274,6 @@ main{
 }
 
 
-/* ===== Osadzona tablica Trello ===== */
-.trello-board-compact {
-  margin: 24px auto;
-  max-width: 100%;
-  overflow: hidden;
-  border-radius: var(--radius);
-  box-shadow: 0 4px 20px var(--shadow);
-}
-
-.trello-board-compact iframe {
-  width: 100% !important;
-  border: none !important;
-  display: block;
-}
 
 /* ===== Cennik ===== */
 .price-update{
@@ -528,34 +514,69 @@ footer{
   }
 }
 
-/* ===== Baner Vgen ===== */
-.vgen-banner{
+/* ===== Banery wsparcia (Vgen + Ko-fi) ===== */
+.support-row{
+  display:grid;
+  grid-template-columns:3fr 1fr;    /* VGen 3/4, Ko-fi 1/4 */
+  gap:8px;
+  margin-top:20px;
+}
+
+.vgen-banner,
+.kofi-banner{
   display:flex;
   align-items:center;
   justify-content:center;
-  gap:12px;
-  margin-top:20px;
-  padding:16px 24px;
-  background:#b8ff26;
-  border-radius:20px;          /* ← zaokrąglony kontener */
-  color:#000000;
+  gap:8px;
+  padding:14px 12px;
+  border-radius:16px;
   text-decoration:none;
   font-weight:700;
-  font-size:clamp(1rem, 1.8vw, 1.2rem);
+  font-size:clamp(0.7rem, 1.6vw, 1.1rem);
   letter-spacing:.02em;
   transition:transform .15s, box-shadow .2s;
+  min-width:0;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.vgen-banner{
+  background:#b8ff26;
+  color:#000000;
 }
 .vgen-banner:hover{
   transform:translateY(-2px);
-  box-shadow:0 10px 28px rgba(14, 156, 37, 0.45);
+  box-shadow:0 10px 28px rgba(37, 190, 88, 0.45);
 }
 
-.vgen-banner img{
-  width:28px;
-  height:28px;
+.kofi-banner{
+  background:#FF5E5B;
+  color:#ffffff;
+}
+.kofi-banner:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 28px rgba(255,94,91,.45);
+}
+
+.vgen-banner img,
+.kofi-banner img{
+  width:clamp(18px, 2.5vw, 28px);
+  height:clamp(18px, 2.5vw, 28px);
   object-fit:contain;
   display:block;
-  
+  flex-shrink:0;
+}
+
+/* Na bardzo małych ekranach chowamy ikonę Ko-fi, żeby napis się zmieścił */
+@media (max-width:420px){
+  .kofi-banner img{
+    display:none;
+  }
+  .kofi-banner{
+    font-size:0.75rem;
+    padding:12px 6px;
+  }
 }
 
 
