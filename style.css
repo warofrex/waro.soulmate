@@ -273,38 +273,100 @@ main{
   transform:scale(1.02);
 }
 
-/* ===== Odtwarzacz Spotify ===== */
-.spotify-player{
-  margin-top:32px;
-  padding:16px 20px 8px;
-  background:#181818;                  /* ciemne tło Spotify */
-  border-radius:12px;
-  box-shadow:0 8px 24px rgba(0,0,0,.5);
+
+/* ===== Osadzona tablica Trello ===== */
+.trello-board-compact {
+  margin: 24px auto;
+  max-width: 100%;
+  overflow: hidden;
+  border-radius: var(--radius);
+  box-shadow: 0 4px 20px var(--shadow);
 }
 
-.spotify-header{
+.trello-board-compact iframe {
+  width: 100% !important;
+  border: none !important;
+  display: block;
+}
+
+/* ===== Cennik ===== */
+.price-update{
+  text-align:center;
+  font-size:.8rem;
+  opacity:.6;
+  margin:12px 0 24px;
+  color:var(--deep-crimson);
+}
+
+.price-category{
+  margin-top:8px;
+}
+
+.price-row{
   display:flex;
-  align-items:center;
-  gap:10px;
-  margin-bottom:12px;
-  color:#B3B3B3;                       /* muted label Spotify */
-  font-size:.78rem;
-  font-weight:600;
-  letter-spacing:.08em;
-  text-transform:uppercase;
+  justify-content:space-between;
+  align-items:baseline;
+  gap:16px;
+  margin:0 0 12px;
 }
 
-.spotify-logo{
-  width:20px;
-  height:20px;
-  flex-shrink:0;
+.price-name{
+  font-weight:700;
+  font-size:clamp(1rem, 1.5vw, 1.15rem);
+  color:var(--deep-crimson);
+}
+.price-name em{
+  font-style:normal;
+  font-weight:400;
+  font-size:.75rem;
+  opacity:.55;
+  margin-left:4px;
 }
 
-.spotify-player iframe{
-  display:block;
+
+/* Galeria w cenniku — dziedziczy z .gallery, tylko mniejsza */
+.price-gallery{
+  column-count:4;
+  column-gap:3px;
+  margin-top:0;
+}
+.price-gallery img{
+  margin-bottom:3px;
+}
+
+.price-divider{
+  border:none;
+  border-top:1px dashed rgba(153,30,33,.2);
+  margin:32px 0;
+}
+
+.price-notes{
+  margin-top:24px;
+  padding:16px 20px;
+  background:rgba(153,30,33,.05);
+  border-left:3px solid var(--deep-crimson);
   border-radius:8px;
 }
+.price-notes p{
+  margin:0;
+  font-size:clamp(0.82rem, 1.2vw, 0.92rem);
+  line-height:1.9;
+  color:var(--deep-crimson);
+  opacity:.85;
+}
 
+/* Responsywność — dziedziczy z .gallery, dopasowanie kolumn */
+@media (max-width:900px){
+  .price-gallery{column-count:3;}
+}
+@media (max-width:600px){
+  .price-gallery{column-count:2;}
+  .price-row{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:4px;
+  }
+}
 /* Responsywność */
 @media (max-width:900px){
   .gallery{column-count:3;}
