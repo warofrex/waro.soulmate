@@ -67,7 +67,7 @@
       <div class="about-wrap">
         <div class="about-info">
           <p class="about-lead">
-            <span class="pl"> <p>Polski Ilustrator</p> Inżynier Akademi Górniczo-Hutniczej w Krakowie na kierunku Inżynieria Obliczeniowa, obecnie na stopniu magisterskim "Informatyka i Systemy Inteligentnte". Optymistycznie nastawiony, że któregoś dnia wszyscy poznają moje imię.</span>
+            <span class="pl"> Polski Ilustrator, Inżynier Akademi Górniczo-Hutniczej w Krakowie na kierunku Inżynieria Obliczeniowa, obecnie na stopniu magisterskim "Informatyka i Systemy Inteligentnte". Optymistycznie nastawiony, że któregoś dnia wszyscy poznają moje imię.</span>
             <span class="en">Polish Illustrator, Engineer at AGH University of Science and Technology in Computer Engineering, currently pursuing a master's degree in "Computer Science and Intelligent Systems". Optimistically looking forward to the day when everyone will know my name.</span>
           </p>
 
@@ -120,9 +120,6 @@
           <img src="Maro.png" alt="" onerror="this.style.display='none'">
         </div>
 
-        
-
-        
       </div>
     </section>
 
@@ -173,6 +170,84 @@
           <span>Tips</span>
         </a>
       </div>
+
+      <!--  Konfigurator ceny -->
+      <div class="price-builder">
+
+        <div class="pb-stage">
+          <img class="pb-layer pb-bg" id="pb-bg" src="price/bg.png" alt="" onerror="this.style.display='none'">
+          <img class="pb-layer pb-character" id="pb-character" src="price/character.png" alt="">
+          <img class="pb-layer pb-shadow" id="pb-shadow-detail" src="price/shadow-detail.png" alt="" onerror="this.style.display='none'">
+          <img class="pb-layer pb-shadow" id="pb-shadow-quick" src="price/shadow-quick.png" alt="" onerror="this.style.display='none'">
+
+          <div class="pb-frame" id="pb-frame"></div>
+          <div class="pb-cat" id="pb-cat">Bust</div>
+        </div>
+
+        <div class="pb-controls">
+
+          <div class="pb-slider-row">
+            <label for="pb-slider">
+              <span class="pl">Zakres</span><span class="en">Scope</span>
+            </label>
+            <input type="range" id="pb-slider" min="1" max="3" step="1" value="1" class="pb-slider">
+            <div class="pb-slider-labels">
+              <span>Bust</span>
+              <span>Half Body</span>
+              <span>Full Body</span>
+            </div>
+          </div>
+
+                    <div class="pb-toggles">
+            <button class="pb-toggle" id="pb-toggle-bg" data-active="true">
+              <span class="pb-toggle-dot"></span>
+              <span><span class="pl">Tło</span><span class="en">Background</span></span>
+            </button>
+
+            <div class="pb-shading-group">
+              <button class="pb-toggle" id="pb-shade-none" data-active="false">
+                <span><span class="pl">Bez cieni</span><span class="en">No shading</span></span>
+              </button>
+              <button class="pb-toggle" id="pb-shade-quick" data-active="true">
+                <span><span class="pl">Szybkie</span><span class="en">Quick</span></span>
+              </button>
+              <button class="pb-toggle" id="pb-shade-detail" data-active="false">
+                <span><span class="pl">Szczegółowe</span><span class="en">Detailed</span></span>
+              </button>
+            </div>
+
+            <button class="pb-toggle" id="pb-toggle-paypal" data-active="false">
+              <span class="pb-toggle-dot"></span>
+              <span><span class="pl">PayPal (+5%)</span><span class="en">PayPal (+5%)</span></span>
+            </button>
+          </div>
+
+        </div>
+
+        <div class="pb-total">
+          <span class="pb-total-label">
+            <span class="pl">Razem [WERSJA EKSPERYMENTALNA NIE STOSOWAĆ SIĘ]</span><span class="en">Total [WORK IN PROGRESS DO NOT USE]</span>
+            <span class="pb-info" tabindex="0">
+              <span class="pb-info-icon">?</span>
+                            <span class="pb-info-tip">
+                <span class="pl">
+                  Cena bazowa + dodatki (tło +15%, szybkie cienie +15%, szczegółowe +50%, PayPal +5%), a na końcu zaokrąglenie do 5 zł w górę.<br>
+                  Wzór: <code>ceil(((base + base×0.15 + base×0.15) × 1.05) / 5) × 5</code>
+                </span>
+                <span class="en">
+                  Base price + add-ons (background +15%, quick shading +15%, detailed +50%, PayPal +5%), rounded up to nearest 5.<br>
+                  Formula: <code>ceil(((base + base×0.15 + base×0.15) × 1.05) / 5) × 5</code>
+                </span>
+              </span>
+              </span>
+            </span>
+          </span>
+          <span class="pb-total-value" id="pb-total">100 zł / 25 €</span>
+        </div>
+      </div>
+
+
+      <!--  Cennik -->
 
     
 

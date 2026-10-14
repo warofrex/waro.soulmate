@@ -251,6 +251,10 @@ main{
 }
 .card a{color:var(--deep-crimson);}
 
+
+
+
+
 /* ===== Portfolio – galeria (masonry) ===== */
 .gallery{
   column-count:4;
@@ -307,6 +311,307 @@ main{
   font-size:.75rem;
   opacity:.55;
   margin-left:4px;
+}
+
+
+/* ===== Konfigurator ceny (scena 16:9) ===== */
+.price-builder{
+  margin-top: 24px;
+}
+
+.pb-stage{
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: linear-gradient(180deg, rgba(0,0,0,.04), rgba(0,0,0,.08));
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 4px 20px var(--shadow);
+}
+html[data-theme="dark"] .pb-stage{
+  background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(0,0,0,.25));
+}
+
+.pb-layer{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center bottom;
+  pointer-events: none;
+  user-select: none;
+  transition: opacity .3s ease;
+}
+
+.pb-bg{ opacity: 0; z-index: 1; }
+.pb-bg.active{ opacity: 1; }
+
+.pb-character{ z-index: 2; }
+
+.pb-shadow{ opacity: 0; z-index: 3; mix-blend-mode: overlay; }
+.pb-shadow.active{ opacity: 1; }
+
+.pb-frame{
+  position: absolute;
+  top: 0;                         /* kotwica: górna krawędź */
+  left: 50%;
+  transform: translateX(-50%);    /* wyśrodkowana w poziomie */
+  border: 2px dashed var(--deep-crimson);
+  border-radius: 6px;
+  pointer-events: none;
+  z-index: 4;
+  transition: width .3s ease, height .3s ease;
+  opacity: .55;
+  /* width i height ustawiane w JS */
+}
+
+.pb-cat{
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 5;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--deep-crimson);
+  color: #fff;
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+.pb-controls{
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.pb-slider-row label{
+  display: block;
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--deep-crimson);
+  opacity: .65;
+  margin-bottom: 6px;
+}
+
+.pb-slider{
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(153,30,33,.2);
+  outline: none;
+  cursor: pointer;
+}
+.pb-slider::-webkit-slider-thumb{
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--deep-crimson);
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,.25);
+}
+.pb-slider::-moz-range-thumb{
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--deep-crimson);
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,.25);
+}
+
+.pb-slider-labels{
+  display: flex;
+  justify-content: space-between;
+  font-size: .72rem;
+  margin-top: 4px;
+  color: var(--deep-crimson);
+  opacity: .55;
+}
+
+.pb-toggles{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+}
+
+.pb-toggle{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1.5px solid transparent;
+  background: transparent;
+  color: var(--deep-crimson);
+  font: inherit;
+  font-size: .85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color .2s, opacity .2s;
+  opacity: .65;
+}
+.pb-toggle:hover{ opacity: 1; }
+.pb-toggle[data-active="true"]{
+  border-color: var(--deep-crimson);
+  opacity: 1;
+}
+
+.pb-toggle-dot{
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: .3;
+}
+.pb-toggle[data-active="true"] .pb-toggle-dot{ opacity: 1; }
+
+.pb-shading-group{
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.pb-total{
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-top: 20px;
+  padding: 16px 20px;
+  border-radius: var(--radius);
+  background: var(--bg-soft);
+  box-shadow: 0 4px 20px var(--shadow);
+}
+.pb-total-label{
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--deep-crimson);
+  opacity: .65;
+}
+.pb-total-value{
+  font-size: clamp(1.2rem, 2.4vw, 1.6rem);
+  font-weight: 700;
+  color: var(--deep-crimson);
+}
+
+
+/* ===== Ikona info przy "Razem" ===== */
+.pb-total-label{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pb-info{
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: help;
+}
+
+.pb-info-icon{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1.5px solid var(--deep-crimson);
+  color: var(--deep-crimson);
+  font-size: .7rem;
+  font-weight: 700;
+  line-height: 1;
+  opacity: 1;
+}
+
+.pb-info-tip{
+  position: absolute;
+  bottom: calc(100% + 14px);
+  left: 50%;
+  min-width: 260px;
+  max-width: 340px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: #ffffff;
+  color: var(--deep-crimson);
+  font-size: .75rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  line-height: 1.5;
+  border: 1px solid rgba(153,30,33,.25);
+  box-shadow: 0 8px 24px rgba(0,0,0,.25);
+  visibility: hidden;
+  transform: translateX(-50%) translateY(8px);      /* ← start: 8px niżej */
+  transition: visibility 0s, transform .2s ease;    /* ← animujemy tylko transform */
+  pointer-events: none;
+  z-index: 10;
+  white-space: normal;
+}
+
+/* Ciemny motyw — ciemne tło */
+html[data-theme="dark"] .pb-info-tip{
+  background: #282C36;
+  color: #ececf1;
+  border-color: rgba(255,255,255,.1);
+}
+
+html[data-theme="dark"] .pb-info-tip code{
+  background: rgba(255,255,255,.08);
+  color: #ececf1;
+}
+
+.pb-info-tip code{
+  background: rgba(153,30,33,.12);
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-family: ui-monospace, monospace;
+  font-size: .9em;
+  color: var(--deep-crimson);
+}
+
+.pb-info:hover .pb-info-tip,
+.pb-info:focus .pb-info-tip{
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);        /* ← koniec: na miejscu */
+  pointer-events: auto;
+}
+
+/* Strzałka pod tooltipem — jasny motyw */
+.pb-info-tip::after{
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 7px solid transparent;
+  border-top-color: #ffffff;
+}
+html[data-theme="dark"] .pb-info-tip::after{
+  border-top-color: #282C36;
+}
+
+@media (max-width: 600px){
+  .pb-toggles{
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+  .pb-shading-group{ justify-content: space-between; }
+  .pb-cat{ font-size: .7rem; padding: 3px 8px; }
 }
 
 
