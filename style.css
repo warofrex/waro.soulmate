@@ -8,13 +8,13 @@ html[ data-theme="light"]{
   --carbon-black:#14171B;
   --deep-crimson:#991E21;
 
-  --bg:#f4f5f7;
-  --bg-soft:#ffffff;
+  --bg:#cfcbc9;
+  --bg-soft:#8b929a21;
   --text:var(--deep-crimson);
   --muted:var(--deep-crimson);
   --accent:var(--deep-crimson);
   --shadow:rgba(20,23,27,.12);
-  --nav-bg:rgba(244,245,247,.85);
+  --nav-bg:#cfcbc9;
   --radius:14px;
   --maxw:1100px;
 }
@@ -128,20 +128,20 @@ html[lang="en"] .pl{display:none;}
   );
 }
 
-/* Avatar — duże popiersie */
 .avatar{
   position:absolute;
   left:50%;
-  bottom:-120px;                    /* więcej wystaje poniżej banera */
+  bottom:calc(-1 * clamp(80px, 12vw, 140px));   /* wystaje proporcjonalnie */
   transform:translateX(-50%);
   width:auto;
-  height:320px;                     /* ← duże popiersie */
+  height:clamp(220px, 22vw, 280px);             /* skaluje się z ekranem */
   max-width:90%;
   object-fit:contain;
-  background:transparent;           /* bez tła */
-  border:none;                      /* bez ramki */
+  background:transparent;
+  border:none;
   border-radius:0;
   box-shadow:none;
+  filter:drop-shadow(0 8px 24px rgba(0,0,0,.4));
   z-index:2;
   pointer-events:none;
   user-select:none;
@@ -155,7 +155,7 @@ html[lang="en"] .pl{display:none;}
   font-size:clamp(2.4rem, 9vw, 6rem);
   font-weight:800;
   letter-spacing:.02em;
-  margin:88px 16px 8px;
+  margin:clamp(60px, 8vw, 120px) 16px 8px;      /* skaluje się z avatarem */
   line-height:1.05;
   color:var(--deep-crimson);
   position:relative;
@@ -715,14 +715,5 @@ footer{
   .biz-links{
     gap:10px 16px;
   }
-}
-
-
-@media (max-width:700px){
-  .avatar{
-    height:200px;         /* ← było 120×120px */
-    bottom:-90px;
-  }
-  .hero-title{margin-top:140px;}   /* ← więcej miejsca na większy avatar */
 }
 

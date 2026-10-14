@@ -33,16 +33,31 @@ document.getElementById('year').textContent = new Date().getFullYear();
 const nav = document.getElementById('nav');
 const panels = document.querySelectorAll('.panel');
 
+// Funkcja przełączająca zakładkę
+function activateTab(target) {
+  nav.querySelectorAll('button').forEach(b => {
+    b.classList.toggle('active', b.dataset.target === target);
+  });
+  panels.forEach(p => {
+    p.classList.toggle('active', p.id === target);
+  });
+}
+
+// Kliknięcie zakładki
 nav.addEventListener('click', (e) => {
   const btn = e.target.closest('button');
   if (!btn) return;
-
-  nav.querySelectorAll('button').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-
-  panels.forEach(p => p.classList.toggle('active', p.id === btn.dataset.target));
+  const target = btn.dataset.target;
+  activateTab(target);
+  localStorage.setItem('activeTab', target);   // ← zapamiętaj
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
+
+// Przy ładowaniu strony — przywróć ostatnią zakładkę
+const savedTab = localStorage.getItem('activeTab');
+if (savedTab && document.getElementById(savedTab)) {
+  activateTab(savedTab);
+}
 
 // ===== Lightbox =====
 const lightbox = document.getElementById('lightbox');
