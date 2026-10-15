@@ -47,7 +47,7 @@ body{
 
 /* ===== Wspólna ramka przełączników ===== */
 .toggles{
-  position:fixed;
+  position:absolute;
   top:16px;
   right:16px;
   z-index:200;
@@ -781,11 +781,6 @@ footer{
   border-bottom:none;
 }
 
-/* Obraz po prawej */
-.about-image{
-  position:sticky;
-  top:100px;
-}
 .about-image img{
   max-width:280px;
   width:100%;
@@ -907,7 +902,7 @@ footer{
   border-left:3px solid var(--deep-crimson);
   background:rgba(153,30,33,.08);
   border-radius:6px;
-  font-style:italic;
+  font-weight:bold;
   opacity:.85;
   margin-top:14px;
 }

@@ -18,7 +18,7 @@ langToggle.addEventListener('click', () => {
 
 // ===== Motyw =====
 const themeToggle = document.getElementById('theme-toggle');
-root.setAttribute('data-theme', localStorage.getItem('theme') || 'light');
+root.setAttribute('data-theme', localStorage.getItem('theme') || 'dark');
 
 themeToggle.addEventListener('click', () => {
   const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
