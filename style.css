@@ -1,4 +1,4 @@
-/* ===== Motyw jasny (domyślny) ===== */
+
 :root,
 html[ data-theme="light"]{
   --cool-steel:#939AA3;
@@ -19,7 +19,7 @@ html[ data-theme="light"]{
   --maxw:1100px;
 }
 
-/* ===== Motyw ciemny ===== */
+
 html[data-theme="dark"]{
   --bg:var(--carbon-black);
   --bg-soft:var(--jet-black);
@@ -45,7 +45,7 @@ body{
   
 }
 
-/* ===== Wspólna ramka przełączników ===== */
+
 .toggles{
   position:absolute;
   top:16px;
@@ -56,7 +56,7 @@ body{
   gap:4px;
   padding:4px;
   border-radius:999px;
-  background:var(--deep-crimson);                 /* ramka zawsze biała */
+  background:var(--deep-crimson);                
 }
 
 .theme-toggle,
@@ -73,35 +73,35 @@ body{
   padding:0;
   line-height:1;
   font-family:inherit;
-  color:#000000;                       /* ikony czarne — difference odwróci je razem z tłem */
+  color:#000000;                      
   transition:transform .15s;
 }
 .theme-toggle:hover,
 .lang-toggle:hover{transform:scale(1.12);}
 
-/* Motyw */
+
 .theme-toggle{font-size:1rem;}
 .theme-toggle .theme-icon-dark{display:none;}
 html[data-theme="dark"] .theme-toggle .theme-icon-light{display:none;}
 html[data-theme="dark"] .theme-toggle .theme-icon-dark{display:inline;}
 
-/* Język */
+
 .lang-toggle{font-weight:700;}
 .lang-toggle span{font-size:1rem;line-height:1;}
 html[lang="pl"] .flag-pl{display:none;}
 html[lang="en"] .flag-en{display:none;}
 
-/* Ukrywanie tekstów wg języka */
+
 html[lang="pl"] .en{display:none;}
 html[lang="en"] .pl{display:none;}
 
-/* ===== Baner z avatarem ===== */
+
 .banner{
   position:relative;
   width:100%;
   margin:0 auto;
   z-index:1;
-  background:#f50000;       /* czerwone wypełnienie od krawędzi do krawędzi */
+  background:#f50000;      
 }
 .banner-bg{
   width:70%;
@@ -111,7 +111,7 @@ html[lang="en"] .pl{display:none;}
   object-fit:contain;
   object-position:center;
   background:#f50000;
-  /* Delikatne wtapianie tylko na samych krawędziach */
+
   -webkit-mask-image:linear-gradient(
     to right,
     transparent 0%,
