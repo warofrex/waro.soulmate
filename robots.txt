@@ -1,3 +1,28 @@
+User-agent: Googlebot
+Allow: /
+User-agent: Googlebot-Image
+Allow: /
+User-agent: Googlebot-News
+Allow: /
+User-agent: Googlebot-Video
+Allow: /
+User-agent: Bingbot
+Allow: /
+User-agent: msnbot
+Allow: /
+User-agent: DuckDuckBot
+Allow: /
+User-agent: Applebot
+Allow: /
+User-agent: Slurp
+Allow: /
+User-agent: Baiduspider
+Allow: /
+User-agent: YandexBot
+Allow: /
+User-agent: SeznamBot
+Allow: /
+
 User-agent: 2^32$
 User-agent: AddSearchBot
 User-agent: AdsBot-Google
@@ -309,7 +334,6 @@ User-agent: Zero GTP
 User-agent: Zhipu
 User-agent: Zimm
 Disallow: /
-Disallow: *
 DisallowAITraining: /
 
 Content-Usage: ai=n
