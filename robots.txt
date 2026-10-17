@@ -334,7 +334,6 @@ User-agent: Zero GTP
 User-agent: Zhipu
 User-agent: Zimm
 Disallow: /
-Disallow: *
 DisallowAITraining: /
 
 Content-Usage: ai=n
