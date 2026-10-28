@@ -635,7 +635,6 @@ html[data-theme="dark"] .pb-info-tip::after{
   margin-top:24px;
   padding:16px 20px;
   background:rgba(153,30,33,.05);
-  border-left:3px solid var(--deep-crimson);
   border-radius:8px;
 }
 .price-notes p{
@@ -899,7 +898,7 @@ footer{
   list-style:none;
   margin-left:-20px;
   padding:10px 14px;
-  border-left:3px solid var(--deep-crimson);
+
   background:rgba(153,30,33,.08);
   border-radius:6px;
   font-weight:bold;
